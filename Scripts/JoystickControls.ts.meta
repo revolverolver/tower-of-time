@@ -1,0 +1,41 @@
+fileFormatVersion: 2
+guid: 41bfc80fcfac38245a75b4311f86c84c
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.9","ReferencedSpecifiers":["@assets/Experience/tower-of-time/Scripts/PlayerController"],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nclass JoystickControls extends UnityEngine_1.MonoBehaviour
+    {\n    constructor() {\n        super(...arguments);\n        this.touching =
+    false;\n    }\n    //Called when script instance is loaded\n    Awake() { }\n   
+    //Start is called on the frame when a script is enabled just \n    //before any
+    of the Update methods are called the first time.\n    Start() {\n        this.baseIdlePosition
+    = this.base.position;\n    }\n    //Update is called every frame, if the MonoBehaviour
+    is enabled.\n    Update() {\n        // Start Touch\n        if (UnityEngine_1.Input.GetMouseButtonDown(0))
+    {\n            this.touchStartPosition = UnityEngine_1.Input.mousePosition;\n           
+    this.base.position = this.touchStartPosition;\n            this.touching = true;\n           
+    // Animate Running\n            this.playerController.ChangeAnimatorState(1);\n       
+    }\n        // Holding Touch\n        if (UnityEngine_1.Input.GetMouseButton(0))
+    {\n            // Position handle based on direction and distance from the base\n           
+    let direction = UnityEngine_1.Vector3.op_Subtraction(this.base.position, UnityEngine_1.Input.mousePosition);\n           
+    let distance = UnityEngine_1.Vector3.Distance(this.base.position, UnityEngine_1.Input.mousePosition);\n           
+    if (distance < 150) {\n                // Handle is within handle\n               
+    this.handle.position = UnityEngine_1.Input.mousePosition;\n            }\n           
+    else {\n                // Handle is at max distance\n                this.handle.position
+    = UnityEngine_1.Vector3.op_Subtraction(this.base.position, // @ts-ignore\n               
+    UnityEngine_1.Vector3.op_Multiply_EBB7509C_H75CC56AF(direction.normalized, (150)));\n               
+    distance = 150;\n            }\n            // Send Input data to player controller\n           
+    this.playerController.GetJoystickInput(direction, distance);\n        }\n       
+    // Touch Released\n        if (UnityEngine_1.Input.GetMouseButtonUp(0)) {\n           
+    this.base.position = this.baseIdlePosition;\n            this.handle.position
+    = this.base.position;\n            this.touching = false;\n            // Animate
+    Idle\n            this.playerController.ChangeAnimatorState(0);\n        }\n       
+    if (this.touching == false) {\n            // No input from the joystick when
+    not touching the screen\n            this.playerController.GetJoystickInput(UnityEngine_1.Vector3.zero,
+    0);\n        }\n    }\n}\nexports.default = JoystickControls;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiSm95c3RpY2tDb250cm9scy5qcyIsIm1hcHBpbmdzIjoiOztBQUNBLDZDQUFrSTtBQU1sSSxNQUFxQixnQkFBaUIsU0FBUSwyQkFBYTtJQUEzRDs7UUFTSSxhQUFRLEdBQVUsS0FBSztJQW9FM0I7SUFsRUksdUNBQXNDO0lBQzlCLEtBQUssS0FBVztJQUV4Qiw2REFBNEQ7SUFDNUQsNkRBQTREO0lBQ3BELEtBQUs7UUFFVCxJQUFJLENBQUMsZ0JBQWdCLEdBQUcsSUFBSSxDQUFDLElBQUksQ0FBQyxRQUFRO0lBQzlDO0lBRUEsZ0VBQStEO0lBQ3ZELE1BQU07UUFFVixjQUFhO1FBQ2IsSUFBSSxtQkFBSyxDQUFDLGtCQUFrQixDQUFDLENBQUMsQ0FBQyxFQUMvQjtZQUNJLElBQUksQ0FBQyxrQkFBa0IsR0FBRyxtQkFBSyxDQUFDLGFBQWE7WUFDN0MsSUFBSSxDQUFDLElBQUksQ0FBQyxRQUFRLEdBQUcsSUFBSSxDQUFDLGtCQUFrQjtZQUU1QyxJQUFJLENBQUMsUUFBUSxHQUFHLElBQUk7WUFFcEIsa0JBQWlCO1lBQ2pCLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxtQkFBbUIsQ0FBQyxDQUFDLENBQUM7UUFDaEQ7UUFFQSxnQkFBZTtRQUNmLElBQUksbUJBQUssQ0FBQyxjQUFjLENBQUMsQ0FBQyxDQUFDLEVBQzNCO1lBQ0ksZ0VBQStEO1lBQy9ELElBQUksU0FBUyxHQUFHLHFCQUFPLENBQUMsY0FBYyxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsUUFBUSxFQUFFLG1CQUFLLENBQUMsYUFBYSxDQUFDO1lBQy9FLElBQUksUUFBUSxHQUFHLHFCQUFPLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsUUFBUSxFQUFFLG1CQUFLLENBQUMsYUFBYSxDQUFDO1lBRXhFLElBQUksUUFBUSxHQUFHLEdBQUcsRUFDbEI7Z0JBQ0ksMEJBQXlCO2dCQUN6QixJQUFJLENBQUMsTUFBTSxDQUFDLFFBQVEsR0FBRyxtQkFBSyxDQUFDLGFBQWE7WUFDOUM7aUJBRUE7Z0JBQ0ksNEJBQTJCO2dCQUMzQixJQUFJLENBQUMsTUFBTSxDQUFDLFFBQVEsR0FBRSxxQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLFFBQU8sRUFBQyxhQUFDO3FFQUFFLFNBQVMsQ0FBQyxVQUFTLEVBQUMsQ0FBRyxHQUFFLEdBQUM7Z0JBQ3RFLFFBQVEsR0FBRyxHQUFHO1lBQ2xCO1lBRUEsdUNBQXNDO1lBQ3RDLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxnQkFBZ0IsQ0FBQyxTQUFTLEVBQUUsUUFBUSxDQUFDO1FBQy9EO1FBRUEsaUJBQWdCO1FBQ2hCLElBQUksbUJBQUssQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUMsRUFDN0I7WUFDSSxJQUFJLENBQUMsSUFBSSxDQUFDLFFBQVEsR0FBRyxJQUFJLENBQUMsZ0JBQWdCO1lBQzFDLElBQUksQ0FBQyxNQUFNLENBQUMsUUFBUSxHQUFHLElBQUksQ0FBQyxJQUFJLENBQUMsUUFBUTtZQUV6QyxJQUFJLENBQUMsUUFBUSxHQUFHLEtBQUs7WUFFckIsZUFBYztZQUNkLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxtQkFBbUIsQ0FBQyxDQUFDLENBQUM7UUFDaEQ7UUFFQSxJQUFJLElBQUksQ0FBQyxRQUFRLElBQUksS0FBSyxFQUMxQjtZQUNJLDBEQUF5RDtZQUN6RCxJQUFJLENBQUMsZ0JBQWdCLENBQUMsZ0JBQWdCLENBQUMscUJBQU8sQ0FBQyxJQUFJLEVBQUUsQ0FBQyxDQUFDO1FBQzNEO0lBQ0o7Q0FDSjtBQTdFQSxtQ0E2RUEiLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbIkpveXN0aWNrQ29udHJvbHMudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXX0=","ScriptHash":"1a42a83d6b6e208ac85cfa19dd839d5c","Specifier":"@assets/Experience/tower-of-time/Scripts/JoystickControls","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/JoystickControls.JoystickControls","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/JoystickControls.JoystickControls","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.6.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"base","Name":"base","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Base"},{"Path":"handle","Name":"handle","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Handle"},{"Path":"playerController","Name":"playerController","TypeName":"@assets/Experience/tower-of-time/Scripts/PlayerController.PlayerController","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":true,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Player
+    Controller"},{"Path":"touching","Name":"touching","TypeName":"System.Boolean","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[],"Initializers":["false"],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Touching"}],"SupportedUiEvents":0,"DisplayName":"JoystickControls","name":"JoystickControls","hideFlags":8}'

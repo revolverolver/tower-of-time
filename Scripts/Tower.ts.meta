@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: c750d1fc1458f144387018107f234b79
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.9","ReferencedSpecifiers":[],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nclass Tower extends UnityEngine_1.MonoBehaviour
+    {\n    //Called when script instance is loaded\n    Awake() { }\n    //Start
+    is called on the frame when a script is enabled just \n    //before any of the
+    Update methods are called the first time.\n    Start() {\n        setTimeout(()
+    => this.StartSpin(), 6500);\n    }\n    //Update is called every frame, if the
+    MonoBehaviour is enabled.\n    Update() {\n        if (this.isSpinning) {\n           
+    this.SpinPointers();\n        }\n    }\n    StartSpin() {\n        // Start timer\n       
+    this.isSpinning = true;\n        this.timeLeftSpinning = 3.0;\n        this.spinSpeed
+    = 1000.0;\n    }\n    SpinPointers() {\n        if (this.timeLeftSpinning > 0)
+    {\n            let longRotation = new UnityEngine_1.Vector3(0, 0, this.spinSpeed
+    * UnityEngine_1.Time.deltaTime);\n            this.pointerLong.Rotate(longRotation);\n           
+    let shortRotation = new UnityEngine_1.Vector3(0, 0, -this.spinSpeed * UnityEngine_1.Time.deltaTime
+    * 0.8);\n            this.pointerShort.Rotate(shortRotation);\n            if
+    (this.timeLeftSpinning < 0.75) {\n                this.spinSpeed -= 1000 * UnityEngine_1.Time.deltaTime;\n           
+    }\n            this.timeLeftSpinning -= UnityEngine_1.Time.deltaTime;\n       
+    }\n    }\n}\nexports.default = Tower;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVG93ZXIuanMiLCJtYXBwaW5ncyI6Ijs7QUFDQSw2Q0FBa0c7QUFDbEcsTUFBcUIsS0FBTSxTQUFRLDJCQUFhO0lBVzVDLHVDQUFzQztJQUM5QixLQUFLLEtBQVc7SUFFeEIsNkRBQTREO0lBQzVELDZEQUE0RDtJQUNwRCxLQUFLO1FBRVQsVUFBVSxDQUFDLEdBQUcsRUFBRSxDQUFDLElBQUksQ0FBQyxTQUFTLEVBQUUsRUFBRSxJQUFJLENBQUM7SUFDNUM7SUFFQSxnRUFBK0Q7SUFDdkQsTUFBTTtRQUVWLElBQUksSUFBSSxDQUFDLFVBQVUsRUFDbkI7WUFDSSxJQUFJLENBQUMsWUFBWSxFQUFFO1FBQ3ZCO0lBQ0o7SUFFUSxTQUFTO1FBRWIsY0FBYTtRQUNiLElBQUksQ0FBQyxVQUFVLEdBQUcsSUFBSTtRQUN0QixJQUFJLENBQUMsZ0JBQWdCLEdBQUcsR0FBRztRQUMzQixJQUFJLENBQUMsU0FBUyxHQUFHLE1BQU07SUFDM0I7SUFFUSxZQUFZO1FBRWhCLElBQUksSUFBSSxDQUFDLGdCQUFnQixHQUFHLENBQUMsRUFDN0I7WUFDSSxJQUFJLFlBQVksR0FBRyxJQUFJLHFCQUFPLENBQUMsQ0FBQyxFQUFFLENBQUMsRUFBRSxJQUFJLENBQUMsU0FBUyxHQUFHLGtCQUFJLENBQUMsU0FBUyxDQUFDO1lBQ3JFLElBQUksQ0FBQyxXQUFXLENBQUMsTUFBTSxDQUFDLFlBQVksQ0FBQztZQUVyQyxJQUFJLGFBQWEsR0FBRyxJQUFJLHFCQUFPLENBQUMsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLElBQUksQ0FBQyxTQUFTLEdBQUcsa0JBQUksQ0FBQyxTQUFTLEdBQUcsR0FBRyxDQUFDO1lBQzdFLElBQUksQ0FBQyxZQUFZLENBQUMsTUFBTSxDQUFDLGFBQWEsQ0FBQztZQUV2QyxJQUFJLElBQUksQ0FBQyxnQkFBZ0IsR0FBRyxJQUFJLEVBQ2hDO2dCQUNJLElBQUksQ0FBQyxTQUFTLElBQUksSUFBSSxHQUFHLGtCQUFJLENBQUMsU0FBUztZQUMzQztZQUVBLElBQUksQ0FBQyxnQkFBZ0IsSUFBSSxrQkFBSSxDQUFDLFNBQVM7UUFDM0M7SUFDSjtDQUNKO0FBeERBLHdCQXdEQSIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiVG93ZXIudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXX0=","ScriptHash":"d40ad53866faf851c3abc0916f3366af","Specifier":"@assets/Experience/tower-of-time/Scripts/Tower","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/Tower.Tower","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/Tower.Tower","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.6.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"pointerLong","Name":"pointerLong","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Pointer
+    Long"},{"Path":"pointerShort","Name":"pointerShort","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Pointer
+    Short"},{"Path":"animator","Name":"animator","TypeName":"UnityEngine.Animator","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Animator"}],"SupportedUiEvents":0,"DisplayName":"Tower","name":"Tower","hideFlags":8}'

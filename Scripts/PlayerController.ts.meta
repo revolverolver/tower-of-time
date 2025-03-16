@@ -1,0 +1,54 @@
+fileFormatVersion: 2
+guid: 6a34c31e5ba1c4d488d96cc33dfda594
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.9","ReferencedSpecifiers":["@assets/Experience/tower-of-time/Scripts/GameManager"],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nconst Genies_Avatars_Sdk_1 = require(\"Genies.Avatars.Sdk\");\nconst
+    GameManager_1 = require(\"@assets/Experience/tower-of-time/Scripts/GameManager\");\nconst
+    Cysharp_Threading_Tasks_1 = require(\"Cysharp.Threading.Tasks\");\nconst _UniTask_1_GeniesAvatar
+    = $generic(Cysharp_Threading_Tasks_1.UniTask$1, $typeof(\"Genies.Avatars.Sdk.GeniesAvatar\"));\nclass
+    PlayerController extends UnityEngine_1.MonoBehaviour {\n    constructor() {\n       
+    super(...arguments);\n        this.playerSpeed = 2;\n        this.canMove = false;\n   
+    }\n    async Start() {\n        //Get GameManager singleton and add a listener
+    to OnGameStateChange event\n        this.gameManager = GameManager_1.default.Instance;\n       
+    this.gameManager.OnGameStateChange.addListener(this.CheckGameState, //@ts-ignore\n       
+    this);\n        //Initialize the SDK\n        await $promise(Genies_Avatars_Sdk_1.GeniesAvatarsSdk.InitializeAsync());\n       
+    //Load the user Avatar\n        this.userAvatar = await $promise(Genies_Avatars_Sdk_1.GeniesAvatarsSdk.LoadUserAvatarAsync(\"UserAvatar\",
+    this.transform, this.playerAnimator));\n        //send message to GameManager
+    that the Avatar has been loaded\n        this.gameManager.ChangeGameState(GameManager_1.GameState.GAME_PLAY);\n   
+    }\n    /** Manages the player logic when the game state changes. @param newState
+    */\n    CheckGameState(newState) {\n        switch (newState) {\n           
+    case GameManager_1.GameState.GAME_PLAY:\n                this.OnGamePlay();\n               
+    break;\n        }\n    }\n    /** This will manage the player once the game starts.
+    */\n    OnGamePlay() {\n        this.canMove = true;\n        //this.transform.position
+    = Vector3.zero;\n        // @ts-ignore\n        this.userAvatar.Animator.SetFloat_EBB7509C_H45FF9778((\"idle_run_walk\"),
+    (0));\n    }\n    Update() {\n        //If game is playing, move player according
+    to joystick input\n        if (this.canMove) {\n            this.MovePlayer();\n           
+    this.RotatePlayer();\n        }\n    }\n    ChangeAnimatorState(state) {\n       
+    // @ts-ignore\n        this.userAvatar.Animator.SetFloat_EBB7509C_H45FF9778((\"idle_run_walk\"),
+    state);\n    }\n    /** Gets the direction of the joystick input */\n    GetJoystickInput(direction,
+    value) {\n        if (value > 5) {\n            value = value * 0.008;\n           
+    this.moveDirection = // @ts-ignore\n                UnityEngine_1.Vector3.op_Multiply_EBB7509C_H75CC56AF(direction.normalized,
+    value);\n            this.userAvatar.Animator.speed = value * 0.75;\n       
+    }\n        else {\n            this.moveDirection = UnityEngine_1.Vector3.zero;\n       
+    }\n    }\n    /** Moves the player in the direction of the joystick */\n    MovePlayer()
+    {\n        if (UnityEngine_1.Vector3.op_Equality(this.moveDirection, UnityEngine_1.Vector3.zero))\n           
+    return;\n        let speed = this.playerSpeed * UnityEngine_1.Time.deltaTime;\n       
+    let translatedDirection = new UnityEngine_1.Vector3(this.moveDirection.x * speed,
+    0, this.moveDirection.y * speed);\n        this.transform.position = UnityEngine_1.Vector3.op_Addition(this.transform.position,
+    translatedDirection);\n    }\n    RotatePlayer() {\n        if (UnityEngine_1.Vector3.op_Equality(this.moveDirection,
+    UnityEngine_1.Vector3.zero))\n            return;\n        let translatedDirection
+    = new UnityEngine_1.Vector3(this.moveDirection.x, 0, this.moveDirection.y);\n       
+    let newRotation = UnityEngine_1.Quaternion.LookRotation(translatedDirection,
+    UnityEngine_1.Vector3.up);\n        this.transform.rotation = newRotation;\n   
+    }\n}\nexports.default = PlayerController;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUGxheWVyQ29udHJvbGxlci5qcyIsIm1hcHBpbmdzIjoiOztBQUNBLDZDQUFtSTtBQUVuSSwyREFBbUU7QUFDbkUsc0ZBQXNEOzs7QUFFdEQsTUFBcUIsZ0JBQWlCLFNBQVEsMkJBQWE7SUFBM0Q7O1FBR1ksZ0JBQVcsR0FBVSxDQUFDLENBQUM7UUFldkIsWUFBTyxHQUFTLEtBQUs7SUErRWpDO0lBN0VJLEtBQUssQ0FBQyxLQUFLO1FBQ1AseUVBQXdFO1FBQ3hFLElBQUksQ0FBQyxXQUFXLEdBQUcscUJBQVcsQ0FBQyxRQUFRO1FBQ3ZDLElBQUksQ0FBQyxXQUFXLENBQUMsaUJBQWlCLENBQUMsV0FBVyxDQUFDLElBQUksQ0FBQyxjQUFhO1lBQUMsQ0FBQztRQUNuRSxvQkFBbUI7UUFDbkIsTUFBSyxTQUFDLHFDQUFnQixDQUFDLGVBQWUsRUFBQyxDQUFDO1FBQ3hDLHNCQUFxQjtRQUNyQixJQUFJLENBQUMsVUFBVSxHQUFHLE1BQUssU0FBQyxxQ0FBZ0IsQ0FBQyxtQkFBbUIsQ0FBQyxZQUFZLEVBQUUsSUFBSSxDQUFDLFNBQVMsRUFBRSxJQUFJLENBQUMsY0FBYyxFQUFDO1FBQy9HLDZEQUE0RDtRQUM1RCxJQUFJLENBQUMsV0FBVyxDQUFDLGVBQWUsQ0FBQyx1QkFBUyxDQUFDLFNBQVMsQ0FBQztJQUN6RDtJQUVBLDRFQUEyRTtJQUNuRSxjQUFjLENBQUMsUUFBbUI7UUFDdEMsUUFBTyxRQUFRLEVBQUU7WUFDYixLQUFLLHVCQUFTLENBQUMsU0FBUztnQkFDckIsSUFBSSxDQUFDLFVBQVUsRUFBRTtnQkFDaEIsTUFBSztRQUNiO0lBQ0o7SUFFQSx3REFBdUQ7SUFDL0MsVUFBVTtRQUNkLElBQUksQ0FBQyxPQUFPLEdBQUcsSUFBSTtRQUNuQix5Q0FBd0M7UUFDekM7UUFBQyxJQUFJLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQywyQkFBTyxDQUFDLENBQUMsZUFBYyxDQUFDLEdBQUUsQ0FBQyxFQUFDO0lBQ3pEO0lBRUEsTUFBTTtRQUNGLDZEQUE0RDtRQUM1RCxJQUFHLElBQUksQ0FBQyxPQUFPLEVBQUU7WUFDYixJQUFJLENBQUMsVUFBVSxFQUFFO1lBQ2pCLElBQUksQ0FBQyxZQUFZLEVBQUU7UUFDdkI7SUFDSjtJQUVPLG1CQUFtQixDQUFDLEtBQVk7UUFFcEM7UUFBQyxJQUFJLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQywyQkFBTyxDQUFDLENBQUMsZUFBYyxDQUFDLEVBQUUsS0FBSyxDQUFDO0lBQzdEO0lBRUEsK0NBQThDO0lBQ3ZDLGdCQUFnQixDQUFDLFNBQWtCLEVBQUUsS0FBWTtRQUVwRCxJQUFJLEtBQUssR0FBRyxDQUFDLEVBQ2IsQ0FBQztZQUNHLEtBQUssR0FBRyxLQUFLLEdBQUcsS0FBSztZQUNyQixJQUFJLENBQUMsYUFBYSxHQUFFO2dCQUFDLHFCQUFPLENBQUMsOEJBQVcsQ0FBQyxTQUFTLENBQUMsVUFBVSxFQUFFLEtBQUssQ0FBQztZQUNyRSxJQUFJLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQyxLQUFLLEdBQUcsS0FBSyxHQUFHLElBQUk7UUFDakQ7YUFFQTtZQUNJLElBQUksQ0FBQyxhQUFhLEdBQUcscUJBQU8sQ0FBQyxJQUFJO1FBQ3JDO0lBQ0o7SUFFQSx3REFBdUQ7SUFDL0MsVUFBVTtRQUVkLElBQUcsa0NBQUMsSUFBSSxDQUFDLGFBQVksRUFBSyxxQkFBTyxDQUFDLElBQUk7WUFDbEMsT0FBTTtRQUVWLElBQUksS0FBSyxHQUFHLElBQUksQ0FBQyxXQUFXLEdBQUcsa0JBQUksQ0FBQyxTQUFTO1FBQzdDLElBQUksbUJBQW1CLEdBQUcsSUFBSSxxQkFBTyxDQUFDLElBQUksQ0FBQyxhQUFhLENBQUMsQ0FBQyxHQUFHLEtBQUssRUFBRSxDQUFDLEVBQUUsSUFBSSxDQUFDLGFBQWEsQ0FBQyxDQUFDLEdBQUcsS0FBSyxDQUFDO1FBQ3BHLElBQUksQ0FBQyxTQUFTLENBQUMsUUFBUSxHQUFHLHFCQUFPLENBQUMsV0FBVyxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsUUFBUSxFQUFFLG1CQUFtQixDQUFDO0lBQy9GO0lBRVEsWUFBWTtRQUVoQixJQUFHLGtDQUFDLElBQUksQ0FBQyxhQUFZLEVBQUsscUJBQU8sQ0FBQyxJQUFJO1lBQ2xDLE9BQU07UUFFVixJQUFJLG1CQUFtQixHQUFHLElBQUkscUJBQU8sQ0FBQyxJQUFJLENBQUMsYUFBYSxDQUFDLENBQUMsRUFBRSxDQUFDLEVBQUUsSUFBSSxDQUFDLGFBQWEsQ0FBQyxDQUFDLENBQUM7UUFDcEYsSUFBSSxXQUFXLEdBQUcsd0JBQVUsQ0FBQyxZQUFZLENBQUMsbUJBQW1CLEVBQUUscUJBQU8sQ0FBQyxFQUFFLENBQUM7UUFFMUUsSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLEdBQUcsV0FBVztJQUN6QztDQUNKO0FBakdBLG1DQWlHQSIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiUGxheWVyQ29udHJvbGxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdfQ==","ScriptHash":"858e63cae7b5f2b64d4ca76b9b0b0d83","Specifier":"@assets/Experience/tower-of-time/Scripts/PlayerController","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/PlayerController.PlayerController","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/PlayerController.PlayerController","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.6.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"playerSpeed","Name":"playerSpeed","TypeName":"System.Single","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"Header","Args":["\"Player
+    Settings\""]},{"Type":"SerializeField","Args":[]}],"Initializers":["2"],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Player
+    Speed"},{"Path":"playerAnimator","Name":"playerAnimator","TypeName":"UnityEngine.RuntimeAnimatorController","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Player
+    Animator"}],"SupportedUiEvents":0,"DisplayName":"PlayerController","name":"PlayerController","hideFlags":8}'
