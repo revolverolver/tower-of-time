@@ -112,7 +112,7 @@ export default class PlayerController extends MonoBehaviour {
 
     OnTriggerEnter(coll: Collider)
     {
-        console.log(`log : Hello World`);
+        //console.log(`log : Hello World`);
 
         if (coll.tag == "Tree")
         {

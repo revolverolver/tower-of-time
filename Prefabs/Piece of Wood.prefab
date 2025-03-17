@@ -95,7 +95,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -120,5 +120,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _serializedProperties: []
   _script: {fileID: 4458252877524076426, guid: 6ae89856b53639b4fba05503b75b5aa5, type: 3}
-  _scriptAssetHash: cb3a7f156c9f5108501aa7d1d8fe369d
+  _scriptAssetHash: 42d87fec78620c9388232320562bfa6b
   UiEventForwarders: []

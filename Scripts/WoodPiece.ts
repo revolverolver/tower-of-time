@@ -10,6 +10,8 @@ export default class WoodPiece extends MonoBehaviour {
     private spinRot: Vector3;
 
     private t: float = 0.0;
+
+    public carried: bool = false;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -34,8 +36,11 @@ export default class WoodPiece extends MonoBehaviour {
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
     {
-        this.Move();
-        this.SpinWood();
+        if (!this.carried)
+        {
+            this.Move();
+            this.SpinWood();
+        }
     }
 
     private Move() : void 
