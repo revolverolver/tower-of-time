@@ -1,14 +1,16 @@
 
-import { MonoBehaviour, Input, Vector3, Mathf, Time, Animator, Collider, RuntimeAnimatorController, Quaternion } from 'UnityEngine';
+import { MonoBehaviour, Transform, Input, Vector3, Mathf, Time, Animator, Collider, RuntimeAnimatorController, Quaternion, Collision, Rigidbody, Tree } from 'UnityEngine';
 
 import { GeniesAvatar, GeniesAvatarsSdk } from 'Genies.Avatars.Sdk';
 import GameManager, { GameState } from './GameManager';
+import TreeObject from './TreeObject';
 
 export default class PlayerController extends MonoBehaviour {
     
     @Header("Player Settings")
     @SerializeField private playerSpeed: float = 2;
     @SerializeField private playerAnimator: RuntimeAnimatorController;
+    @SerializeField private cameraTarget: Transform;
 
     /** 
      * This can only be one of three lanes the player can target to move: 
@@ -70,14 +72,20 @@ export default class PlayerController extends MonoBehaviour {
     {
         if (value > 5)
         { 
-            value = value * 0.008;
-            this.moveDirection = Vector3.op_Multiply(direction.normalized, value);
+            value = value * 0.012;
+            this.moveDirection = Vector3.op_Multiply(direction.normalized, -value);
             this.userAvatar.Animator.speed = value * 0.75;
         }
         else
         {
             this.moveDirection = Vector3.zero;
+            value = value * 0.012;
         }
+
+        // Put Camera Look Target further away when moving faster
+        value *= 0.9;
+        let localTarget = new Vector3(0, 0, value * 0.6);
+        this.cameraTarget.localPosition = Vector3.Lerp(this.cameraTarget.localPosition, localTarget, Time.deltaTime * 6);
     }
     
     /** Moves the player in the direction of the joystick */
@@ -100,5 +108,25 @@ export default class PlayerController extends MonoBehaviour {
         let newRotation = Quaternion.LookRotation(translatedDirection, Vector3.up);
 
         this.transform.rotation = newRotation;
+    }
+
+    OnTriggerEnter(coll: Collider)
+    {
+        console.log(`log : Hello World`);
+
+        if (coll.tag == "Tree")
+        {
+            const tree = coll.GetComponent<TreeObject>();
+            tree.StartChopping();
+        }
+    }
+
+    OnTriggerExit(coll: Collider)
+    {
+        if (coll.tag == "Tree")
+            {
+                const tree = coll.GetComponent<TreeObject>();
+                tree.StopChopping();
+            }
     }
 }

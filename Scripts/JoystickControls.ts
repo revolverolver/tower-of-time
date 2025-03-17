@@ -48,16 +48,16 @@ export default class JoystickControls extends MonoBehaviour {
             let direction = Vector3.op_Subtraction(this.base.position, Input.mousePosition);
             let distance = Vector3.Distance(this.base.position, Input.mousePosition);
             
-            if (distance < 150)
+            if (distance < 100)
             {
-                // Handle is within handle
+                // Handle is within base
                 this.handle.position = Input.mousePosition;
             }
             else
             {
                 // Handle is at max distance
-                this.handle.position = this.base.position - direction.normalized * 150;
-                distance = 150;
+                this.handle.position = this.base.position - direction.normalized * 100;
+                distance = 100;
             }
 
             // Send Input data to player controller

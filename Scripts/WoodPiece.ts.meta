@@ -1,0 +1,43 @@
+fileFormatVersion: 2
+guid: 6ae89856b53639b4fba05503b75b5aa5
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.9","ReferencedSpecifiers":[],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nclass WoodPiece extends UnityEngine_1.MonoBehaviour
+    {\n    constructor() {\n        super(...arguments);\n        this.moveDirection
+    = UnityEngine_1.Vector3.op_Multiply_EBB7509C_H75CC56AF(UnityEngine_1.Vector3.up,
+    (2));\n        this.t = 0.0;\n    }\n    //Called when script instance is loaded\n   
+    Awake() { }\n    //Start is called on the frame when a script is enabled just
+    \n    //before any of the Update methods are called the first time.\n    Start()
+    {\n        // Find player\n        this.target = UnityEngine_1.GameObject.FindGameObjectWithTag(\"Player\").transform;\n       
+    this.targetPosition = UnityEngine_1.Vector3.op_Addition(this.target.position,
+    UnityEngine_1.Vector3.up);\n        let direction = UnityEngine_1.Vector3.op_Subtraction(this.transform.position,
+    this.target.position);\n        direction.y = 0;\n        this.moveDirection
+    = UnityEngine_1.Vector3.op_Addition(this.moveDirection, direction);\n       
+    // Random Spin\n        this.spinRot = new UnityEngine_1.Vector3(// @ts-ignore\n       
+    UnityEngine_1.Random.Range_EBB7509C_H1075CF37(-40.0, 40.0), // @ts-ignore\n       
+    UnityEngine_1.Random.Range_EBB7509C_H1075CF37(-10.0, 10.0), // @ts-ignore\n       
+    UnityEngine_1.Random.Range_EBB7509C_H1075CF37(-70.0, 70.0));\n    }\n    //Update
+    is called every frame, if the MonoBehaviour is enabled.\n    Update() {\n       
+    this.Move();\n        this.SpinWood();\n    }\n    Move() {\n        // Update
+    target''s position in world\n        this.targetPosition = UnityEngine_1.Vector3.op_Addition(this.target.position,
+    UnityEngine_1.Vector3.up);\n        // Direction from wood to player\n       
+    let direction = UnityEngine_1.Vector3.op_Subtraction(this.transform.position,
+    this.targetPosition);\n        // Lerps vector from Vector3.up to \"direction\"\n       
+    this.moveDirection = UnityEngine_1.Vector3.Lerp(this.moveDirection, (UnityEngine_1.Vector3.op_UnaryNegation(direction)),
+    UnityEngine_1.Time.deltaTime * 1);\n        // Adjusts speed maybe?\n       
+    let tempVec = // @ts-ignore\n         UnityEngine_1.Vector3.op_Multiply_EBB7509C_H75CC56AF(this.moveDirection,
+    UnityEngine_1.Time.deltaTime * 6);\n        this.finalVector = UnityEngine_1.Vector3.op_Addition(tempVec,
+    this.transform.position);\n        // Move Wood!\n        this.transform.position
+    = UnityEngine_1.Vector3.Lerp(this.finalVector, this.targetPosition, this.t);\n       
+    // Increase Lerp t\n        this.t += UnityEngine_1.Time.deltaTime * 0.3;\n   
+    }\n    SpinWood() {\n        this.transform.Rotate(// @ts-ignore\n        UnityEngine_1.Vector3.op_Multiply_EBB7509C_H75CC56AF(this.spinRot,
+    UnityEngine_1.Time.deltaTime * 4));\n    }\n}\nexports.default = WoodPiece;\n//#
+    sourceMappingURL=data:application/json;charset=utf-8;base64,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","ScriptHash":"42d87fec78620c9388232320562bfa6b","Specifier":"@assets/Experience/tower-of-time/Scripts/WoodPiece","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/WoodPiece.WoodPiece","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/WoodPiece.WoodPiece","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.6.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[],"SupportedUiEvents":0,"DisplayName":"WoodPiece","name":"WoodPiece","hideFlags":8}'

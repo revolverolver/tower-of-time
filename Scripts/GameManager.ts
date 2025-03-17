@@ -1,4 +1,4 @@
-import { GameObject, MonoBehaviour } from "UnityEngine";
+import { Application, GameObject, MonoBehaviour } from "UnityEngine";
 
 /** This is an enumerator to describe a game state. */
 export enum GameState {
@@ -29,6 +29,7 @@ export default class GameManager extends MonoBehaviour {
     Start() {
         //Set the game state to LOADING at the Start
         this.ChangeGameState(GameState.LOADING);
+        Application.targetFrameRate = 60;
     }
 
     /** @returns the game's current GameState value */
