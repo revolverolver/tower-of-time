@@ -9,7 +9,7 @@ export default class WoodBackpack extends MonoBehaviour {
     @SerializeField slots: Transform[]; // = new Transform[20];
     
     private maxWood: int = 20;
-    private woodAmount: int = 0;
+    public static woodAmount: int = 0;
 
     public static woodFull: bool;
 
@@ -56,16 +56,16 @@ export default class WoodBackpack extends MonoBehaviour {
 
         // Place wood in free slot in backpack
         let wood = obj.transform;
-        wood.SetParent(this.slots[this.woodAmount]);
+        wood.SetParent(this.slots[WoodBackpack.woodAmount]);
         wood.transform.localPosition = Vector3.zero;
 
         // Adjust rotation
         wood.localRotation = Quaternion.Euler(0, 0, 90);
 
         // Increase wood carried
-        this.woodAmount++;
+        WoodBackpack.woodAmount++;
 
-        if (this.woodAmount >= this.maxWood)
+        if (WoodBackpack.woodAmount >= this.maxWood)
         {
             WoodBackpack.woodFull = true;
         }
@@ -94,17 +94,17 @@ export default class WoodBackpack extends MonoBehaviour {
     private SendWoodPiece() : void
     {
         // Send piece from top of backpack
-        console.log(this.slots[this.woodAmount - 1].GetChild(0).name);
+        console.log(this.slots[WoodBackpack.woodAmount - 1].GetChild(0).name);
 
-        let woodPiece = this.slots[this.woodAmount - 1].GetChild(0);
+        let woodPiece = this.slots[WoodBackpack.woodAmount - 1].GetChild(0);
         let wood = woodPiece.GetComponent<WoodPiece>();
         wood.SendToBuilding(this.currentBuilding);
 
-        this.woodAmount--;
+        WoodBackpack.woodAmount--;
         this.sendAmount--;
 
         // Check if there is wood left
-        if (this.woodAmount <= 0 || this.sendAmount <= 0)
+        if (WoodBackpack.woodAmount <= 0 || this.sendAmount <= 0)
         {
             // No more wood to send so let's stop sending
             this.sendingWood = false;
@@ -136,7 +136,7 @@ export default class WoodBackpack extends MonoBehaviour {
         // Building
         if (other.tag == "Building")
         {
-            if (this.woodAmount <= 0)
+            if (WoodBackpack.woodAmount <= 0)
                 return;
 
             // Player is carrying wood and will start sending wood

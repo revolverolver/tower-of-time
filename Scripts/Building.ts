@@ -1,6 +1,8 @@
 
-import { MonoBehaviour, Collider, Object } from "UnityEngine";
+import { MonoBehaviour, Collider, Object, GameObject } from "UnityEngine";
 export default class Building extends MonoBehaviour {
+
+    @SerializeField private building: GameObject;
 
     private woodNeeded: int = 20;
     private currentWood: int = 0;
@@ -21,11 +23,27 @@ export default class Building extends MonoBehaviour {
         return amount;
     }
 
+    private CollectWood() : void 
+    {
+        // Increase wood
+        this.currentWood++;
+
+        if (this.currentWood == this.woodNeeded)
+        {
+            // Build turret
+            this.building.SetActive(true);
+        }
+    }
+
     private OnTriggerEnter(other: Collider) 
     {
         if (other.tag == "BuildingMaterial")
         {
             // Collect Wood
+            if (this.currentWood < this.woodNeeded)
+                this.CollectWood();
+
+            // Destroy wood piece
             Object.Destroy(other.gameObject);
         }
     }

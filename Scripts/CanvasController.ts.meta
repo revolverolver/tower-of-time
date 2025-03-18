@@ -8,11 +8,74 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
-  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.9","ReferencedSpecifiers":[],"Source":"\"use
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.9","ReferencedSpecifiers":["@assets/Experience/tower-of-time/Scripts/GameManager"],"Source":"\"use
     strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
-    UnityEngine_1 = require(\"UnityEngine\");\nclass CanvasController extends UnityEngine_1.MonoBehaviour
-    {\n    //Called when script instance is loaded\n    Awake() { }\n    //Start
-    is called on the frame when a script is enabled just \n    //before any of the
-    Update methods are called the first time.\n    Start() { }\n    //Update is called
-    every frame, if the MonoBehaviour is enabled.\n    Update() { }\n}\nexports.default
-    = CanvasController;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ2FudmFzQ29udHJvbGxlci5qcyIsIm1hcHBpbmdzIjoiOztBQUNBLDZDQUEyQztBQUMzQyxNQUFxQixnQkFBaUIsU0FBUSwyQkFBYTtJQUV2RCx1Q0FBc0M7SUFDOUIsS0FBSyxLQUFXO0lBRXhCLDZEQUE0RDtJQUM1RCw2REFBNEQ7SUFDcEQsS0FBSyxLQUFXO0lBRXhCLGdFQUErRDtJQUN2RCxNQUFNLEtBQVc7Q0FDN0I7QUFYQSxtQ0FXQSIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiQ2FudmFzQ29udHJvbGxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdfQ==","ScriptHash":"8cd92201a645bf5a296d59073a3ef4af","Specifier":"@assets/Experience/tower-of-time/Scripts/CanvasController","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/CanvasController.CanvasController","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/CanvasController.CanvasController","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.6.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[],"SupportedUiEvents":0,"DisplayName":"CanvasController","name":"CanvasController","hideFlags":8}'
+    UnityEngine_1 = require(\"UnityEngine\");\nconst Genies_Experience_CloudSave_1
+    = require(\"Genies.Experience.CloudSave\");\nconst GameManager_1 = require(\"@assets/Experience/tower-of-time/Scripts/GameManager\");\nclass
+    CanvasController extends UnityEngine_1.MonoBehaviour {\n    constructor() {\n       
+    super(...arguments);\n        this.score = 0;\n        this.personalStorageKey
+    = \"PersonalStorageKey\";\n        this.globalStorageKey = \"GlobalStorageKey\";\n       
+    this.floatHighScoreKey = \"FloatHighScoreKey\";\n        this.personalString
+    = \"Personal Best: \";\n        this.globalString = \"Global Best: \";\n    }\n   
+    Start() {\n        //Get GameManager singleton and add a listener to OnGameStateChange
+    event\n        this.gameManager = GameManager_1.default.Instance;\n        this.gameManager.OnGameStateChange.addListener(this.CheckGameState,
+    //@ts-ignore\n        this);\n        //Add a listener to the ReplayButton click
+    event\n        this.replayButton.onClick.AddListener(() => this.OnReplay());\n       
+    //Initialize both high scores\n        this.InitializeHighScores();\n    }\n   
+    /** Manages the enemy logic when the game state changes. @param newState */\n   
+    CheckGameState(newState) {\n        switch (newState) {\n            case GameManager_1.GameState.LOADING:\n               
+    this.OnLoading();\n                break;\n            case GameManager_1.GameState.GAME_PLAY:\n               
+    this.OnGamePlay();\n                break;\n            case GameManager_1.GameState.GAME_OVER:\n               
+    this.OnGameOver();\n                break;\n        }\n    }\n    /** This will
+    manage the canvas once the Avatar is loading. */\n    OnLoading() {\n       
+    this.scorePanel.SetActive(true);\n        this.gameOverPanel.SetActive(false);\n       
+    this.loadingPanel.SetActive(true);\n    }\n    /** This will manage the canvas
+    once the game starts. */\n    OnGamePlay() {\n        this.gameOverPanel.SetActive(false);\n       
+    this.loadingPanel.SetActive(false);\n        this.score = 0;\n        this.coroutine
+    = this.StartCoroutine(this.StartScore());\n    }\n    /** This will manage the
+    canvas once the game ends. */\n    OnGameOver() {\n        this.gameOverPanel.SetActive(true);\n       
+    this.loadingPanel.SetActive(false);\n        this.CheckHighScore(this.personalStorage,
+    this.personalHighScoreText, this.personalString);\n        this.CheckHighScore(this.globalStorage,
+    this.globalHighScoreText, this.globalString);\n        if (this.coroutine) {\n           
+    this.StopCoroutine(this.coroutine);\n        }\n    }\n    /** Set the game state
+    back to replay the game. */\n    OnReplay() {\n        this.gameManager.ChangeGameState(GameManager_1.GameState.GAME_PLAY);\n   
+    }\n    /** Initialize and load both the personal and global high scores. */\n   
+    InitializeHighScores() {\n        //Initialize Personal High Score\n        this.personalStorage
+    = new Genies_Experience_CloudSave_1.CloudSaveStorage(this.personalStorageKey,
+    false);\n        this.LoadHighScore(this.personalStorage, this.personalHighScoreText,
+    this.personalString);\n        //Initialize Global High Score\n        this.globalStorage
+    = new Genies_Experience_CloudSave_1.CloudSaveStorage(this.globalStorageKey, true);\n       
+    this.LoadHighScore(this.globalStorage, this.globalHighScoreText, this.globalString);\n   
+    }\n    /** This coroutine will increase and update the score every hundredths
+    of a second. */\n    *StartScore() {\n        while (true) {\n            this.score
+    += 1;\n            this.scoreText.text = \"Score \" + this.score;\n           
+    yield new UnityEngine_1.WaitForSeconds(0.01);\n        }\n    }\n    /**\n    
+    * This loads a high score from storage and then displays it to a text object.\n    
+    * * It will also create a new stored high score if it does not find a stored
+    one.\n     * @param storage the CloudSaveStorage to load from\n     * @param
+    textObj  the text object to change the text\n     * @param highScoreString the
+    leading string to prepend to the text\n     */\n    async LoadHighScore(storage,
+    textObj, highScoreString) {\n        await $promise(storage.Load());\n       
+    if (storage.Has(this.floatHighScoreKey)) {\n            let highScore = storage.GetFloat(this.floatHighScoreKey);\n           
+    textObj.text = highScoreString + highScore.toString();\n        }\n        else
+    {\n            storage.SetFloat(this.floatHighScoreKey, 0);\n            textObj.text
+    = highScoreString + \"0\";\n            await $promise(storage.Save());\n       
+    }\n    }\n    /**\n     * This checks if a stored high score is less than the
+    current score.\n     * * If it is, then the high score is updated in storage
+    and text.\n     * @param storage the CloudSaveStorage storing the high score\n    
+    * @param textObj the high score text object\n     * @param highScoreString the
+    leading string to prepend to the text\n     */\n    async CheckHighScore(storage,
+    textObj, highScoreString) {\n        await $promise(storage.Load());\n       
+    if (storage.Has(this.floatHighScoreKey)) {\n            let highScore = storage.GetFloat(this.floatHighScoreKey);\n           
+    if (this.score > highScore) {\n                storage.SetFloat(this.floatHighScoreKey,
+    this.score);\n                textObj.text = highScoreString + this.score.toString();\n               
+    await $promise(storage.Save());\n            }\n        }\n    }\n}\nexports.default
+    = CanvasController;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ2FudmFzQ29udHJvbGxlci5qcyIsIm1hcHBpbmdzIjoiOztBQUFBLDZDQUFrRjtBQUNsRiw2RUFBOEQ7QUFHOUQsc0ZBQXNEO0FBRXRELE1BQXFCLGdCQUFpQixTQUFRLDJCQUFhO0lBQTNEOztRQVdZLFVBQUssR0FBVSxDQUFDO1FBRWhCLHVCQUFrQixHQUFXLG9CQUFvQjtRQUNqRCxxQkFBZ0IsR0FBVyxrQkFBa0I7UUFDN0Msc0JBQWlCLEdBQVcsbUJBQW1CO1FBRS9DLG1CQUFjLEdBQVcsaUJBQWlCO1FBQzFDLGlCQUFZLEdBQVcsZUFBZTtJQTBIbEQ7SUFoSEksS0FBSztRQUNELHlFQUF3RTtRQUN4RSxJQUFJLENBQUMsV0FBVyxHQUFHLHFCQUFXLENBQUMsUUFBUTtRQUN2QyxJQUFJLENBQUMsV0FBVyxDQUFDLGlCQUFpQixDQUFDLFdBQVcsQ0FBQyxJQUFJLENBQUMsY0FBYTtZQUFDLENBQUM7UUFDbkUsZ0RBQStDO1FBQy9DLElBQUksQ0FBQyxZQUFZLENBQUMsT0FBTyxDQUFDLFdBQVcsT0FBQyxJQUFJLENBQUMsUUFBTyxFQUFDLENBQUM7UUFDcEQsNkJBQTRCO1FBQzVCLElBQUksQ0FBQyxvQkFBb0IsRUFBRTtJQUMvQjtJQUVBLDJFQUEwRTtJQUNsRSxjQUFjLENBQUMsUUFBbUI7UUFDdEMsUUFBTyxRQUFRLEVBQUU7WUFDYixLQUFLLHVCQUFTLENBQUMsT0FBTztnQkFDbEIsSUFBSSxDQUFDLFNBQVMsRUFBRTtnQkFDaEIsTUFBSztZQUNULEtBQUssdUJBQVMsQ0FBQyxTQUFTO2dCQUNwQixJQUFJLENBQUMsVUFBVSxFQUFFO2dCQUNqQixNQUFLO1lBQ1QsS0FBSyx1QkFBUyxDQUFDLFNBQVM7Z0JBQ3BCLElBQUksQ0FBQyxVQUFVLEVBQUU7Z0JBQ2pCLE1BQUs7UUFDYjtJQUNKO0lBRUEsOERBQTZEO0lBQ3JELFNBQVM7UUFDYixJQUFJLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUM7UUFDL0IsSUFBSSxDQUFDLGFBQWEsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDO1FBQ25DLElBQUksQ0FBQyxZQUFZLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQztJQUNyQztJQUVBLHdEQUF1RDtJQUMvQyxVQUFVO1FBQ2QsSUFBSSxDQUFDLGFBQWEsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDO1FBQ25DLElBQUksQ0FBQyxZQUFZLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQztRQUNsQyxJQUFJLENBQUMsS0FBSyxHQUFHLENBQUM7UUFDZCxJQUFJLENBQUMsU0FBUyxHQUFHLElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO0lBQzNEO0lBRUEsc0RBQXFEO0lBQzdDLFVBQVU7UUFDZCxJQUFJLENBQUMsYUFBYSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUM7UUFDbEMsSUFBSSxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDO1FBQ2xDLElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLGVBQWUsRUFBRSxJQUFJLENBQUMscUJBQXFCLEVBQUUsSUFBSSxDQUFDLGNBQWMsQ0FBQztRQUMxRixJQUFJLENBQUMsY0FBYyxDQUFDLElBQUksQ0FBQyxhQUFhLEVBQUUsSUFBSSxDQUFDLG1CQUFtQixFQUFFLElBQUksQ0FBQyxZQUFZLENBQUM7UUFDcEYsSUFBRyxJQUFJLENBQUMsU0FBUyxFQUFFO1lBQ2YsSUFBSSxDQUFDLGFBQWEsQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDO1FBQ3RDO0lBQ0o7SUFFQSxrREFBaUQ7SUFDekMsUUFBUTtRQUNaLElBQUksQ0FBQyxXQUFXLENBQUMsZUFBZSxDQUFDLHVCQUFTLENBQUMsU0FBUyxDQUFDO0lBQ3pEO0lBRUEsb0VBQW1FO0lBQzNELG9CQUFvQjtRQUN4QixnQ0FBK0I7UUFDL0IsSUFBSSxDQUFDLGVBQWUsR0FBRyxJQUFJLDhDQUFnQixDQUFDLElBQUksQ0FBQyxrQkFBa0IsRUFBRSxLQUFLLENBQUM7UUFDM0UsSUFBSSxDQUFDLGFBQWEsQ0FBQyxJQUFJLENBQUMsZUFBZSxFQUFFLElBQUksQ0FBQyxxQkFBcUIsRUFBRSxJQUFJLENBQUMsY0FBYyxDQUFDO1FBQ3pGLDhCQUE2QjtRQUM3QixJQUFJLENBQUMsYUFBYSxHQUFHLElBQUksOENBQWdCLENBQUMsSUFBSSxDQUFDLGdCQUFnQixFQUFFLElBQUksQ0FBQztRQUN0RSxJQUFJLENBQUMsYUFBYSxDQUFDLElBQUksQ0FBQyxhQUFhLEVBQUUsSUFBSSxDQUFDLG1CQUFtQixFQUFFLElBQUksQ0FBQyxZQUFZLENBQUM7SUFDdkY7SUFFQSxzRkFBcUY7SUFDN0UsQ0FBQyxVQUFVO1FBQ2YsT0FBTSxJQUFJLEVBQUU7WUFDUixJQUFJLENBQUMsS0FBSyxJQUFJLENBQUM7WUFDZixJQUFJLENBQUMsU0FBUyxDQUFDLElBQUksR0FBRyxRQUFRLEdBQUcsSUFBSSxDQUFDLEtBQUs7WUFDM0MsTUFBTSxJQUFJLDRCQUFjLENBQUMsSUFBSSxDQUFDO1FBQ2xDO0lBQ0o7SUFFQTs7Ozs7O09BTUU7SUFDTSxLQUFLLENBQUMsYUFBYSxDQUFDLE9BQXlCLEVBQUUsT0FBaUIsRUFBRSxlQUF1QjtRQUM3RixNQUFLLFNBQUMsT0FBTyxDQUFDLElBQUksRUFBQyxDQUFDO1FBQ3BCLElBQUksT0FBTyxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsaUJBQWlCLENBQUMsRUFBRTtZQUNyQyxJQUFJLFNBQVMsR0FBRyxPQUFPLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQyxpQkFBaUIsQ0FBQztZQUN4RCxPQUFPLENBQUMsSUFBSSxHQUFHLGVBQWUsR0FBRyxTQUFTLENBQUMsUUFBUSxFQUFFO1FBQ3pELENBQUM7YUFBSTtZQUNELE9BQU8sQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLGlCQUFpQixFQUFFLENBQUMsQ0FBQztZQUMzQyxPQUFPLENBQUMsSUFBSSxHQUFHLGVBQWUsR0FBRyxHQUFHO1lBQ3BDLE1BQUssU0FBQyxPQUFPLENBQUMsSUFBSSxFQUFDLENBQUM7UUFDeEI7SUFDSjtJQUVBOzs7Ozs7T0FNRTtJQUNNLEtBQUssQ0FBQyxjQUFjLENBQUMsT0FBeUIsRUFBRSxPQUFpQixFQUFFLGVBQXVCO1FBQzlGLE1BQUssU0FBQyxPQUFPLENBQUMsSUFBSSxFQUFDLENBQUM7UUFDcEIsSUFBSSxPQUFPLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxpQkFBaUIsQ0FBQyxFQUFFO1lBQ3JDLElBQUksU0FBUyxHQUFHLE9BQU8sQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLGlCQUFpQixDQUFDO1lBQ3hELElBQUcsSUFBSSxDQUFDLEtBQUssR0FBRyxTQUFTLEVBQUU7Z0JBQ3ZCLE9BQU8sQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLGlCQUFpQixFQUFFLElBQUksQ0FBQyxLQUFLLENBQUM7Z0JBQ3BELE9BQU8sQ0FBQyxJQUFJLEdBQUcsZUFBZSxHQUFHLElBQUksQ0FBQyxLQUFLLENBQUMsUUFBUSxFQUFFO2dCQUN0RCxNQUFLLFNBQUMsT0FBTyxDQUFDLElBQUksRUFBQyxDQUFDO1lBQ3hCO1FBQ0o7SUFDSjtDQUNKO0FBNUlBLG1DQTRJQSIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiQ2FudmFzQ29udHJvbGxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdfQ==","ScriptHash":"088c440642b1797811a553d2b3faa2be","Specifier":"@assets/Experience/tower-of-time/Scripts/CanvasController","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/CanvasController.CanvasController","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/CanvasController.CanvasController","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.6.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"gameOverPanel","Name":"gameOverPanel","TypeName":"UnityEngine.GameObject","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"Header","Args":["\"UI
+    Object References\""]},{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Game
+    Over Panel"},{"Path":"replayButton","Name":"replayButton","TypeName":"UnityEngine.UI.Button","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Replay
+    Button"},{"Path":"loadingPanel","Name":"loadingPanel","TypeName":"UnityEngine.GameObject","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Loading
+    Panel"},{"Path":"scorePanel","Name":"scorePanel","TypeName":"UnityEngine.GameObject","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Score
+    Panel"},{"Path":"scoreText","Name":"scoreText","TypeName":"TMPro.TMP_Text","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Score
+    Text"},{"Path":"personalHighScoreText","Name":"personalHighScoreText","TypeName":"TMPro.TMP_Text","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Personal
+    High Score Text"},{"Path":"globalHighScoreText","Name":"globalHighScoreText","TypeName":"TMPro.TMP_Text","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Global
+    High Score Text"}],"SupportedUiEvents":0,"DisplayName":"CanvasController","name":"CanvasController","hideFlags":8}'

@@ -74,6 +74,11 @@ export default class PlayerController extends MonoBehaviour {
         if (value > 5)
         { 
             value = value * 0.012;
+
+            // Change value based on weight
+            let weight = (WoodBackpack.woodAmount / 20) * 0.45;
+            value -= weight;
+
             this.moveDirection = Vector3.op_Multiply(direction.normalized, -value);
             this.userAvatar.Animator.speed = value * 0.75;
         }
