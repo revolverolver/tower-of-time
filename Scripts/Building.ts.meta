@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6b126724baa76f8479cb5e0c8603db73
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.9","ReferencedSpecifiers":[],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nclass Building extends UnityEngine_1.MonoBehaviour
+    {\n    //Called when script instance is loaded\n    Awake() { }\n    //Start
+    is called on the frame when a script is enabled just \n    //before any of the
+    Update methods are called the first time.\n    Start() { }\n    //Update is called
+    every frame, if the MonoBehaviour is enabled.\n    Update() { }\n}\nexports.default
+    = Building;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQnVpbGRpbmcuanMiLCJtYXBwaW5ncyI6Ijs7QUFDQSw2Q0FBMkM7QUFDM0MsTUFBcUIsUUFBUyxTQUFRLDJCQUFhO0lBRS9DLHVDQUFzQztJQUM5QixLQUFLLEtBQVc7SUFFeEIsNkRBQTREO0lBQzVELDZEQUE0RDtJQUNwRCxLQUFLLEtBQVc7SUFFeEIsZ0VBQStEO0lBQ3ZELE1BQU0sS0FBVztDQUM3QjtBQVhBLDJCQVdBIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJCdWlsZGluZy50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdfQ==","ScriptHash":"4727cc4a029146de6e760ca4e63acb0b","Specifier":"@assets/Experience/tower-of-time/Scripts/Building","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/Building.Building","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/Building.Building","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.6.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[],"SupportedUiEvents":0,"DisplayName":"Building","name":"Building","hideFlags":8}'

@@ -1,6 +1,8 @@
 
 import { Animator, GameObject, MonoBehaviour, Object, Quaternion, Time, Vector2, Vector3 } from "UnityEngine";
 import { QualityMode } from "UnityEngine.LightProbeProxyVolume";
+import WoodBackpack from './WoodBackpack';
+
 export default class TreeObject extends MonoBehaviour {
 
     @SerializeField animator: Animator;
@@ -44,6 +46,9 @@ export default class TreeObject extends MonoBehaviour {
 
     public StartChopping() : void
     {
+        if (WoodBackpack.woodFull)
+            return;
+
         this.isChopping = true;
         this.chopTime = 0.8;
 
@@ -58,6 +63,13 @@ export default class TreeObject extends MonoBehaviour {
 
     private Chop() : void
     {
+        if (WoodBackpack.woodFull)
+        {
+            // Stop chopping if wood inventory is full
+            this.StopChopping();
+            return;
+        }
+
         // Spawn Wood
         const woodChunk = Object.Instantiate(this.wood, this.transform.position + Vector3.up, Quaternion.identity);
 

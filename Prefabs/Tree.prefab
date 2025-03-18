@@ -397,5 +397,5 @@ MonoBehaviour:
     PropKey: wood
     BasePath: wood
   _script: {fileID: 4458252877524076426, guid: 281d5b2fc67fe874ca6ddf5bcdfc8795, type: 3}
-  _scriptAssetHash: 14882bfde58098860b7ded54d36fab7d
+  _scriptAssetHash: 5c06fdbcab35304345da8cc77604426e
   UiEventForwarders: []

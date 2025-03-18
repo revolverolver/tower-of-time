@@ -7,7 +7,10 @@ export default class WoodBackpack extends MonoBehaviour {
     @SerializeField private backpack: Transform;
     @SerializeField slots: Transform[]; // = new Transform[20];
     
+    private maxWood: int = 20;
     private woodAmount: int = 0;
+
+    public static woodFull: bool;
     
     //Called when script instance is loaded
     private Awake() : void 
@@ -46,14 +49,27 @@ export default class WoodBackpack extends MonoBehaviour {
 
         // Increase wood carried
         this.woodAmount++;
+
+        if (this.woodAmount >= this.maxWood)
+        {
+            WoodBackpack.woodFull = true;
+        }
     }
 
     OnTriggerEnter(other: Collider) 
     {
         if (other.tag == "Wood")
         {
-            // Add wood
-            this.AddWoodToBackpack(other.gameObject);
+            if (WoodBackpack.woodFull)
+            {
+                // Inventory full
+                Object.Destroy(other.gameObject);
+            }
+            else
+            {
+                // Add wood
+                this.AddWoodToBackpack(other.gameObject);
+            }
         }
     }
 }

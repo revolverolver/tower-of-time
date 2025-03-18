@@ -4,6 +4,7 @@ import { MonoBehaviour, Transform, Input, Vector3, Mathf, Time, Animator, Collid
 import { GeniesAvatar, GeniesAvatarsSdk } from 'Genies.Avatars.Sdk';
 import GameManager, { GameState } from './GameManager';
 import TreeObject from './TreeObject';
+import WoodBackpack from './WoodBackpack';
 
 export default class PlayerController extends MonoBehaviour {
     
