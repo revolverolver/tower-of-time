@@ -1,6 +1,9 @@
 
-import { MonoBehaviour } from "UnityEngine";
+import { MonoBehaviour, Collider, Object } from "UnityEngine";
 export default class Building extends MonoBehaviour {
+
+    private woodNeeded: int = 20;
+    private currentWood: int = 0;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -11,4 +14,19 @@ export default class Building extends MonoBehaviour {
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void {}
+
+    public WoodNeeded() : int
+    {
+        let amount = this.woodNeeded - this.currentWood;
+        return amount;
+    }
+
+    private OnTriggerEnter(other: Collider) 
+    {
+        if (other.tag == "BuildingMaterial")
+        {
+            // Collect Wood
+            Object.Destroy(other.gameObject);
+        }
+    }
 }

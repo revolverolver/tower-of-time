@@ -30,7 +30,7 @@ export default class CameraMovement extends MonoBehaviour {
 
     private FollowPlayer() : void
     {
-        let offsetPosition = new Vector3(this.target.position.x, 7, this.target.position.z - 6);
+        let offsetPosition = new Vector3(this.target.position.x, 5.5, this.target.position.z - 5);
         this.transform.position = Vector3.Lerp(this.transform.position, offsetPosition, Time.deltaTime * 12);
 
         // Look at target

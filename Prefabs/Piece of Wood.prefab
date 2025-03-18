@@ -95,7 +95,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 33554433
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -173,5 +173,5 @@ MonoBehaviour:
     PropKey: carried
     BasePath: carried
   _script: {fileID: 4458252877524076426, guid: 6ae89856b53639b4fba05503b75b5aa5, type: 3}
-  _scriptAssetHash: 1ab8406bdbe58803361b0527a1d422a0
+  _scriptAssetHash: ef97ea88bdb504d020beb1ca6593fb7f
   UiEventForwarders: []

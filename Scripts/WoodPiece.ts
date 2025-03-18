@@ -1,17 +1,18 @@
 
-import { MonoBehaviour, Quaternion, Vector2, Vector3, Transform, Time, Object, GameObject, Random } from "UnityEngine";
+import { MonoBehaviour, Quaternion, Vector2, Vector3, Transform, Time, Object, GameObject, Random, Collider } from "UnityEngine";
 export default class WoodPiece extends MonoBehaviour {
 
     private target: Transform;
     private targetPosition: Vector3;
 
-    private moveDirection: Vector3 = Vector3.op_Multiply(Vector3.up, 2);
+    private moveDirection: Vector3 = Vector3.op_Multiply(Vector3.up, 3);
     private finalVector: Vector3;
     private spinRot: Vector3;
 
     private t: float = 0.0;
 
     public carried: bool = false;
+    private isBuilding: bool = false;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -27,7 +28,7 @@ export default class WoodPiece extends MonoBehaviour {
         let direction = Vector3.op_Subtraction(this.transform.position, this.target.position);
         direction.y = 0;
 
-        this.moveDirection = Vector3.op_Addition(this.moveDirection, direction);
+        //this.moveDirection = Vector3.op_Addition(this.moveDirection, direction);
 
         // Random Spin
         this.spinRot = new Vector3(Random.Range(-40.0, 40.0), Random.Range(-10.0, 10.0), Random.Range(-70.0, 70.0));
@@ -43,10 +44,41 @@ export default class WoodPiece extends MonoBehaviour {
         }
     }
 
+    public SendToBuilding(building: GameObject) : void
+    {
+        this.isBuilding = true;
+
+        // Change tag to not get collected by player and activate collider
+        this.gameObject.tag = "BuildingMaterial";
+        this.GetComponent<Collider>().enabled = true;
+
+        // Remove backpack as parent
+        this.transform.SetParent(null);
+
+        // Set building as target
+        this.target = building.transform;
+        this.targetPosition = this.target.position;
+
+        // Set fly direction just like in Start()
+        let direction = Vector3.op_Subtraction(this.transform.position, this.target.position);
+        direction.y = 0;
+        this.moveDirection = Vector3.op_Multiply(Vector3.up, 2); //Vector3.op_Addition(this.moveDirection, direction);
+
+        // Random Spin
+        this.spinRot = new Vector3(Random.Range(-40.0, 40.0), Random.Range(-10.0, 10.0), Random.Range(-70.0, 70.0));
+
+        // Reset timer
+        this.t = 0.0;
+
+        // No longer carried
+        this.carried = false;
+    }
+
     private Move() : void 
     {
         // Update target's position in world
-        this.targetPosition = Vector3.op_Addition(this.target.position, Vector3.up);
+        if (!this.isBuilding)
+            this.targetPosition = Vector3.op_Addition(this.target.position, Vector3.up);
 
         // Direction from wood to player
         let direction = Vector3.op_Subtraction(this.transform.position, this.targetPosition);
@@ -62,7 +94,7 @@ export default class WoodPiece extends MonoBehaviour {
         this.transform.position = Vector3.Lerp(this.finalVector, this.targetPosition, this.t);
 
         // Increase Lerp t
-        this.t += Time.deltaTime * 0.3;
+        this.t += Time.deltaTime * 0.5;
     }
 
     private SpinWood() : void
