@@ -5,6 +5,7 @@ import { GeniesAvatar, GeniesAvatarsSdk } from 'Genies.Avatars.Sdk';
 import GameManager, { GameState } from './GameManager';
 import TreeObject from './TreeObject';
 import WoodBackpack from './WoodBackpack';
+import CameraMovement, { CameraState } from './CameraMovement';
 
 export default class PlayerController extends MonoBehaviour {
     
@@ -21,7 +22,7 @@ export default class PlayerController extends MonoBehaviour {
     */
    
     private userAvatar: GeniesAvatar;
-    private gameManager: GameManager;
+    private gameManager: CameraMovement;
 
     private moveDirection: Vector3;
 
@@ -31,20 +32,20 @@ export default class PlayerController extends MonoBehaviour {
 
     async Start() {
         //Get GameManager singleton and add a listener to OnGameStateChange event
-        this.gameManager = GameManager.Instance;
-        this.gameManager.OnGameStateChange.addListener(this.CheckGameState);
+        this.gameManager = CameraMovement.Instance;
+        this.gameManager.OnCameraStateChange.addListener(this.CheckGameState);
         //Initialize the SDK
         await GeniesAvatarsSdk.InitializeAsync();
         //Load the user Avatar
         this.userAvatar = await GeniesAvatarsSdk.LoadUserAvatarAsync("UserAvatar", this.transform, this.playerAnimator);
         //send message to GameManager that the Avatar has been loaded
-        this.gameManager.ChangeGameState(GameState.GAME_PLAY);
+        this.gameManager.ChangeCameraState(CameraState.START_PAN);
     }
 
     /** Manages the player logic when the game state changes. @param newState */
-    private CheckGameState(newState: GameState) {
+    private CheckGameState(newState: CameraState) {
         switch(newState) {
-            case GameState.GAME_PLAY:
+            case CameraState.FOLLOWING_PLAYER:
                this.OnGamePlay();
                 break;
         }

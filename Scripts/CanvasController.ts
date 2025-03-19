@@ -3,6 +3,7 @@ import { CloudSaveStorage } from "Genies.Experience.CloudSave";
 import { Button } from "UnityEngine.UI";
 import { TMP_Text } from "TMPro";
 import GameManager, { GameState } from "./GameManager";
+import CameraMovement, { CameraState } from "./CameraMovement";
 
 export default class CanvasController extends MonoBehaviour {
     
@@ -27,15 +28,15 @@ export default class CanvasController extends MonoBehaviour {
     private personalStorage: CloudSaveStorage;
     private globalStorage: CloudSaveStorage;
 
-    private gameManager: GameManager;
+    private gameManager: CameraMovement;
 
     /** This coroutine will increase and update the score over time. */
     private coroutine: Coroutine;
 
     Start() {
         //Get GameManager singleton and add a listener to OnGameStateChange event
-        this.gameManager = GameManager.Instance;
-        this.gameManager.OnGameStateChange.addListener(this.CheckGameState);
+        this.gameManager = CameraMovement.Instance;
+        this.gameManager.OnCameraStateChange.addListener(this.CheckGameState);
         //Add a listener to the ReplayButton click event
         this.replayButton.onClick.AddListener(this.OnReplay);
         //Initialize both high scores
@@ -43,15 +44,18 @@ export default class CanvasController extends MonoBehaviour {
     }
 
     /** Manages the enemy logic when the game state changes. @param newState */
-    private CheckGameState(newState: GameState) {
+    private CheckGameState(newState: CameraState) {
         switch(newState) {
-            case GameState.LOADING:
+            case CameraState.LOADING:
                 this.OnLoading();
                 break;
-            case GameState.GAME_PLAY:
+            case CameraState.START_PAN || CameraState.CLOCK_TOWER:
+                this.OnClockWatching();
+                break;
+            case CameraState.FOLLOWING_PLAYER:
                 this.OnGamePlay();
                 break;
-            case GameState.GAME_OVER:
+            case CameraState.GAME_OVER:
                 this.OnGameOver();
                 break;
         }
@@ -62,6 +66,12 @@ export default class CanvasController extends MonoBehaviour {
         this.scorePanel.SetActive(false);
         this.gameOverPanel.SetActive(false);
         this.loadingPanel.SetActive(true);
+    }
+
+    private OnClockWatching() {
+        this.scorePanel.SetActive(false);
+        this.gameOverPanel.SetActive(false);
+        this.loadingPanel.SetActive(false);
     }
 
     /** This will manage the canvas once the game starts. */
@@ -86,7 +96,7 @@ export default class CanvasController extends MonoBehaviour {
 
     /** Set the game state back to replay the game. */
     private OnReplay() {
-        this.gameManager.ChangeGameState(GameState.GAME_PLAY);
+        //this.gameManager.ChangeGameState(GameState.GAME_PLAY);
     }
 
     /** Initialize and load both the personal and global high scores. */

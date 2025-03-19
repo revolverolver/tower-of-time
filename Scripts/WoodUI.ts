@@ -20,6 +20,6 @@ export default class WoodUI extends MonoBehaviour {
     private FollowPlayer()
     {
         let pos = Camera.main.WorldToScreenPoint(this.target.position);
-        this.transform.position = Vector3.Lerp(this.transform.position, pos, Time.deltaTime * 8);
+        this.transform.position = Vector3.Lerp(this.transform.position, pos, Time.deltaTime * 10);
     }
 }

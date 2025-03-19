@@ -2,6 +2,7 @@
 import { Enum } from "System";
 import { MonoBehaviour, Vector3, Mathf, Time, Animator, Quaternion, Transform, Random, Input } from "UnityEngine";
 import RoundManager from "./RoundManager";
+import CameraMovement, { CameraState } from './CameraMovement';
 
 enum ClockState {
     TAP_TO_SPIN,
@@ -16,11 +17,13 @@ export default class Tower extends MonoBehaviour {
     @SerializeField private animator: Animator;
 
     private isSpinning: bool;
+    private slowingDown: bool;
 
-    private timeLeftSpinning: float;
+    private t: float;
     private spinSpeed: float;
 
     private state: ClockState;
+    private gameManager: CameraMovement;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -29,6 +32,7 @@ export default class Tower extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
+        this.gameManager = CameraMovement.Instance;
         this.state = ClockState.NOT_INTERACTABLE;
         //setTimeout(() => this.StartSpin(), 6500);
     }
@@ -57,17 +61,27 @@ export default class Tower extends MonoBehaviour {
     {
         // Start timer
         this.isSpinning = true;
-        this.timeLeftSpinning = 3.0;
+        this.t = 3.0;
         this.spinSpeed = 1000.0;
 
         // Play animation
         this.animator.enabled = true;
         this.animator.Play("StartSpin", -1, 0);
+
+        // Change state
+        this.state = ClockState.TAP_TO_STOP;
     }
 
     private StopSpin() : void
     {
+        // Start Slowing down
+        this.slowingDown = true;
 
+        // Play animation
+        this.animator.Play("StartSpin", -1, 0);
+
+        // Change state
+        this.state = ClockState.NOT_INTERACTABLE;
     }
 
     private SpinPointer() : void
@@ -76,6 +90,26 @@ export default class Tower extends MonoBehaviour {
         {
             let longRotation = new Vector3(0, 0, this.spinSpeed * Time.deltaTime);
             this.pointerLong.Rotate(longRotation);
+
+            if (this.slowingDown)
+            {
+                // Slow down
+                this.spinSpeed -= Time.deltaTime * 500;
+                this.t -= Time.deltaTime;
+
+                if (this.spinSpeed <= 0)
+                {
+                    // Pointer stopped completely
+                    this.spinSpeed = 0;
+                }
+
+                if (this.t <= 0)
+                {
+                    // Wait time is over
+                    this.isSpinning = false;
+                    this.gameManager.ChangeCameraState(CameraState.FOLLOWING_PLAYER);
+                }
+            }
         }
     }
 
@@ -91,8 +125,7 @@ export default class Tower extends MonoBehaviour {
         let eulerRot = new Vector3(0, 0, deg);
         this.pointerShort.Rotate(eulerRot);
 
-        // Play "tap to spin" animation, the animation will change clock state
-        this.animator.Play("TapToSpin", -1, 0);
+        this.ChangeState(ClockState.TAP_TO_SPIN);
     }
 
     public ChangeState(newState: ClockState) : void
