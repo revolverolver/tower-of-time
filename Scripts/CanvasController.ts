@@ -59,13 +59,14 @@ export default class CanvasController extends MonoBehaviour {
 
     /** This will manage the canvas once the Avatar is loading. */
     private OnLoading() {
-        this.scorePanel.SetActive(true);
+        this.scorePanel.SetActive(false);
         this.gameOverPanel.SetActive(false);
         this.loadingPanel.SetActive(true);
     }
 
     /** This will manage the canvas once the game starts. */
     private OnGamePlay() {
+        this.scorePanel.SetActive(true);
         this.gameOverPanel.SetActive(false);
         this.loadingPanel.SetActive(false);
         this.score = 0;

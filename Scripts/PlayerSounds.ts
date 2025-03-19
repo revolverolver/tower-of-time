@@ -21,7 +21,7 @@ export default class PlayerSounds extends MonoBehaviour {
     private AdjustWalkingSound() : void
     {
         let volume = (PlayerController.movement > 0.1) ? PlayerController.movement : 0;
-        this.constantSource.volume = volume * 0.8;
+        this.constantSource.volume = volume * 0.9;
         this.constantSource.pitch = volume;
     }
 }

@@ -1,13 +1,24 @@
 
 import { MonoBehaviour, Quaternion, Time, Transform, Vector2, Vector3 } from "UnityEngine";
+import Tower from "./Tower";
+
+enum CameraState
+{
+    START_PAN,
+    FOLLOWING_PLAYER,
+    CLOCK_TOWER
+}
+
 export default class CameraMovement extends MonoBehaviour {
     
+    @SerializeField private tower: Tower;
     @SerializeField private player: Transform;
     @SerializeField private lookTargetPlayer: Transform;
+    @SerializeField private camPoints: Transform[];
 
     private target: Transform;
 
-    private cameraState: int = 0;
+    private cameraState: CameraState;
 
     //Called when script instance is loaded
     private Awake() : void {}
@@ -16,15 +27,24 @@ export default class CameraMovement extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
+        this.cameraState = CameraState.START_PAN;
         this.target = this.player;
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
     {
-        if (this.cameraState == 0)
+        if (this.cameraState == CameraState.FOLLOWING_PLAYER)
         {
             this.FollowPlayer();
+        }
+        else if (this.cameraState == CameraState.CLOCK_TOWER)
+        {
+
+        }
+        else if (this.cameraState == CameraState.START_PAN)
+        {
+
         }
     }
 
@@ -39,4 +59,9 @@ export default class CameraMovement extends MonoBehaviour {
         let look = Quaternion.LookRotation(-dir, Vector3.up);
         this.transform.rotation = Quaternion.Lerp(this.transform.rotation, look, Time.deltaTime * 7);
     } 
+
+    private Panning() : void
+    {
+        
+    }
 }

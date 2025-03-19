@@ -3,8 +3,10 @@ import { MonoBehaviour, Collider, Object, Transform, Quaternion, GameObject, Vec
 import { forEachChild } from "typescript";
 import WoodPiece from "./WoodPiece";
 import Building from "./Building";
+import { TextMeshProUGUI } from "TMPro";
 export default class WoodBackpack extends MonoBehaviour {
 
+    @SerializeField private woodText: TextMeshProUGUI;
     @SerializeField private backpack: Transform;
     @SerializeField slots: Transform[]; // = new Transform[20];
     
@@ -65,6 +67,9 @@ export default class WoodBackpack extends MonoBehaviour {
         // Increase wood carried
         WoodBackpack.woodAmount++;
 
+        // Update text
+        this.woodText.text = WoodBackpack.woodAmount + "/" + this.maxWood;
+
         if (WoodBackpack.woodAmount >= this.maxWood)
         {
             WoodBackpack.woodFull = true;
@@ -102,6 +107,9 @@ export default class WoodBackpack extends MonoBehaviour {
 
         WoodBackpack.woodAmount--;
         this.sendAmount--;
+
+        // Update text
+        this.woodText.text = WoodBackpack.woodAmount.toString() + "/" + this.maxWood.toString();
 
         // Check if there is wood left
         if (WoodBackpack.woodAmount <= 0 || this.sendAmount <= 0)

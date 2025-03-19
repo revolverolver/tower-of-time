@@ -1,5 +1,14 @@
 
-import { MonoBehaviour, Vector3, Mathf, Time, Animator, Quaternion, Transform, Random } from "UnityEngine";
+import { Enum } from "System";
+import { MonoBehaviour, Vector3, Mathf, Time, Animator, Quaternion, Transform, Random, Input } from "UnityEngine";
+import RoundManager from "./RoundManager";
+
+enum ClockState {
+    TAP_TO_SPIN,
+    TAP_TO_STOP,
+    NOT_INTERACTABLE
+}
+
 export default class Tower extends MonoBehaviour {
 
     @SerializeField private pointerLong: Transform;
@@ -10,6 +19,8 @@ export default class Tower extends MonoBehaviour {
 
     private timeLeftSpinning: float;
     private spinSpeed: float;
+
+    private state: ClockState;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -18,54 +29,74 @@ export default class Tower extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
-        setTimeout(() => this.StartSpin(), 6500);
+        this.state = ClockState.NOT_INTERACTABLE;
+        //setTimeout(() => this.StartSpin(), 6500);
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
     {
+        // Touch events
+        if (this.state == ClockState.TAP_TO_SPIN && Input.GetMouseButtonDown(0))
+        {
+            this.StartSpin();
+        }
+        else if (this.state == ClockState.TAP_TO_STOP && Input.GetMouseButtonDown(0))
+        {
+            this.StopSpin();
+        }
+
+        // Spin pointer if spinning
         if (this.isSpinning)
         {
-            this.SpinPointers();
+            this.SpinPointer();
         }
     }
 
-    private StartSpin() : void
+    public StartSpin() : void
     {
         // Start timer
         this.isSpinning = true;
         this.timeLeftSpinning = 3.0;
         this.spinSpeed = 1000.0;
 
+        // Play animation
         this.animator.enabled = true;
         this.animator.Play("StartSpin", -1, 0);
     }
 
-    private SpinPointers() : void
+    private StopSpin() : void
     {
-        if (this.timeLeftSpinning > 0)
+
+    }
+
+    private SpinPointer() : void
+    {
+        if (this.isSpinning)
         {
-            let longRand = Random.Range(0.8, 1.5);
-            let longRotation = new Vector3(0, 0, this.spinSpeed * Time.deltaTime * longRand);
+            let longRotation = new Vector3(0, 0, this.spinSpeed * Time.deltaTime);
             this.pointerLong.Rotate(longRotation);
-
-            let shortRand = Random.Range(0.8, 1.5);
-            let shortRotation = new Vector3(0, 0, -this.spinSpeed * Time.deltaTime * shortRand);
-            this.pointerShort.Rotate(shortRotation);
-
-            if (this.timeLeftSpinning < 1)
-            {
-                this.spinSpeed -= 800 * Time.deltaTime;
-            }
-
-            this.timeLeftSpinning -= Time.deltaTime;
         }
-        else
-        {
-            // Time is out and the clock finished spinning
-            this.isSpinning = false;
+    }
 
-            setTimeout(() => this.StartSpin(), 3000);
-        }
+    // --- Moving the short pointer ---
+    public NewRound() : void 
+    {
+        // Increase round number
+        let round = RoundManager.round;
+        round++;
+
+        // Move pointer one step
+        let deg = 30.0;
+        let eulerRot = new Vector3(0, 0, deg);
+        this.pointerShort.Rotate(eulerRot);
+
+        // Play "tap to spin" animation, the animation will change clock state
+        this.animator.Play("TapToSpin", -1, 0);
+    }
+
+    public ChangeState(newState: ClockState) : void
+    {
+        this.state = newState;
     }
 }
