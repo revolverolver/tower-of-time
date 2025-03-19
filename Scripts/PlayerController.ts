@@ -25,6 +25,8 @@ export default class PlayerController extends MonoBehaviour {
 
     private moveDirection: Vector3;
 
+    public static movement: float;
+
     private canMove: bool = false;
 
     async Start() {
@@ -92,6 +94,10 @@ export default class PlayerController extends MonoBehaviour {
         value *= 0.9;
         let localTarget = new Vector3(0, 0, value * 0.6);
         this.cameraTarget.localPosition = Vector3.Lerp(this.cameraTarget.localPosition, localTarget, Time.deltaTime * 6);
+
+        // Public Movement speed
+        value *= 0.9;
+        PlayerController.movement = value; 
     }
     
     /** Moves the player in the direction of the joystick */
