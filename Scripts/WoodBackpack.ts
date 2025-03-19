@@ -4,11 +4,14 @@ import { forEachChild } from "typescript";
 import WoodPiece from "./WoodPiece";
 import Building from "./Building";
 import { TextMeshProUGUI } from "TMPro";
+import PlayerSounds from "./PlayerSounds";
 export default class WoodBackpack extends MonoBehaviour {
 
     @SerializeField private woodText: TextMeshProUGUI;
     @SerializeField private backpack: Transform;
     @SerializeField slots: Transform[]; // = new Transform[20];
+
+    private playerSounds: PlayerSounds;
     
     private maxWood: int = 20;
     public static woodAmount: int = 0;
@@ -28,7 +31,10 @@ export default class WoodBackpack extends MonoBehaviour {
 
     //Start is called on the frame when a script is enabled just 
     //before any of the Update methods are called the first time.
-    private Start() : void {}
+    private Start() : void 
+    {
+        this.playerSounds = PlayerSounds.Instance;
+    }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
@@ -70,6 +76,9 @@ export default class WoodBackpack extends MonoBehaviour {
         // Update text
         this.woodText.text = WoodBackpack.woodAmount + "/" + this.maxWood;
 
+        // Play sound
+        this.playerSounds.PlayQuickSound(1, 0.8);
+
         if (WoodBackpack.woodAmount >= this.maxWood)
         {
             WoodBackpack.woodFull = true;
@@ -110,6 +119,9 @@ export default class WoodBackpack extends MonoBehaviour {
 
         // Update text
         this.woodText.text = WoodBackpack.woodAmount.toString() + "/" + this.maxWood.toString();
+
+        // Play sound
+        this.playerSounds.PlayQuickSound(0, 0.3, 0.8);
 
         // Check if there is wood left
         if (WoodBackpack.woodAmount <= 0 || this.sendAmount <= 0)

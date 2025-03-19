@@ -2,6 +2,7 @@
 import { Animator, GameObject, MonoBehaviour, Object, Quaternion, Time, Vector2, Vector3 } from "UnityEngine";
 import { QualityMode } from "UnityEngine.LightProbeProxyVolume";
 import WoodBackpack from './WoodBackpack';
+import PlayerSounds from "./PlayerSounds";
 
 export default class TreeObject extends MonoBehaviour {
 
@@ -12,6 +13,8 @@ export default class TreeObject extends MonoBehaviour {
     private chopTime: float = 0.8;
 
     private isChopping: bool;
+
+    private playerSounds: PlayerSounds;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -20,6 +23,7 @@ export default class TreeObject extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
+        this.playerSounds = PlayerSounds.Instance;
         this.animator.applyRootMotion = true;
     }
 
@@ -77,6 +81,9 @@ export default class TreeObject extends MonoBehaviour {
 
         // Play Animation
         this.animator.Play("Chop", -1, 0);
+
+        // Play Sound
+        this.playerSounds.PlayQuickSound(0);
 
         if (this.woodLeft <= 0)
         {

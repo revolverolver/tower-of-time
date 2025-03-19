@@ -13,14 +13,8 @@ export default class PlayerController extends MonoBehaviour {
     @SerializeField private playerSpeed: float = 2;
     @SerializeField private playerAnimator: RuntimeAnimatorController;
     @SerializeField private cameraTarget: Transform;
+    @SerializeField private rb: Rigidbody;
 
-    /** 
-     * This can only be one of three lanes the player can target to move: 
-     * * -1 is the left lane
-     * * 0 is the middle lane
-     * * 1 is the right lane
-    */
-   
     private userAvatar: GeniesAvatar;
     private gameManager: CameraMovement;
 
@@ -58,7 +52,7 @@ export default class PlayerController extends MonoBehaviour {
         this.userAvatar.Animator.SetFloat("idle_run_walk", 0);
     }
 
-    Update() {
+    FixedUpdate() {
         //If game is playing, move player according to joystick input
         if(this.canMove) {
             this.MovePlayer();
@@ -107,9 +101,9 @@ export default class PlayerController extends MonoBehaviour {
         if (this.moveDirection == Vector3.zero)
             return;
 
-        let speed = this.playerSpeed * Time.deltaTime;
+        let speed = this.playerSpeed * Time.fixedDeltaTime;
         let translatedDirection = new Vector3(this.moveDirection.x * speed, 0, this.moveDirection.y * speed);
-        this.transform.position = Vector3.op_Addition(this.transform.position, translatedDirection);
+        this.rb.MovePosition(Vector3.op_Addition(this.transform.position, translatedDirection));
     }
 
     private RotatePlayer()

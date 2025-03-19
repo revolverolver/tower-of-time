@@ -3,6 +3,7 @@ import { Enum } from "System";
 import { MonoBehaviour, Vector3, Mathf, Time, Animator, Quaternion, Transform, Random, Input } from "UnityEngine";
 import RoundManager from "./RoundManager";
 import CameraMovement, { CameraState } from './CameraMovement';
+import TimeManager from "./TimeManager";
 
 enum ClockState {
     TAP_TO_SPIN,
@@ -12,6 +13,7 @@ enum ClockState {
 
 export default class Tower extends MonoBehaviour {
 
+    @SerializeField private timeManager: TimeManager;
     @SerializeField private pointerLong: Transform;
     @SerializeField private pointerShort: Transform;
     @SerializeField private animator: Animator;
@@ -61,7 +63,7 @@ export default class Tower extends MonoBehaviour {
     {
         // Start timer
         this.isSpinning = true;
-        this.t = 3.0;
+        this.t = 5.0;
         this.spinSpeed = 1000.0;
 
         // Play animation
@@ -101,6 +103,9 @@ export default class Tower extends MonoBehaviour {
                 {
                     // Pointer stopped completely
                     this.spinSpeed = 0;
+
+                    // See how much time for the round based on rotation of pointerLong
+
                 }
 
                 if (this.t <= 0)
@@ -108,6 +113,9 @@ export default class Tower extends MonoBehaviour {
                     // Wait time is over
                     this.isSpinning = false;
                     this.gameManager.ChangeCameraState(CameraState.FOLLOWING_PLAYER);
+
+                    // Turn on countdown
+                    this.timeManager.StartCountdown(30);
                 }
             }
         }
@@ -121,7 +129,7 @@ export default class Tower extends MonoBehaviour {
         round++;
 
         // Move pointer one step
-        let deg = 30.0;
+        let deg = 60.0;
         let eulerRot = new Vector3(0, 0, deg);
         this.pointerShort.Rotate(eulerRot);
 

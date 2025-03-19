@@ -56,7 +56,7 @@ export default class CameraMovement extends MonoBehaviour {
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
-    private Update() : void 
+    private FixedUpdate() : void 
     {
         if (this.cameraState == CameraState.LOADING)
             return;
@@ -78,25 +78,25 @@ export default class CameraMovement extends MonoBehaviour {
     private FollowPlayer() : void
     {
         let offsetPosition = new Vector3(this.target.position.x, 6.5, this.target.position.z - 5.5);
-        this.transform.position = Vector3.Lerp(this.transform.position, offsetPosition, Time.deltaTime * 12);
+        this.transform.position = Vector3.Lerp(this.transform.position, offsetPosition, Time.fixedDeltaTime * 12);
 
         // Look at target
         let lookOffset = Vector3.op_Addition(this.lookTargetPlayer.position, Vector3.back);
         let dir = Vector3.op_Subtraction(this.transform.position, lookOffset);
         let look = Quaternion.LookRotation(-dir, Vector3.up);
-        this.transform.rotation = Quaternion.Lerp(this.transform.rotation, look, Time.deltaTime * 7);
+        this.transform.rotation = Quaternion.Lerp(this.transform.rotation, look, Time.fixedDeltaTime * 7);
     } 
 
     private Panning() : void
     {
         this.rabbit = Vector3.Lerp(this.camPoints[0].position, this.camPoints[1].position, this.t);
         this.transform.rotation = Quaternion.Lerp(this.camPoints[0].rotation, this.camPoints[1].rotation, this.t);
-        this.t += Time.deltaTime * 0.15;
+        this.t += Time.deltaTime * 0.17;
 
         // Move camera
         this.transform.position = Vector3.Lerp(this.transform.position, this.rabbit, Time.deltaTime * 6);
 
-        if (this.t > 1.2)
+        if (this.t > 1.3)
         {
             // Tell Tower to do stuff
             this.tower.NewRound();
