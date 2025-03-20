@@ -45,11 +45,16 @@ export default class CanvasController extends MonoBehaviour {
 
     /** Manages the enemy logic when the game state changes. @param newState */
     private CheckGameState(newState: CameraState) {
+        console.log(newState);
+
         switch(newState) {
             case CameraState.LOADING:
                 this.OnLoading();
                 break;
-            case CameraState.START_PAN || CameraState.CLOCK_TOWER:
+            case CameraState.START_PAN:
+                this.OnClockWatching();
+                break;
+            case CameraState.PAN_TO_CLOCK_TOWER:
                 this.OnClockWatching();
                 break;
             case CameraState.FOLLOWING_PLAYER:

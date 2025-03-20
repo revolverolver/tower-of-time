@@ -4,12 +4,15 @@ import { MonoBehaviour, Transform, Input, Vector3, Mathf, Time, Animator, Collid
 import { GeniesAvatar, GeniesAvatarsSdk } from 'Genies.Avatars.Sdk';
 import { Direction } from 'UnityEngine.UI.Scrollbar';
 import PlayerController from './PlayerController';
+import CameraMovement, {CameraState} from './CameraMovement';
 
 export default class JoystickControls extends MonoBehaviour {
     
     @SerializeField base: Transform;
     @SerializeField handle: Transform;
     @SerializeField playerController: PlayerController;
+
+    private gameManager: CameraMovement;
 
     private baseIdlePosition: Vector3;
     private touchStartPosition: Vector3;
@@ -23,7 +26,18 @@ export default class JoystickControls extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
+        this.gameManager = CameraMovement.Instance;
         this.baseIdlePosition = this.base.position;
+
+        this.gameManager.OnCameraStateChange.addListener(this.CheckGameState);
+    }
+
+    private CheckGameState(newState: CameraState) {
+        switch(newState) {
+            case CameraState.PAN_TO_CLOCK_TOWER:
+                this.Nullify();
+                break;
+        }
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
@@ -81,5 +95,18 @@ export default class JoystickControls extends MonoBehaviour {
             // No input from the joystick when not touching the screen
             this.playerController.GetJoystickInput(Vector3.zero, 0);
         }
+    }
+
+    private Nullify() : void
+    {
+        this.base.position = this.baseIdlePosition;
+        this.handle.position = this.base.position;
+
+        this.touching = false;
+
+        PlayerController.movement = 0;
+
+        // Animate Idle
+        this.playerController.ChangeAnimatorState(0);
     }
 }

@@ -7,7 +7,7 @@ export enum CameraState
 {
     LOADING,
     START_PAN,
-    PAN_TO_PLAYER,
+    PAN_TO_CLOCK_TOWER,
     FOLLOWING_PLAYER,
     CLOCK_TOWER,
     GAME_OVER
@@ -58,16 +58,16 @@ export default class CameraMovement extends MonoBehaviour {
     //Update is called every frame, if the MonoBehaviour is enabled.
     private FixedUpdate() : void 
     {
-        if (this.cameraState == CameraState.LOADING)
+        if (this.cameraState == CameraState.LOADING || this.cameraState == CameraState.CLOCK_TOWER)
             return;
 
         if (this.cameraState == CameraState.FOLLOWING_PLAYER)
         {
             this.FollowPlayer();
         }
-        else if (this.cameraState == CameraState.CLOCK_TOWER)
+        else if (this.cameraState == CameraState.PAN_TO_CLOCK_TOWER)
         {
-
+            this.GoToClockTower();
         }
         else if (this.cameraState == CameraState.START_PAN)
         {
@@ -104,6 +104,23 @@ export default class CameraMovement extends MonoBehaviour {
         }
     }
 
+    private GoToClockTower() : void
+    {
+        this.rabbit = Vector3.Lerp(this.target.position, this.camPoints[1].position, this.t);
+        this.transform.rotation = Quaternion.Lerp(this.camPoints[0].rotation, this.camPoints[1].rotation, this.t);
+        this.t += Time.deltaTime * 1;
+
+        // Move camera
+        this.transform.position = Vector3.Lerp(this.transform.position, this.rabbit, Time.deltaTime * 6);
+
+        if (this.t > 2.0)
+        {
+            // Tell Tower to do stuff
+            this.tower.NewRound();
+            this.cameraState = CameraState.CLOCK_TOWER;
+        }
+    }
+
     private CheckGameState(newState: GameState) {
         switch(newState) {
             case GameState.LOADING:
@@ -125,5 +142,10 @@ export default class CameraMovement extends MonoBehaviour {
     {
         this.cameraState = newState;
         this.OnCameraStateChange.trigger(newState);
+
+        if (newState == CameraState.PAN_TO_CLOCK_TOWER)
+        {
+            this.t = 0;
+        }
     }
 }

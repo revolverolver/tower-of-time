@@ -42,6 +42,9 @@ export default class PlayerController extends MonoBehaviour {
             case CameraState.FOLLOWING_PLAYER:
                this.OnGamePlay();
                 break;
+            default:
+                this.canMove = false;
+                break;
         }
     }
 

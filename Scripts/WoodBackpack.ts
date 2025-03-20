@@ -5,11 +5,14 @@ import WoodPiece from "./WoodPiece";
 import Building from "./Building";
 import { TextMeshProUGUI } from "TMPro";
 import PlayerSounds from "./PlayerSounds";
+import CameraMovement, {CameraState} from "./CameraMovement";
 export default class WoodBackpack extends MonoBehaviour {
 
     @SerializeField private woodText: TextMeshProUGUI;
     @SerializeField private backpack: Transform;
     @SerializeField slots: Transform[]; // = new Transform[20];
+
+    private gameManager: CameraMovement;
 
     private playerSounds: PlayerSounds;
     
@@ -23,6 +26,8 @@ export default class WoodBackpack extends MonoBehaviour {
     private sendAmount: int = 0;
     private sendingWood: bool = false;
 
+    private isPlaying: bool;
+
     private sendTime: float = 0.1;
     private woodTimer: float = this.sendTime;
     
@@ -33,13 +38,27 @@ export default class WoodBackpack extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
+        this.gameManager = CameraMovement.Instance;
         this.playerSounds = PlayerSounds.Instance;
+
+        this.gameManager.OnCameraStateChange.addListener(this.CheckGameState);
+    }
+
+    private CheckGameState(newState: CameraState) {
+        switch(newState) {
+            case CameraState.FOLLOWING_PLAYER:
+                this.isPlaying = true;
+                break;
+            default:
+                this.isPlaying = false;
+                break;
+        }
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
     {
-        if (this.sendingWood)
+        if (this.sendingWood && this.isPlaying)
         {
             if (this.woodTimer <= 0 && this.sendAmount > 0)
             {

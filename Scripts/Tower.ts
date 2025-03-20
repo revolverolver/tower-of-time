@@ -23,6 +23,7 @@ export default class Tower extends MonoBehaviour {
 
     private t: float;
     private spinSpeed: float;
+    private slowSpeed: float;
 
     private state: ClockState;
     private gameManager: CameraMovement;
@@ -64,7 +65,8 @@ export default class Tower extends MonoBehaviour {
         // Start timer
         this.isSpinning = true;
         this.t = 5.0;
-        this.spinSpeed = 1000.0;
+        this.spinSpeed = 1200.0;
+        this.slowingDown = false;
 
         // Play animation
         this.animator.enabled = true;
@@ -78,6 +80,7 @@ export default class Tower extends MonoBehaviour {
     {
         // Start Slowing down
         this.slowingDown = true;
+        this.slowSpeed = Random.Range(600, 850);
 
         // Play animation
         this.animator.Play("StartSpin", -1, 0);
@@ -96,7 +99,7 @@ export default class Tower extends MonoBehaviour {
             if (this.slowingDown)
             {
                 // Slow down
-                this.spinSpeed -= Time.deltaTime * 500;
+                this.spinSpeed -= Time.deltaTime * this.slowSpeed;
                 this.t -= Time.deltaTime;
 
                 if (this.spinSpeed <= 0)
@@ -105,7 +108,8 @@ export default class Tower extends MonoBehaviour {
                     this.spinSpeed = 0;
 
                     // See how much time for the round based on rotation of pointerLong
-
+                    let euler = this.pointerLong.eulerAngles.z;
+                    this.timeManager.ShowRoundTime(euler);
                 }
 
                 if (this.t <= 0)
@@ -115,7 +119,8 @@ export default class Tower extends MonoBehaviour {
                     this.gameManager.ChangeCameraState(CameraState.FOLLOWING_PLAYER);
 
                     // Turn on countdown
-                    this.timeManager.StartCountdown(30);
+                    let euler = this.pointerLong.eulerAngles.z;
+                    this.timeManager.StartCountdown(euler);
                 }
             }
         }
@@ -127,11 +132,15 @@ export default class Tower extends MonoBehaviour {
         // Increase round number
         let round = RoundManager.round;
         round++;
+        RoundManager.round = round;
 
         // Move pointer one step
-        let deg = 60.0;
+        let deg = (round == 1) ? 30.0 : 60.0;
         let eulerRot = new Vector3(0, 0, deg);
         this.pointerShort.Rotate(eulerRot);
+
+        // Show round text
+        this.timeManager.ShowRound(round);
 
         this.ChangeState(ClockState.TAP_TO_SPIN);
     }

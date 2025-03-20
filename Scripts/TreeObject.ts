@@ -3,16 +3,20 @@ import { Animator, GameObject, MonoBehaviour, Object, Quaternion, Time, Vector2,
 import { QualityMode } from "UnityEngine.LightProbeProxyVolume";
 import WoodBackpack from './WoodBackpack';
 import PlayerSounds from "./PlayerSounds";
+import CameraMovement, {CameraState} from "./CameraMovement";
 
 export default class TreeObject extends MonoBehaviour {
 
     @SerializeField animator: Animator;
     @SerializeField wood: GameObject;
 
+    private gameManager: CameraMovement;
+
     private woodLeft: int = 5;
     private chopTime: float = 0.8;
 
     private isChopping: bool;
+    private isPlaying: bool;
 
     private playerSounds: PlayerSounds;
     
@@ -25,12 +29,26 @@ export default class TreeObject extends MonoBehaviour {
     {
         this.playerSounds = PlayerSounds.Instance;
         this.animator.applyRootMotion = true;
+
+        this.gameManager = CameraMovement.Instance;
+        this.gameManager.OnCameraStateChange.addListener(this.CheckGameState);
+    }
+
+    private CheckGameState(newState: CameraState) {
+        switch(newState) {
+            case CameraState.FOLLOWING_PLAYER:
+                this.isPlaying = true;
+                break;
+            default:
+                this.isPlaying = false;
+                break;
+        }
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
     {
-        if (this.isChopping)
+        if (this.isChopping && this.isPlaying)
         {
             if (this.chopTime > 0)
             {
