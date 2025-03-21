@@ -24,6 +24,8 @@ export default class CameraMovement extends MonoBehaviour {
     @SerializeField private lookTargetPlayer: Transform;
     @SerializeField private camPoints: Transform[];
 
+    public static focusingOnPlayer: bool = false;
+
     private target: Transform;
     private rabbit: Vector3;
 
@@ -147,5 +149,10 @@ export default class CameraMovement extends MonoBehaviour {
         {
             this.t = 0;
         }
+
+        if (newState == CameraState.FOLLOWING_PLAYER)
+            CameraMovement.focusingOnPlayer = true;
+        else
+            CameraMovement.focusingOnPlayer = false;
     }
 }

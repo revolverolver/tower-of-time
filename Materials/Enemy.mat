@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
+  m_Name: Enemy
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 2100000, guid: e98398e85d137304d81ccde96c524e49, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -28,8 +28,8 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _BaseColor: {r: 0.21698111, g: 0.07880917, b: 0.20827784, a: 1}
-    - _Color: {r: 0.21698105, g: 0.078809164, b: 0.20827779, a: 1}
+    - _BaseColor: {r: 0.41509432, g: 0.11506619, b: 0.064613745, a: 1}
+    - _Color: {r: 0.4150943, g: 0.11506616, b: 0.06461372, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5916819745852869006
 MonoBehaviour:

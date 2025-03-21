@@ -64,7 +64,7 @@ export default class Tower extends MonoBehaviour {
     {
         // Start timer
         this.isSpinning = true;
-        this.t = 5.0;
+        this.t = 4.0;
         this.spinSpeed = 1200.0;
         this.slowingDown = false;
 
