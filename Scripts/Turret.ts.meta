@@ -1,0 +1,46 @@
+fileFormatVersion: 2
+guid: 935177760aa589849a16a0826a3e8a9b
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.63","ReferencedSpecifiers":[],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nclass Turret extends UnityEngine_1.MonoBehaviour
+    {\n    constructor() {\n        super(...arguments);\n        this.layerMask
+    = 1 << UnityEngine_1.LayerMask.NameToLayer(\"CustomLayer3\");\n    }\n    //Called
+    when script instance is loaded\n    Awake() { }\n    //Start is called on the
+    frame when a script is enabled just \n    //before any of the Update methods
+    are called the first time.\n    Start() { }\n    //Update is called every frame,
+    if the MonoBehaviour is enabled.\n    Update() {\n        this.FindTarget();\n       
+    this.AimAtTarget();\n    }\n    AimAtTarget() {\n        if (this.target == null)\n           
+    return;\n        // Aim the turret arm in the direction of target\n        let
+    targetDirection = UnityEngine_1.Vector3.op_Subtraction(this.target.position,
+    this.transform.position);\n        let rot = UnityEngine_1.Quaternion.LookRotation(targetDirection,
+    UnityEngine_1.Vector3.up);\n        let euler = rot.eulerAngles;\n        euler.x
+    = -90.0;\n        this.turretArm.rotation = UnityEngine_1.Quaternion.Lerp(this.turretArm.rotation,
+    UnityEngine_1.Quaternion.Euler(euler), UnityEngine_1.Time.deltaTime * 9);\n       
+    // Aim the head towards target\n        let targetOffset = UnityEngine_1.Vector3.op_Addition(this.target.position,
+    // @ts-ignore\n        UnityEngine_1.Vector3.op_Multiply_EBB7509C_H75CC56AF(UnityEngine_1.Vector3.up,
+    0.1));\n        let headDirection = UnityEngine_1.Vector3.op_Subtraction(targetOffset,
+    this.turretHead.position);\n        let headRot = UnityEngine_1.Quaternion.LookRotation(headDirection,
+    UnityEngine_1.Vector3.up);\n        let headEuler = headRot.eulerAngles;\n       
+    headEuler.x -= 90.0;\n        this.turretHead.rotation = UnityEngine_1.Quaternion.Lerp(this.turretHead.rotation,
+    UnityEngine_1.Quaternion.Euler(headEuler), UnityEngine_1.Time.deltaTime * 5);\n   
+    }\n    FindTarget() {\n        // Find enemies within reach\n        let colliders
+    = // @ts-ignore\n         UnityEngine_1.Physics.OverlapSphere_EBB7509C_FF2D8D88(this.transform.position,
+    (5), this.layerMask);\n        console.log(colliders.length);\n        if (colliders.length
+    > 0) {\n            //let tempTarget = colliders[0].transform;\n            let
+    closest = 100.0;\n            for (let i = 0; i < colliders.length; i++) {\n               
+    let distance = UnityEngine_1.Vector3.op_Subtraction(this.transform.position,
+    colliders[i].transform.position).magnitude;\n                if (distance < closest)
+    {\n                    this.target = colliders[i].transform;\n               
+    }\n            }\n        }\n        else {\n            // No target within
+    reach\n            this.target = null;\n        }\n    }\n}\nexports.default
+    = Turret;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVHVycmV0LmpzIiwibWFwcGluZ3MiOiI7O0FBQ0EsNkNBQStHO0FBQy9HLE1BQXFCLE1BQU8sU0FBUSwyQkFBYTtJQUFqRDs7UUFNWSxjQUFTLEdBQVEsQ0FBQyxJQUFJLHVCQUFTLENBQUMsV0FBVyxDQUFDLGNBQWMsQ0FBQyxDQUFDO0lBcUV4RTtJQW5FSSx1Q0FBc0M7SUFDOUIsS0FBSyxLQUFXO0lBRXhCLDZEQUE0RDtJQUM1RCw2REFBNEQ7SUFDcEQsS0FBSyxLQUFXO0lBRXhCLGdFQUErRDtJQUN2RCxNQUFNO1FBRVYsSUFBSSxDQUFDLFVBQVUsRUFBRTtRQUNqQixJQUFJLENBQUMsV0FBVyxFQUFFO0lBQ3RCO0lBRVEsV0FBVztRQUVmLElBQUksSUFBSSxDQUFDLE1BQU0sSUFBSSxJQUFJO1lBQ25CLE9BQU07UUFFVixnREFBK0M7UUFDL0MsSUFBSSxlQUFlLEdBQUcscUJBQU8sQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxRQUFRLEVBQUUsSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUM7UUFFM0YsSUFBSSxHQUFHLEdBQUcsd0JBQVUsQ0FBQyxZQUFZLENBQUMsZUFBZSxFQUFFLHFCQUFPLENBQUMsRUFBRSxDQUFDO1FBQzlELElBQUksS0FBSyxHQUFHLEdBQUcsQ0FBQyxXQUFXO1FBQzNCLEtBQUssQ0FBQyxDQUFDLEdBQUcsQ0FBQyxJQUFJO1FBRWYsSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLEdBQUcsd0JBQVUsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLEVBQUUsd0JBQVUsQ0FBQyxLQUFLLENBQUMsS0FBSyxDQUFDLEVBQUUsa0JBQUksQ0FBQyxTQUFTLEdBQUcsQ0FBQyxDQUFDO1FBRS9HLDhCQUE2QjtRQUM3QixJQUFJLFlBQVksR0FBRyxxQkFBTyxDQUFDLFdBQVcsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLFFBQVEsRUFBQztRQUFDLHFCQUFPLCtCQUFFLDJCQUFJLEdBQUUsQ0FBQyxDQUFDO1FBQzlFLElBQUksYUFBYSxHQUFHLHFCQUFPLENBQUMsY0FBYyxDQUFDLFlBQVksRUFBRSxJQUFJLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQztRQUVsRixJQUFJLE9BQU8sR0FBRyx3QkFBVSxDQUFDLFlBQVksQ0FBQyxhQUFhLEVBQUUscUJBQU8sQ0FBQyxFQUFFLENBQUM7UUFDaEUsSUFBSSxTQUFTLEdBQUcsT0FBTyxDQUFDLFdBQVc7UUFDbkMsU0FBUyxDQUFDLENBQUMsSUFBSSxJQUFJO1FBRW5CLElBQUksQ0FBQyxVQUFVLENBQUMsUUFBUSxHQUFHLHdCQUFVLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxVQUFVLENBQUMsUUFBUSxFQUFFLHdCQUFVLENBQUMsS0FBSyxDQUFDLFNBQVMsQ0FBQyxFQUFFLGtCQUFJLENBQUMsU0FBUyxHQUFHLENBQUMsQ0FBQyxDQUFDO0lBQzFIO0lBRVEsVUFBVTtRQUVkLDRCQUEyQjtRQUMzQixJQUFJLFNBQVMsR0FBRTtTQUFDLHFCQUFPLENBQUMsK0JBQWEsQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDLFFBQVEsRUFBQyxDQUFDLEVBQUMsRUFBRSxJQUFJLENBQUMsU0FBUyxDQUFDO1FBRWpGLE9BQU8sQ0FBQyxHQUFHLENBQUMsU0FBUyxDQUFDLE1BQU0sQ0FBQztRQUU3QixJQUFJLFNBQVMsQ0FBQyxNQUFNLEdBQUcsQ0FBQyxFQUN4QjtZQUNJLDBDQUF5QztZQUN6QyxJQUFJLE9BQU8sR0FBRyxLQUFLO1lBRW5CLEtBQUksSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxTQUFTLENBQUMsTUFBTSxFQUFFLENBQUMsRUFBRSxFQUN4QztnQkFDSSxJQUFJLFFBQVEsR0FBRyxxQkFBTyxDQUFDLGNBQWMsQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDLFFBQVEsRUFBRSxTQUFTLENBQUMsQ0FBQyxDQUFDLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxDQUFDLFNBQVM7Z0JBRXpHLElBQUksUUFBUSxHQUFHLE9BQU8sRUFDdEI7b0JBQ0ksSUFBSSxDQUFDLE1BQU0sR0FBRyxTQUFTLENBQUMsQ0FBQyxDQUFDLENBQUMsU0FBUztnQkFDeEM7WUFDSjtRQUNKO2FBRUE7WUFDSSx5QkFBd0I7WUFDeEIsSUFBSSxDQUFDLE1BQU0sR0FBRyxJQUFJO1FBQ3RCO0lBQ0o7Q0FDSjtBQTNFQSx5QkEyRUEiLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbIlR1cnJldC50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdfQ==","ScriptHash":"f4d1b31d1f0c44f56219166838f41c05","Specifier":"@assets/Experience/tower-of-time/Scripts/Turret","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/Turret.Turret","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/Turret.Turret","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.11.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"turretArm","Name":"turretArm","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Turret
+    Arm","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"turretHead","Name":"turretHead","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Turret
+    Head","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null}],"SupportedUiEvents":"None","DisplayName":"Turret","name":"Turret","hideFlags":"NotEditable"}'

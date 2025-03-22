@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2628458827009331047}
   - component: {fileID: 4383658642180803103}
   - component: {fileID: 4757512795200839998}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
     PropKey: rb
     BasePath: rb
   _script: {fileID: 4458252877524076426, guid: 725bb7be805811642acfbcb3d4032de0, type: 3}
-  _scriptAssetHash: 1f117f87d87e217160c87c47e80c81ae
+  _scriptAssetHash: 9d82f7ad8c74cce42bba895159755553
   UiEventForwarders: []
 --- !u!54 &2628458827009331047
 Rigidbody:
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 748326172196490579}
   - component: {fileID: 4297937849355283973}
   - component: {fileID: 5174341934631986668}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: Shadow (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,6 +331,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: 13acdf2bd4a273d418602e6f5c4b26ba,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: -7640558969779515294, guid: 13acdf2bd4a273d418602e6f5c4b26ba,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: -7146521406498821007, guid: 13acdf2bd4a273d418602e6f5c4b26ba,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: -5477749408508380018, guid: 13acdf2bd4a273d418602e6f5c4b26ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -366,10 +381,25 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5978a59df8903264094a942b0ad71555, type: 2}
+    - target: {fileID: -516098083770646512, guid: 13acdf2bd4a273d418602e6f5c4b26ba,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 13acdf2bd4a273d418602e6f5c4b26ba,
         type: 3}
       propertyPath: m_Name
       value: Enemy_Worm
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 13acdf2bd4a273d418602e6f5c4b26ba,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 13acdf2bd4a273d418602e6f5c4b26ba,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

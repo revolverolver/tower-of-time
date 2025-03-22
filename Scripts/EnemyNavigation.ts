@@ -9,7 +9,7 @@ export default class EnemyNavigation extends MonoBehaviour {
 
     private target: Transform;
 
-    private speed: float = 2.0;
+    private speed: float = 1.8;
     private turnSpeed: float = 3.0;
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer6");
