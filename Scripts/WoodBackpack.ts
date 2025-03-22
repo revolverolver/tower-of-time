@@ -127,7 +127,7 @@ export default class WoodBackpack extends MonoBehaviour {
     private SendWoodPiece() : void
     {
         // Send piece from top of backpack
-        console.log(this.slots[WoodBackpack.woodAmount - 1].GetChild(0).name);
+        //console.log(this.slots[WoodBackpack.woodAmount - 1].GetChild(0).name);
 
         let woodPiece = this.slots[WoodBackpack.woodAmount - 1].GetChild(0);
         let wood = woodPiece.GetComponent<WoodPiece>();

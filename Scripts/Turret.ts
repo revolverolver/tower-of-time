@@ -1,5 +1,5 @@
 
-import { Animator, AudioSource, Collider, LayerMask, MonoBehaviour, Physics, Quaternion, Random, Time, Transform, Vector3, WaitForSeconds } from "UnityEngine";
+import { Animator, AudioClip, AudioSource, Collider, LayerMask, MonoBehaviour, Physics, Quaternion, Random, Time, Transform, Vector3, WaitForSeconds } from "UnityEngine";
 import EnemyDamage from "./EnemyDamage";
 export default class Turret extends MonoBehaviour {
 
@@ -7,23 +7,28 @@ export default class Turret extends MonoBehaviour {
     @SerializeField private turretArm: Transform;
     @SerializeField private turretHead: Transform;
     @SerializeField private animator: Animator;
+    @SerializeField private headAnimator: Animator;
     @SerializeField private source: AudioSource;
+    @SerializeField private audioClips: AudioClip[];
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer3"); 
 
-    private t: float;
     private fireRate: float = 0.5;
     private damage: int = 1;
-
     private shootSide: int = 0;
+
+    private isActive: bool;
     
     //Called when script instance is loaded
     private Awake() : void {}
 
     //Start is called on the frame when a script is enabled just 
     //before any of the Update methods are called the first time.
-    private Start() : void 
+    private OnEnable() : void 
     {
+        //this.animator.Play("Popup");
+        this.source.clip = this.audioClips[0];
+
         // Start shooting coroutine
         this.StartCoroutine(this.Shooting());
     }
@@ -31,12 +36,21 @@ export default class Turret extends MonoBehaviour {
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
     {
+        if (!this.isActive)
+            return;
+
         this.FindTarget();
         this.AimAtTarget();
     }
 
     *Shooting()
     {
+        // Wait for build animation to finish
+        yield new WaitForSeconds(0.6);
+        this.animator.enabled = false;
+        this.isActive = true;
+        this.source.clip = this.audioClips[1];
+
         while (true)
         {
             // Wait
@@ -49,7 +63,11 @@ export default class Turret extends MonoBehaviour {
                 enemy.TakeDamage(this.damage);
 
                 // Play animation
-                this.animator.SetInteger("State", this.shootSide);
+                if (!this.headAnimator.isActiveAndEnabled)
+                    this.headAnimator.enabled = true;
+
+                let animationName = (this.shootSide == 0) ? "Shoot_Right" : "Shoot_Left";
+                this.headAnimator.Play(animationName, -1, 0);
 
                 // Change side
                 this.shootSide = (this.shootSide == 0) ? 1 : 0;
