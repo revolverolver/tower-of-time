@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3244213123610673421}
   - component: {fileID: 4409146405302643625}
   - component: {fileID: 634491133422707631}
+  - component: {fileID: 4076310110140147517}
   - component: {fileID: 2628458827009331047}
   - component: {fileID: 4383658642180803103}
   - component: {fileID: 4757512795200839998}
@@ -113,6 +114,22 @@ MonoBehaviour:
     BasePath: rb
   _script: {fileID: 4458252877524076426, guid: 725bb7be805811642acfbcb3d4032de0, type: 3}
   _scriptAssetHash: 9d82f7ad8c74cce42bba895159755553
+  UiEventForwarders: []
+--- !u!114 &4076310110140147517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090685831524433984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858dc640ae684bacb8622d5d44eb4ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedProperties: []
+  _script: {fileID: 4458252877524076426, guid: 3b79ec6c5283840459fa7dee871120ea, type: 3}
+  _scriptAssetHash: e296b6433ccaea19f5aef3e16477a9ad
   UiEventForwarders: []
 --- !u!54 &2628458827009331047
 Rigidbody:

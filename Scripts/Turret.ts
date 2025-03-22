@@ -1,25 +1,64 @@
 
-import { Collider, LayerMask, MonoBehaviour, Physics, Quaternion, Time, Transform, Vector3 } from "UnityEngine";
+import { Animator, AudioSource, Collider, LayerMask, MonoBehaviour, Physics, Quaternion, Random, Time, Transform, Vector3, WaitForSeconds } from "UnityEngine";
+import EnemyDamage from "./EnemyDamage";
 export default class Turret extends MonoBehaviour {
 
     private target: Transform;
     @SerializeField private turretArm: Transform;
     @SerializeField private turretHead: Transform;
+    @SerializeField private animator: Animator;
+    @SerializeField private source: AudioSource;
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer3"); 
+
+    private t: float;
+    private fireRate: float = 0.5;
+    private damage: int = 1;
+
+    private shootSide: int = 0;
     
     //Called when script instance is loaded
     private Awake() : void {}
 
     //Start is called on the frame when a script is enabled just 
     //before any of the Update methods are called the first time.
-    private Start() : void {}
+    private Start() : void 
+    {
+        // Start shooting coroutine
+        this.StartCoroutine(this.Shooting());
+    }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
     {
         this.FindTarget();
         this.AimAtTarget();
+    }
+
+    *Shooting()
+    {
+        while (true)
+        {
+            // Wait
+            yield new WaitForSeconds(this.fireRate);
+
+            // Shoot if target is available
+            if (this.target != null)
+            {
+                let enemy = this.target.GetComponent<EnemyDamage>();
+                enemy.TakeDamage(this.damage);
+
+                // Play animation
+                this.animator.SetInteger("State", this.shootSide);
+
+                // Change side
+                this.shootSide = (this.shootSide == 0) ? 1 : 0;
+
+                // Play sound
+                this.source.pitch = Random.Range(0.5, 0.55);
+                this.source.Play();
+            }
+        }
     }
 
     private AimAtTarget() : void 
@@ -52,11 +91,8 @@ export default class Turret extends MonoBehaviour {
         // Find enemies within reach
         let colliders = Physics.OverlapSphere(this.transform.position, 5, this.layerMask);
 
-        console.log(colliders.length);
-
         if (colliders.length > 0)
         {
-            //let tempTarget = colliders[0].transform;
             let closest = 100.0;
 
             for(let i = 0; i < colliders.length; i++)
