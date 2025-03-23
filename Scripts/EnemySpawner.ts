@@ -32,7 +32,7 @@ export default class EnemySpawner extends MonoBehaviour {
         while(true)
         {
             // Wait
-            let freq = (RoundManager.swarmRound) ? EnemySpawner.spawnFrequenzy / 1.5 : EnemySpawner.spawnFrequenzy; 
+            let freq = (RoundManager.swarmRound) ? EnemySpawner.spawnFrequenzy / 2.0 : EnemySpawner.spawnFrequenzy; 
             yield new WaitForSeconds(freq);
 
             if (!EnemySpawner.isSpawning)
@@ -43,7 +43,7 @@ export default class EnemySpawner extends MonoBehaviour {
             {
                 // Spawn a swarm to start the round
                 let c = 10;
-                c += RoundManager.round;
+                c += RoundManager.round * 2;
 
                 while (c > 0)
                 {

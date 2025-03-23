@@ -28,7 +28,7 @@ export default class WoodBackpack extends MonoBehaviour {
 
     private isPlaying: bool;
 
-    private sendTime: float = 0.1;
+    private sendTime: float = 0.06;
     private woodTimer: float = this.sendTime;
     
     //Called when script instance is loaded
