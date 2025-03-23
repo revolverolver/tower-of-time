@@ -2,7 +2,7 @@
 import { MonoBehaviour, Object } from "UnityEngine";
 export default class EnemyDamage extends MonoBehaviour {
 
-    private health: int = 5;
+    private health: int = 2;
     
     //Called when script instance is loaded
     private Awake() : void {}

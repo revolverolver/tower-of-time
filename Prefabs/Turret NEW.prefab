@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736521786027567755}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.57, y: 0.05, z: -1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1137,7 +1137,7 @@ MonoBehaviour:
     PropKey: audioClips.[1]
     BasePath: audioClips_D1
   _script: {fileID: 4458252877524076426, guid: 935177760aa589849a16a0826a3e8a9b, type: 3}
-  _scriptAssetHash: ad38edf2f08dbbbcb472a6b26f7a960a
+  _scriptAssetHash: 4ad70362d7ff541b19c08ac8ed74e4ed
   UiEventForwarders: []
 --- !u!95 &329064779705234082
 Animator:
@@ -1181,7 +1181,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 15
+  MaxDistance: 18
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0

@@ -73,7 +73,7 @@ export default class Turret extends MonoBehaviour {
                 this.shootSide = (this.shootSide == 0) ? 1 : 0;
 
                 // Play sound
-                this.source.pitch = Random.Range(0.5, 0.55);
+                this.source.pitch = Random.Range(0.5, 0.6);
                 this.source.Play();
             }
         }
