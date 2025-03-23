@@ -20,7 +20,7 @@ export default class TimeManager extends MonoBehaviour {
 
     private roundTimeLeft: float;
     
-    private isCounting: bool;
+    public static isCounting: bool;
 
     //Called when script instance is loaded
     private Awake() : void {}
@@ -36,7 +36,7 @@ export default class TimeManager extends MonoBehaviour {
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
     {
-        if (this.isCounting)
+        if (TimeManager.isCounting)
         {
             this.CountDownRound();
         }
@@ -57,7 +57,7 @@ export default class TimeManager extends MonoBehaviour {
         // When count is over
         if (this.roundTimeLeft < 0.1)
         {
-            this.isCounting = false;
+            TimeManager.isCounting = false;
             this.inGameTimeText.text = "";
 
             // Pause spawning enemies
@@ -87,7 +87,7 @@ export default class TimeManager extends MonoBehaviour {
         let roundTime = sec * 10;
 
         this.roundTimeLeft = roundTime;
-        this.isCounting = true;
+        TimeManager.isCounting = true;
     }
 
     public ShowRoundTime(degrees: float) : void

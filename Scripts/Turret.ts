@@ -14,7 +14,7 @@ export default class Turret extends MonoBehaviour {
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer3"); 
 
-    private fireRate: float = 0.7;
+    private fireRate: float = 1.0;
     private damage: int = 2;
     private shootSide: int = 0;
 

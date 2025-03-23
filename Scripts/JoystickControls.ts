@@ -5,6 +5,7 @@ import { GeniesAvatar, GeniesAvatarsSdk } from 'Genies.Avatars.Sdk';
 import { Direction } from 'UnityEngine.UI.Scrollbar';
 import PlayerController from './PlayerController';
 import CameraMovement, {CameraState} from './CameraMovement';
+import PlayerHealth from './PlayerHealth';
 
 export default class JoystickControls extends MonoBehaviour {
     
@@ -43,6 +44,9 @@ export default class JoystickControls extends MonoBehaviour {
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
     {
+        if (!PlayerHealth.isAlive)
+            return;
+
         // Start Touch
         if (Input.GetMouseButtonDown(0))
         {

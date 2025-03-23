@@ -6,6 +6,7 @@ import GameManager, { GameState } from './GameManager';
 import TreeObject from './TreeObject';
 import WoodBackpack from './WoodBackpack';
 import CameraMovement, { CameraState } from './CameraMovement';
+import PlayerHealth from './PlayerHealth';
 
 export default class PlayerController extends MonoBehaviour {
     
@@ -68,9 +69,20 @@ export default class PlayerController extends MonoBehaviour {
         this.userAvatar.Animator.SetFloat("idle_run_walk", state);
     }
 
+    public GameOver() : void
+    {
+        this.canMove = false;
+        this.userAvatar.Animator.speed = 1;
+        this.userAvatar.Animator.SetFloat("idle_run_walk", 0);
+        this.userAvatar.Animator.SetTrigger("slip");
+    }
+
     /** Gets the direction of the joystick input */
     public GetJoystickInput(direction: Vector3, value: float)
     {
+        if (!PlayerHealth.isAlive)
+            return;
+
         if (value > 5)
         { 
             value = value * 0.012;

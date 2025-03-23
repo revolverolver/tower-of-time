@@ -1,9 +1,16 @@
 
 import { Animator, MonoBehaviour, Transform, Vector3 } from "UnityEngine";
+import EnemyNavigation from "./EnemyNavigation";
+import TimeManager from "./TimeManager";
+import EnemySpawner from "./EnemySpawner";
+import PlayerController from "./PlayerController";
 export default class PlayerHealth extends MonoBehaviour {
 
+    @SerializeField private playerController: PlayerController;
     @SerializeField private healthBar: Transform;
-    @SerializeField private animator: Animator;
+    @SerializeField private damageIndicatorAnimator: Animator;
+
+    public static isAlive: bool = true;
 
     private health: int = 10;
     
@@ -12,7 +19,10 @@ export default class PlayerHealth extends MonoBehaviour {
 
     //Start is called on the frame when a script is enabled just 
     //before any of the Update methods are called the first time.
-    private Start() : void {}
+    private Start() : void 
+    {
+        PlayerHealth.isAlive = true;
+    }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void {}
@@ -29,13 +39,28 @@ export default class PlayerHealth extends MonoBehaviour {
         this.healthBar.localScale = new Vector3(x, 1, 1);
 
         // Play damage animation
-        this.animator.enabled = true;
-        this.animator.Play("Damaged", -1, 0);
+        //this.animator.enabled = true;
+        this.damageIndicatorAnimator.Play("Damaged", -1, 0);
 
         if (this.health <= 0)
         {
             // Died and game over
-
+            this.DieAndStopGame();
         }
+    }
+
+    private DieAndStopGame() : void 
+    {
+        // Stop stuff
+        EnemyNavigation.isWalking = false;
+        TimeManager.isCounting = false;
+        EnemySpawner.isSpawning = false;
+        PlayerHealth.isAlive = false;
+
+        // Hide Controls
+
+
+        // Play fall animation
+        this.playerController.GameOver();
     }
 }
