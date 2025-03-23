@@ -8,7 +8,11 @@ export default class EnemySpawner extends MonoBehaviour {
 
     private layerMask: int = (1 << LayerMask.NameToLayer("CustomLayer2")) | (1 << LayerMask.NameToLayer("CustomLayer6"));
 
-    private spawnFrequenzy: float = 3.0;
+    public static spawnFrequenzy: float = 5.0;
+    public static killAll: bool;
+    public static isSpawning: bool;
+
+    public static startSwarming: bool;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -28,11 +32,31 @@ export default class EnemySpawner extends MonoBehaviour {
         while(true)
         {
             // Wait
-            yield new WaitForSeconds(this.spawnFrequenzy);
+            let freq = (RoundManager.swarmRound) ? EnemySpawner.spawnFrequenzy / 1.5 : EnemySpawner.spawnFrequenzy; 
+            yield new WaitForSeconds(freq);
 
-            // If it's not a spawn round, don't spawn
-            if (!RoundManager.swarmRound)
+            if (!EnemySpawner.isSpawning)
                 continue;
+
+            // Start Swarming if it's a swarm round, otherwise just spawn as usual
+            if (EnemySpawner.startSwarming)
+            {
+                // Spawn a swarm to start the round
+                let c = 10;
+                c += RoundManager.round;
+
+                while (c > 0)
+                {
+                    c--;
+
+                    let spawnPosition = this.FindSpawnPosition();
+                    Object.Instantiate(this.enemy, spawnPosition, Quaternion.identity, this.transform);
+
+                    yield new WaitForSeconds(0.1);
+                }
+
+                EnemySpawner.startSwarming = false;
+            }
 
             // Look for spawn point
             let spawnPosition = this.FindSpawnPosition();
@@ -63,6 +87,8 @@ export default class EnemySpawner extends MonoBehaviour {
             if (this.IsTooCloseToPlayer(randomPosition) == true)
                 continue;
 
+            console.log(randomPosition);
+
             // If randomPosition is not too close, check if the position is okay to spawn at, or if there is a collider in the way
             randomPosition.y = 10;
             let ray = new Ray(randomPosition, Vector3.down);
@@ -79,7 +105,7 @@ export default class EnemySpawner extends MonoBehaviour {
                 else
                 {
                     // No spawn found, try again
-                    console.log(`No Spawn was Found`);
+                    //console.log(`No Spawn was Found`);
                 }
             }
         }
@@ -97,14 +123,14 @@ export default class EnemySpawner extends MonoBehaviour {
         let zMax = playerPosition.z + 12.0;
         let zMin = playerPosition.z - 13.0;
 
-        if (randomPosition.x < xMax && randomPosition.x > xMin)
+        if (randomPosition.x < xMax && randomPosition.x > xMin && randomPosition.z < zMax && randomPosition.z > zMin)
         {
             inRange = true;
         }
-        else if (randomPosition.z < zMax && randomPosition.z > zMin)
-        {
-            inRange = true;
-        }
+        //else if (randomPosition.z < zMax && randomPosition.z > zMin)
+        //{
+        //    inRange = true;
+        //}
 
         return inRange;
     }

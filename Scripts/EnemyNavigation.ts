@@ -3,13 +3,15 @@ import { GameObject, LayerMask, MonoBehaviour, Physics, Quaternion, Ray, Raycast
 import { NavMeshAgent } from "UnityEngine.AI";
 import PlayerController from "./PlayerController";
 import CameraMovement from "./CameraMovement";
+import EnemySpawner from "./EnemySpawner";
+import RoundManager from "./RoundManager";
 export default class EnemyNavigation extends MonoBehaviour {
 
     @SerializeField rb: Rigidbody;
 
     private target: Transform;
 
-    private speed: float = 1.8;
+    private speed: float = 1.5;
     private turnSpeed: float = 3.0;
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer6");
@@ -17,6 +19,8 @@ export default class EnemyNavigation extends MonoBehaviour {
     private onWall: bool;
     private wallNormal: Vector3;
     private wallDirection: Vector3 = Vector3.zero;
+
+    public static isWalking: bool;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -31,7 +35,7 @@ export default class EnemyNavigation extends MonoBehaviour {
     //Update is called every frame, if the MonoBehaviour is enabled.
     private FixedUpdate() : void 
     {
-        if (this.target != null)
+        if (this.target != null && EnemyNavigation.isWalking)
         {
             this.WalkTowardsPlayer();
         }
@@ -92,7 +96,7 @@ export default class EnemyNavigation extends MonoBehaviour {
         this.rb.MoveRotation(Quaternion.Lerp(this.transform.rotation, look, Time.deltaTime * 5));
         
         // Walk forward
-        //this.rb.MovePosition(this.transform.forward * Time.fixedDeltaTime * this.speed);
+        this.speed = (RoundManager.swarmRound) ? 1.5 : 1.0;
         walkDirection = Vector3.op_Multiply(walkDirection, Time.fixedDeltaTime * this.speed);
         let finalPosition = Vector3.op_Addition(this.transform.position, walkDirection);
 

@@ -4,6 +4,8 @@ import { Animator, GameObject, MonoBehaviour, Time } from "UnityEngine";
 import Tower from "./Tower";
 import RoundManager from "./RoundManager";
 import CameraMovement, {CameraState} from "./CameraMovement";
+import EnemySpawner from "./EnemySpawner";
+import EnemyNavigation from "./EnemyNavigation";
 export default class TimeManager extends MonoBehaviour {
 
     @SerializeField private inGameTimeText: TextMeshProUGUI;
@@ -57,6 +59,18 @@ export default class TimeManager extends MonoBehaviour {
         {
             this.isCounting = false;
             this.inGameTimeText.text = "";
+
+            // Pause spawning enemies
+            EnemySpawner.isSpawning = false;
+            // Stop walking
+            EnemyNavigation.isWalking = false;
+
+            // Kill all enemies if swarm round
+            if (RoundManager.swarmRound)
+            {
+                RoundManager.swarmRound = false;
+                EnemySpawner.killAll = true;
+            }
 
             // Change game state
             this.gameManager.ChangeCameraState(CameraState.PAN_TO_CLOCK_TOWER);

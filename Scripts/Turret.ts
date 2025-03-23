@@ -1,6 +1,7 @@
 
 import { Animator, AudioClip, AudioSource, Collider, LayerMask, MonoBehaviour, Physics, Quaternion, Random, Time, Transform, Vector3, WaitForSeconds } from "UnityEngine";
 import EnemyDamage from "./EnemyDamage";
+import EnemyNavigation from "./EnemyNavigation";
 export default class Turret extends MonoBehaviour {
 
     private target: Transform;
@@ -13,8 +14,8 @@ export default class Turret extends MonoBehaviour {
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer3"); 
 
-    private fireRate: float = 0.5;
-    private damage: int = 1;
+    private fireRate: float = 0.7;
+    private damage: int = 2;
     private shootSide: int = 0;
 
     private isActive: bool;
@@ -57,7 +58,7 @@ export default class Turret extends MonoBehaviour {
             yield new WaitForSeconds(this.fireRate);
 
             // Shoot if target is available
-            if (this.target != null)
+            if (this.target != null && EnemyNavigation.isWalking)
             {
                 let enemy = this.target.GetComponent<EnemyDamage>();
                 enemy.TakeDamage(this.damage);
@@ -107,7 +108,7 @@ export default class Turret extends MonoBehaviour {
     private FindTarget() : void
     {
         // Find enemies within reach
-        let colliders = Physics.OverlapSphere(this.transform.position, 5, this.layerMask);
+        let colliders = Physics.OverlapSphere(this.transform.position, 4, this.layerMask);
 
         if (colliders.length > 0)
         {

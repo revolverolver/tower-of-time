@@ -4,6 +4,8 @@ import { MonoBehaviour, Vector3, Mathf, Time, Animator, Quaternion, Transform, R
 import RoundManager from "./RoundManager";
 import CameraMovement, { CameraState } from './CameraMovement';
 import TimeManager from "./TimeManager";
+import EnemySpawner from "./EnemySpawner";
+import EnemyNavigation from "./EnemyNavigation";
 
 enum ClockState {
     TAP_TO_SPIN,
@@ -20,6 +22,7 @@ export default class Tower extends MonoBehaviour {
 
     private isSpinning: bool;
     private slowingDown: bool;
+    private stoppedSpinning: bool;
 
     private t: float;
     private spinSpeed: float;
@@ -64,16 +67,36 @@ export default class Tower extends MonoBehaviour {
     {
         // Start timer
         this.isSpinning = true;
-        this.t = 4.0;
-        this.spinSpeed = 1200.0;
+        this.t = 6.0;
+        this.spinSpeed = Random.Range(1900.0, 2300.0);
         this.slowingDown = false;
+        this.stoppedSpinning = false;
 
         // Play animation
         this.animator.enabled = true;
         this.animator.Play("StartSpin", -1, 0);
 
         // Change state
-        this.state = ClockState.TAP_TO_STOP;
+        this.state = ClockState.NOT_INTERACTABLE;
+
+        // Start Slowing down
+        this.slowingDown = true;
+        this.slowSpeed = Random.Range(700, 1100);
+
+        // Start swarm if round is even
+        if (RoundManager.round % 2 == 0)
+            {
+                RoundManager.swarmRound = true;
+                EnemySpawner.startSwarming = true;
+                EnemySpawner.spawnFrequenzy = EnemySpawner.spawnFrequenzy / 2;
+
+                if (EnemySpawner.spawnFrequenzy <= 0.3)
+                    EnemySpawner.spawnFrequenzy = 0.3;
+            }
+
+            // Start spawning enemies
+            EnemySpawner.killAll = false;
+            EnemySpawner.isSpawning = true;
     }
 
     private StopSpin() : void
@@ -99,13 +122,17 @@ export default class Tower extends MonoBehaviour {
             if (this.slowingDown)
             {
                 // Slow down
-                this.spinSpeed -= Time.deltaTime * this.slowSpeed;
+                if (!this.stoppedSpinning)
+                    this.spinSpeed -= Time.deltaTime * this.slowSpeed;
+                
                 this.t -= Time.deltaTime;
 
-                if (this.spinSpeed <= 0)
+                if (this.spinSpeed <= 0 && !this.stoppedSpinning)
                 {
                     // Pointer stopped completely
                     this.spinSpeed = 0;
+                    this.t = 1.5;
+                    this.stoppedSpinning = true;
 
                     // See how much time for the round based on rotation of pointerLong
                     let euler = this.pointerLong.eulerAngles.z;
@@ -121,6 +148,9 @@ export default class Tower extends MonoBehaviour {
                     // Turn on countdown
                     let euler = this.pointerLong.eulerAngles.z;
                     this.timeManager.StartCountdown(euler);
+
+                    // Start walking
+                    EnemyNavigation.isWalking = true;
                 }
             }
         }

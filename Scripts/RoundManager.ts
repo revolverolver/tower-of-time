@@ -3,7 +3,7 @@ import { MonoBehaviour } from "UnityEngine";
 export default class RoundManager extends MonoBehaviour {
 
     public static round: int = 0;
-    public static swarmRound: bool = true;
+    public static swarmRound: bool = false;
     
     //Called when script instance is loaded
     private Awake() : void {}

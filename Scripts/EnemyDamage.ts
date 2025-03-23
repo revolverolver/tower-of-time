@@ -1,5 +1,8 @@
 
-import { MonoBehaviour, Object } from "UnityEngine";
+import { MonoBehaviour, Object, Collision } from "UnityEngine";
+import RoundManager from "./RoundManager";
+import EnemySpawner from "./EnemySpawner";
+import PlayerHealth from "./PlayerHealth";
 export default class EnemyDamage extends MonoBehaviour {
 
     private health: int = 2;
@@ -12,7 +15,14 @@ export default class EnemyDamage extends MonoBehaviour {
     private Start() : void {}
 
     //Update is called every frame, if the MonoBehaviour is enabled.
-    private Update() : void {}
+    private Update() : void 
+    {
+        if (EnemySpawner.killAll)
+        {
+            // Self destruct
+            Object.Destroy(this.gameObject);
+        }
+    }
 
     public TakeDamage(damage: int) : void
     {
@@ -22,6 +32,15 @@ export default class EnemyDamage extends MonoBehaviour {
         {
             // Die
             Object.Destroy(this.gameObject);
+        }
+    }
+
+    private OnCollisionEnter(collision: Collision) 
+    {
+        if (collision.transform.tag == "Player")
+        {
+            let player = collision.gameObject.GetComponent<PlayerHealth>();
+            player.ReceiveDamage(1);
         }
     }
 }

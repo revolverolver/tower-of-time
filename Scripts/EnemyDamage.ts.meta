@@ -8,14 +8,19 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
-  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.63","ReferencedSpecifiers":[],"Source":"\"use
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.63","ReferencedSpecifiers":["@assets/Experience/tower-of-time/Scripts/RoundManager","@assets/Experience/tower-of-time/Scripts/EnemySpawner","@assets/Experience/tower-of-time/Scripts/PlayerHealth"],"Source":"\"use
     strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
-    UnityEngine_1 = require(\"UnityEngine\");\nclass EnemyDamage extends UnityEngine_1.MonoBehaviour
-    {\n    constructor() {\n        super(...arguments);\n        this.health = 2;\n   
-    }\n    //Called when script instance is loaded\n    Awake() { }\n    //Start
-    is called on the frame when a script is enabled just \n    //before any of the
-    Update methods are called the first time.\n    Start() { }\n    //Update is called
-    every frame, if the MonoBehaviour is enabled.\n    Update() { }\n    TakeDamage(damage)
-    {\n        this.health -= damage;\n        if (this.health <= 0) {\n           
-    // Die\n            UnityEngine_1.Object.Destroy(this.gameObject);\n        }\n   
-    }\n}\nexports.default = EnemyDamage;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRW5lbXlEYW1hZ2UuanMiLCJtYXBwaW5ncyI6Ijs7QUFDQSw2Q0FBbUQ7QUFDbkQsTUFBcUIsV0FBWSxTQUFRLDJCQUFhO0lBQXREOztRQUVZLFdBQU0sR0FBUSxDQUFDO0lBc0IzQjtJQXBCSSx1Q0FBc0M7SUFDOUIsS0FBSyxLQUFXO0lBRXhCLDZEQUE0RDtJQUM1RCw2REFBNEQ7SUFDcEQsS0FBSyxLQUFXO0lBRXhCLGdFQUErRDtJQUN2RCxNQUFNLEtBQVc7SUFFbEIsVUFBVSxDQUFDLE1BQVc7UUFFekIsSUFBSSxDQUFDLE1BQU0sSUFBSSxNQUFNO1FBRXJCLElBQUksSUFBSSxDQUFDLE1BQU0sSUFBSSxDQUFDLEVBQ3BCO1lBQ0ksTUFBSztZQUNMLG9CQUFNLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxVQUFVLENBQUM7UUFDbkM7SUFDSjtDQUNKO0FBeEJBLDhCQXdCQSIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiRW5lbXlEYW1hZ2UudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXX0=","ScriptHash":"102f95edbd98aee8390c95edb93e9253","Specifier":"@assets/Experience/tower-of-time/Scripts/EnemyDamage","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/EnemyDamage.EnemyDamage","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/EnemyDamage.EnemyDamage","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.11.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[],"SupportedUiEvents":"None","DisplayName":"EnemyDamage","name":"EnemyDamage","hideFlags":"NotEditable"}'
+    UnityEngine_1 = require(\"UnityEngine\");\nconst EnemySpawner_1 = require(\"@assets/Experience/tower-of-time/Scripts/EnemySpawner\");\nclass
+    EnemyDamage extends UnityEngine_1.MonoBehaviour {\n    constructor() {\n       
+    super(...arguments);\n        this.health = 2;\n    }\n    //Called when script
+    instance is loaded\n    Awake() { }\n    //Start is called on the frame when
+    a script is enabled just \n    //before any of the Update methods are called
+    the first time.\n    Start() { }\n    //Update is called every frame, if the
+    MonoBehaviour is enabled.\n    Update() {\n        if (EnemySpawner_1.default.killAll)
+    {\n            // Self destruct\n            UnityEngine_1.Object.Destroy(this.gameObject);\n       
+    }\n    }\n    TakeDamage(damage) {\n        this.health -= damage;\n        if
+    (this.health <= 0) {\n            // Die\n            UnityEngine_1.Object.Destroy(this.gameObject);\n       
+    }\n    }\n    OnCollisionEnter(collision) {\n        if (collision.transform.tag
+    == \"Player\") {\n            let player = // @ts-ignore\n             collision.gameObject.GetComponent(\"@assets/Experience/tower-of-time/Scripts/PlayerHealth.PlayerHealth\");\n           
+    player.ReceiveDamage(1);\n        }\n    }\n}\nexports.default = EnemyDamage;\n//#
+    sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRW5lbXlEYW1hZ2UuanMiLCJtYXBwaW5ncyI6Ijs7QUFDQSw2Q0FBOEQ7QUFFOUQsd0ZBQXlDO0FBRXpDLE1BQXFCLFdBQVksU0FBUSwyQkFBYTtJQUF0RDs7UUFFWSxXQUFNLEdBQVEsQ0FBQztJQXNDM0I7SUFwQ0ksdUNBQXNDO0lBQzlCLEtBQUssS0FBVztJQUV4Qiw2REFBNEQ7SUFDNUQsNkRBQTREO0lBQ3BELEtBQUssS0FBVztJQUV4QixnRUFBK0Q7SUFDdkQsTUFBTTtRQUVWLElBQUksc0JBQVksQ0FBQyxPQUFPLEVBQ3hCO1lBQ0ksZ0JBQWU7WUFDZixvQkFBTSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDO1FBQ25DO0lBQ0o7SUFFTyxVQUFVLENBQUMsTUFBVztRQUV6QixJQUFJLENBQUMsTUFBTSxJQUFJLE1BQU07UUFFckIsSUFBSSxJQUFJLENBQUMsTUFBTSxJQUFJLENBQUMsRUFDcEI7WUFDSSxNQUFLO1lBQ0wsb0JBQU0sQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLFVBQVUsQ0FBQztRQUNuQztJQUNKO0lBRVEsZ0JBQWdCLENBQUMsU0FBb0I7UUFFekMsSUFBSSxTQUFTLENBQUMsU0FBUyxDQUFDLEdBQUcsSUFBSSxRQUFRLEVBQ3ZDO1lBQ0ksSUFBSSxNQUFNLEdBQUU7YUFBQyxTQUFTLENBQUMsVUFBVSxDQUFDLFlBQVcscUVBQWEsQ0FBSTtZQUM5RCxNQUFNLENBQUMsYUFBYSxDQUFDLENBQUMsQ0FBQztRQUMzQjtJQUNKO0NBQ0o7QUF4Q0EsOEJBd0NBIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJFbmVteURhbWFnZS50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdfQ==","ScriptHash":"da01e9cdebae496d16ed6e4dc7ea9ab6","Specifier":"@assets/Experience/tower-of-time/Scripts/EnemyDamage","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/EnemyDamage.EnemyDamage","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/EnemyDamage.EnemyDamage","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.11.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[],"SupportedUiEvents":"None","DisplayName":"EnemyDamage","name":"EnemyDamage","hideFlags":"NotEditable"}'
