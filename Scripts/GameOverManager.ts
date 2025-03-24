@@ -6,6 +6,8 @@ import { SceneManager } from "UnityEngine.SceneManagement";
 import { Button } from "UnityEngine.UI";
 import { CloudSaveStorage } from "Genies.Experience.CloudSave";
 import GameSetup from "./GameSetup";
+import EnemySpawner from "./EnemySpawner";
+import Turret from "./Turret";
 export default class GameOverManager extends MonoBehaviour {
 
     @SerializeField restartButton: Button;
@@ -13,6 +15,9 @@ export default class GameOverManager extends MonoBehaviour {
     @SerializeField setupManager: GameSetup;
     @SerializeField roundsSurvivedText: TextMeshProUGUI;
     @SerializeField yourBestText: TextMeshProUGUI;
+
+    @SerializeField spawner: EnemySpawner;
+    @SerializeField turrets: Turret[];
 
     private personalStorageKey: string = "PersonalStorageKey";
     private globalStorageKey: string = "GlobalStorageKey";
@@ -55,9 +60,15 @@ export default class GameOverManager extends MonoBehaviour {
         // Show loading screen
         console.log(`PLAY AGAIN`);
 
-        
+        // Stop coroutines
+        this.spawner.GameOver();
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        for (let i = 0; i < this.turrets.length; i++)
+        {
+            this.turrets[i].GameOver();
+        }
+
+        SceneManager.LoadScene("Game");
 
         // Restart Everything
         //this.setupManager.RestartEverything();

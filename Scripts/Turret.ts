@@ -136,4 +136,9 @@ export default class Turret extends MonoBehaviour {
             this.target = null;
         }
     }
+
+    public GameOver() : void
+    {
+        this.StopAllCoroutines();
+    }
 }

@@ -139,4 +139,9 @@ export default class EnemySpawner extends MonoBehaviour {
 
         return inRange;
     }
+
+    public GameOver() : void
+    {
+        this.StopAllCoroutines();
+    }
 }
