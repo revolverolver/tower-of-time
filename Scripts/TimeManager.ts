@@ -13,6 +13,7 @@ export default class TimeManager extends MonoBehaviour {
     @SerializeField private roundTimeText: TextMeshProUGUI;
     @SerializeField private roundObject: GameObject;
     @SerializeField private roundText: TextMeshProUGUI;
+    @SerializeField private tapToSpin: GameObject;
 
     @SerializeField private animator: Animator;
 
@@ -111,8 +112,14 @@ export default class TimeManager extends MonoBehaviour {
     {
         this.roundText.text = round.toString();
         this.roundObject.SetActive(true);
+        this.tapToSpin.SetActive(true);
 
         // Play animation
         //this.animator.Play("Round Popup", -1, 0);
+    }
+
+    public HideTapToSpin() : void
+    {
+        this.tapToSpin.SetActive(false);
     }
 }

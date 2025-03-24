@@ -2,9 +2,11 @@
 import { Animator, AudioClip, AudioSource, Collider, LayerMask, MonoBehaviour, Physics, Quaternion, Random, Time, Transform, Vector3, WaitForSeconds } from "UnityEngine";
 import EnemyDamage from "./EnemyDamage";
 import EnemyNavigation from "./EnemyNavigation";
+import Building from "./Building";
 export default class Turret extends MonoBehaviour {
 
     private target: Transform;
+    @SerializeField private building: Building;
     @SerializeField private turretArm: Transform;
     @SerializeField private turretHead: Transform;
     @SerializeField private animator: Animator;
@@ -14,7 +16,7 @@ export default class Turret extends MonoBehaviour {
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer3"); 
 
-    private fireRate: float = 0.7;
+    private fireRate: float = 0.9;
     private damage: int = 1;
     private shootSide: int = 0;
 
@@ -55,7 +57,11 @@ export default class Turret extends MonoBehaviour {
         while (true)
         {
             // Wait
-            yield new WaitForSeconds(this.fireRate);
+            let rate = this.fireRate - (0.1 * this.building.level);
+            if (rate < 0.1)
+                rate = 0.1;
+
+            yield new WaitForSeconds(rate);
 
             // Shoot if target is available
             if (this.target != null && EnemyNavigation.isWalking)

@@ -83,6 +83,9 @@ export default class Tower extends MonoBehaviour {
         this.slowingDown = true;
         this.slowSpeed = Random.Range(700, 1100);
 
+        // Tap to spin
+        this.timeManager.HideTapToSpin();
+
         // Start swarm if round is even
         if (RoundManager.round % 3 == 0)
         {

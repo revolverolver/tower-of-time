@@ -24,7 +24,7 @@ export default class GameSetup extends MonoBehaviour {
     private SetupStuff() : void
     {
         EnemyNavigation.isWalking = false;
-        Object.Instantiate(this.trees, this.worldCanvas);
+        //Object.Instantiate(this.trees, this.worldCanvas);
     }
 
     public RestartEverything() : void
