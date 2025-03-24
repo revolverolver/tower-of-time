@@ -18,12 +18,13 @@ export default class GameManager extends MonoBehaviour {
     private gameState: GameState;
 
     Awake() {
+        GameManager.Instance = this;
         //Establishes the GameManager singleton instance
-        if(GameManager.Instance == null) {
+        /*if(GameManager.Instance == null) {
             GameManager.Instance = this;
         }else{
             GameObject.Destroy(this.gameObject);
-        }
+        }*/
     }
 
     Start() {

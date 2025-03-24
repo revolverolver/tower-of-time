@@ -13,11 +13,12 @@ export default class PlayerSounds extends MonoBehaviour {
     //Called when script instance is loaded
     private Awake() : void 
     {
-        if(PlayerSounds.Instance == null) {
+        PlayerSounds.Instance = this;
+        /*if(PlayerSounds.Instance == null) {
             PlayerSounds.Instance = this;
         }else{
             Object.Destroy(this.gameObject);
-        }
+        }*/
     }
 
     //Start is called on the frame when a script is enabled just 
@@ -33,6 +34,9 @@ export default class PlayerSounds extends MonoBehaviour {
     private AdjustWalkingSound() : void
     {
         let volume = (PlayerController.movement > 0.1) ? PlayerController.movement : 0;
+
+        
+
         this.constantSource.volume = volume * 0.9;
         this.constantSource.pitch = volume;
     }

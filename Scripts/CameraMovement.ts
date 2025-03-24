@@ -36,11 +36,12 @@ export default class CameraMovement extends MonoBehaviour {
 
     //Called when script instance is loaded
     private Awake() : void {
-        if(CameraMovement.Instance == null) {
+        CameraMovement.Instance = this;
+        /*if(CameraMovement.Instance == null) {
             CameraMovement.Instance = this;
         }else{
             Object.Destroy(this.gameObject);
-        }
+        }*/
     }
 
     //Start is called on the frame when a script is enabled just 
@@ -52,6 +53,8 @@ export default class CameraMovement extends MonoBehaviour {
 
         this.cameraState = CameraState.LOADING;
         this.target = this.player;
+
+        CameraMovement.focusingOnPlayer = false;
 
         // Start position
         this.transform.position = this.camPoints[0].position;
@@ -93,12 +96,12 @@ export default class CameraMovement extends MonoBehaviour {
     {
         this.rabbit = Vector3.Lerp(this.camPoints[0].position, this.camPoints[1].position, this.t);
         this.transform.rotation = Quaternion.Lerp(this.camPoints[0].rotation, this.camPoints[1].rotation, this.t);
-        this.t += Time.deltaTime * 0.17;
+        this.t += Time.deltaTime * 0.25;
 
         // Move camera
         this.transform.position = Vector3.Lerp(this.transform.position, this.rabbit, Time.deltaTime * 6);
 
-        if (this.t > 1.3)
+        if (this.t > 1.5)
         {
             // Tell Tower to do stuff
             this.tower.NewRound();

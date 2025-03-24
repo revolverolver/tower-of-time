@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 273b366193994274cacbfd025fec5f9a
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.63","ReferencedSpecifiers":["@assets/Experience/tower-of-time/Scripts/EnemyNavigation"],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nconst EnemyNavigation_1 = require(\"@assets/Experience/tower-of-time/Scripts/EnemyNavigation\");\nclass
+    GameSetup extends UnityEngine_1.MonoBehaviour {\n    //Called when script instance
+    is loaded\n    Awake() { }\n    //Start is called on the frame when a script
+    is enabled just \n    //before any of the Update methods are called the first
+    time.\n    Start() {\n        this.SetupStuff();\n    }\n    //Update is called
+    every frame, if the MonoBehaviour is enabled.\n    Update() { }\n    SetupStuff()
+    {\n        EnemyNavigation_1.default.isWalking = false;\n        UnityEngine_1.Object.Instantiate(this.trees,
+    this.worldCanvas);\n    }\n    RestartEverything() {\n        // Destroy stuff\n       
+    // Enemies, Trees, Turrets, \n        // Reload stuff\n        // Reset static
+    values\n        // Reset other values\n        // Reset positions\n    }\n}\nexports.default
+    = GameSetup;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2FtZVNldHVwLmpzIiwibWFwcGluZ3MiOiI7O0FBQ0EsNkNBQTBFO0FBQzFFLDhGQUErQztBQUMvQyxNQUFxQixTQUFVLFNBQVEsMkJBQWE7SUFPaEQsdUNBQXNDO0lBQzlCLEtBQUssS0FBVztJQUV4Qiw2REFBNEQ7SUFDNUQsNkRBQTREO0lBQ3BELEtBQUs7UUFFVCxJQUFJLENBQUMsVUFBVSxFQUFFO0lBQ3JCO0lBRUEsZ0VBQStEO0lBQ3ZELE1BQU0sS0FBVztJQUVqQixVQUFVO1FBRWQseUJBQWUsQ0FBQyxTQUFTLEdBQUcsS0FBSztRQUNqQyxvQkFBTSxDQUFDLFdBQVcsQ0FBQyxJQUFJLENBQUMsS0FBSyxFQUFFLElBQUksQ0FBQyxXQUFXLENBQUM7SUFDcEQ7SUFFTyxpQkFBaUI7UUFFcEIsZ0JBQWU7UUFDZiw0QkFBMkI7UUFHM0IsZUFBYztRQUdkLHNCQUFxQjtRQUdyQixxQkFBb0I7UUFHcEIsa0JBQWlCO0lBRXJCO0NBQ0o7QUE1Q0EsNEJBNENBIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJHYW1lU2V0dXAudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXX0=","ScriptHash":"68b89ceadfe04cbd9ce30f65fd7712c2","Specifier":"@assets/Experience/tower-of-time/Scripts/GameSetup","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/GameSetup.GameSetup","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/GameSetup.GameSetup","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.11.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"worldCanvas","Name":"worldCanvas","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"World
+    Canvas","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"trees","Name":"trees","TypeName":"UnityEngine.GameObject","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Trees","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null}],"SupportedUiEvents":"None","DisplayName":"GameSetup","name":"GameSetup","hideFlags":"NotEditable"}'

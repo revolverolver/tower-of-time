@@ -41,6 +41,9 @@ export default class WoodBackpack extends MonoBehaviour {
         this.gameManager = CameraMovement.Instance;
         this.playerSounds = PlayerSounds.Instance;
 
+        WoodBackpack.woodAmount = 0;
+        WoodBackpack.woodFull = false;
+
         this.gameManager.OnCameraStateChange.addListener(this.CheckGameState);
     }
 

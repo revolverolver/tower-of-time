@@ -21,6 +21,11 @@ export default class EnemySpawner extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
+        EnemySpawner.spawnFrequenzy = 5.0;
+        EnemySpawner.killAll = false;
+        EnemySpawner.isSpawning = false;
+        EnemySpawner.startSwarming = false;
+        
         this.StartCoroutine(this.Spawner());
     }
 

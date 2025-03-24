@@ -31,6 +31,8 @@ export default class TimeManager extends MonoBehaviour {
     {
         this.gameManager = CameraMovement.Instance;
         this.inGameTimeText.text = "";
+
+        TimeManager.isCounting = false;
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.

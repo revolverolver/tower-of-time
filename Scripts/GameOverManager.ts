@@ -1,13 +1,16 @@
 
 import { TextMeshProUGUI } from "TMPro";
-import { MonoBehaviour } from "UnityEngine";
+import { GameObject, MonoBehaviour } from "UnityEngine";
 import RoundManager from "./RoundManager";
 import { SceneManager } from "UnityEngine.SceneManagement";
 import { Button } from "UnityEngine.UI";
 import { CloudSaveStorage } from "Genies.Experience.CloudSave";
+import GameSetup from "./GameSetup";
 export default class GameOverManager extends MonoBehaviour {
 
     @SerializeField restartButton: Button;
+    @SerializeField loadingPanel: GameObject;
+    @SerializeField setupManager: GameSetup;
     @SerializeField roundsSurvivedText: TextMeshProUGUI;
     @SerializeField yourBestText: TextMeshProUGUI;
 
@@ -29,6 +32,10 @@ export default class GameOverManager extends MonoBehaviour {
     private Start() : void 
     {
         this.restartButton.onClick.AddListener(this.PlayAgain);
+    }
+
+    private OnEnable() 
+    {
         this.SetupScores();
     }
 
@@ -45,9 +52,14 @@ export default class GameOverManager extends MonoBehaviour {
 
     private PlayAgain()
     {
+        // Show loading screen
+        console.log(`PLAY AGAIN`);
+
+        
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         // Restart Everything
-        console.log(`PLAY AGAIN`);
+        //this.setupManager.RestartEverything();
     }
 }
