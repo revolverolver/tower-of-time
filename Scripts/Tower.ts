@@ -84,19 +84,21 @@ export default class Tower extends MonoBehaviour {
         this.slowSpeed = Random.Range(700, 1100);
 
         // Start swarm if round is even
-        if (RoundManager.round % 2 == 0)
-            {
-                RoundManager.swarmRound = true;
-                EnemySpawner.startSwarming = true;
-                EnemySpawner.spawnFrequenzy = EnemySpawner.spawnFrequenzy / 2;
+        if (RoundManager.round % 3 == 0)
+        {
+            RoundManager.swarmRound = true;
+            EnemySpawner.startSwarming = true;
+        }
 
-                if (EnemySpawner.spawnFrequenzy <= 0.3)
-                    EnemySpawner.spawnFrequenzy = 0.3;
-            }
+        // Increase spawn frequenzy
+        EnemySpawner.spawnFrequenzy = EnemySpawner.spawnFrequenzy / 1.5;
 
-            // Start spawning enemies
-            EnemySpawner.killAll = false;
-            EnemySpawner.isSpawning = true;
+        if (EnemySpawner.spawnFrequenzy <= 0.1)
+            EnemySpawner.spawnFrequenzy = 0.1;
+
+        // Start spawning enemies
+        EnemySpawner.killAll = false;
+        EnemySpawner.isSpawning = true;
     }
 
     private StopSpin() : void

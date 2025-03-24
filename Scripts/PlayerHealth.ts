@@ -4,11 +4,14 @@ import EnemyNavigation from "./EnemyNavigation";
 import TimeManager from "./TimeManager";
 import EnemySpawner from "./EnemySpawner";
 import PlayerController from "./PlayerController";
+import CameraMovement, {CameraState} from "./CameraMovement";
 export default class PlayerHealth extends MonoBehaviour {
 
     @SerializeField private playerController: PlayerController;
     @SerializeField private healthBar: Transform;
     @SerializeField private damageIndicatorAnimator: Animator;
+
+    private gameManager: CameraMovement;
 
     public static isAlive: bool = true;
 
@@ -21,6 +24,7 @@ export default class PlayerHealth extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
+        this.gameManager = CameraMovement.Instance;
         PlayerHealth.isAlive = true;
     }
 
@@ -57,10 +61,10 @@ export default class PlayerHealth extends MonoBehaviour {
         EnemySpawner.isSpawning = false;
         PlayerHealth.isAlive = false;
 
-        // Hide Controls
-
-
         // Play fall animation
         this.playerController.GameOver();
+
+        // Show game over
+        this.gameManager.ChangeCameraState(CameraState.GAME_OVER);
     }
 }

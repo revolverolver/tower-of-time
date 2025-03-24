@@ -84,16 +84,16 @@ export default class CanvasController extends MonoBehaviour {
         this.scorePanel.SetActive(true);
         this.gameOverPanel.SetActive(false);
         this.loadingPanel.SetActive(false);
-        this.score = 0;
-        this.coroutine = this.StartCoroutine(this.StartScore());
+        //this.score = 0;
+        //this.coroutine = this.StartCoroutine(this.StartScore());
     }
 
     /** This will manage the canvas once the game ends. */
     private OnGameOver() {
         this.gameOverPanel.SetActive(true);
         this.loadingPanel.SetActive(false);
-        this.CheckHighScore(this.personalStorage, this.personalHighScoreText, this.personalString);
-        this.CheckHighScore(this.globalStorage, this.globalHighScoreText, this.globalString);
+        //this.CheckHighScore(this.personalStorage, this.personalHighScoreText, this.personalString);
+        //this.CheckHighScore(this.globalStorage, this.globalHighScoreText, this.globalString);
         if(this.coroutine) {
             this.StopCoroutine(this.coroutine);
         }

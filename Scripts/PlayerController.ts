@@ -62,6 +62,10 @@ export default class PlayerController extends MonoBehaviour {
             this.MovePlayer();
             this.RotatePlayer();
         }
+        else
+        {
+            this.rb.velocity = Vector3.zero;
+        }
     }
     
     public ChangeAnimatorState(state: float)
