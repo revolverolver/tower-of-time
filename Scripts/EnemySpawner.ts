@@ -84,7 +84,7 @@ export default class EnemySpawner extends MonoBehaviour {
             count--;
 
             // Make a random position in the world based on the size of the island
-            let xRandom = Random.Range(-15.0, 15.0);
+            let xRandom = Random.Range(-15.0, 18.0);
             let zRandom = Random.Range(-17.0, 10.0);
             let randomPosition = new Vector3(xRandom, 0, zRandom);
 

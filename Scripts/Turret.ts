@@ -16,7 +16,7 @@ export default class Turret extends MonoBehaviour {
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer3"); 
 
-    private fireRate: float = 0.9;
+    private fireRate: float = 0.8;
     private damage: int = 1;
     private shootSide: int = 0;
 
@@ -57,7 +57,7 @@ export default class Turret extends MonoBehaviour {
         while (true)
         {
             // Wait
-            let rate = this.fireRate - (0.1 * this.building.level);
+            let rate = this.fireRate - (0.15 * this.building.level);
             if (rate < 0.1)
                 rate = 0.1;
 

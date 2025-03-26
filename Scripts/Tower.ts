@@ -6,6 +6,7 @@ import CameraMovement, { CameraState } from './CameraMovement';
 import TimeManager from "./TimeManager";
 import EnemySpawner from "./EnemySpawner";
 import EnemyNavigation from "./EnemyNavigation";
+import { TextMeshProUGUI } from "TMPro";
 
 enum ClockState {
     TAP_TO_SPIN,
@@ -19,6 +20,7 @@ export default class Tower extends MonoBehaviour {
     @SerializeField private pointerLong: Transform;
     @SerializeField private pointerShort: Transform;
     @SerializeField private animator: Animator;
+    @SerializeField private roundText: TextMeshProUGUI;
 
     private isSpinning: bool;
     private slowingDown: bool;
@@ -94,7 +96,7 @@ export default class Tower extends MonoBehaviour {
         }
 
         // Increase spawn frequenzy
-        EnemySpawner.spawnFrequenzy = EnemySpawner.spawnFrequenzy / 1.5;
+        EnemySpawner.spawnFrequenzy = EnemySpawner.spawnFrequenzy / 1.35;
 
         if (EnemySpawner.spawnFrequenzy <= 0.1)
             EnemySpawner.spawnFrequenzy = 0.1;
@@ -168,6 +170,7 @@ export default class Tower extends MonoBehaviour {
         let round = RoundManager.round;
         round++;
         RoundManager.round = round;
+        this.roundText.text = round.toString();
 
         // Move pointer one step
         let deg = (round == 1) ? 30.0 : 60.0;
