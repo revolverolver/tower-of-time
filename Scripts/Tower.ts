@@ -170,7 +170,7 @@ export default class Tower extends MonoBehaviour {
         let round = RoundManager.round;
         round++;
         RoundManager.round = round;
-        this.roundText.text = round.toString();
+        //this.roundText.text = round.toString();
 
         // Move pointer one step
         let deg = (round == 1) ? 30.0 : 60.0;
