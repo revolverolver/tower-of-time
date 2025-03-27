@@ -32,7 +32,7 @@ export default class PlayerSounds extends MonoBehaviour {
     private Update() : void 
     {
         this.AdjustWalkingSound();
-        //this.AdjustEnemyVolume();
+        this.AdjustEnemyVolume();
     }
 
     private AdjustWalkingSound() : void
