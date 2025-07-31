@@ -1,5 +1,5 @@
 
-import { Animator, GameObject, MonoBehaviour, Object, Quaternion, Time, Vector2, Vector3 } from "UnityEngine";
+import { Animator, Collider, GameObject, MonoBehaviour, Object, Quaternion, Time, Vector2, Vector3 } from "UnityEngine";
 import { QualityMode } from "UnityEngine.LightProbeProxyVolume";
 import WoodBackpack from './WoodBackpack';
 import PlayerSounds from "./PlayerSounds";
@@ -9,6 +9,8 @@ export default class TreeObject extends MonoBehaviour {
 
     @SerializeField animator: Animator;
     @SerializeField wood: GameObject;
+    @SerializeField treeMesh: GameObject;
+    @SerializeField shadow: GameObject;
 
     private gameManager: CameraMovement;
 
@@ -17,6 +19,7 @@ export default class TreeObject extends MonoBehaviour {
 
     private isChopping: bool;
     private isPlaying: bool;
+    private isAlive: bool = true;
 
     private playerSounds: PlayerSounds;
     
@@ -105,7 +108,13 @@ export default class TreeObject extends MonoBehaviour {
 
         if (this.woodLeft <= 0)
         {
-            Object.Destroy(this.gameObject);
+            // Chopped the whole tree
+            this.StopChopping();
+            this.isAlive = false;
+
+            this.treeMesh.SetActive(false);
+            this.shadow.SetActive(false);
+            this.gameObject.GetComponent<Collider>().enabled = false;
         }
     }
 }

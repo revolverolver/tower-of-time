@@ -114,7 +114,7 @@ MonoBehaviour:
     PropKey: rb
     BasePath: rb
   _script: {fileID: 4458252877524076426, guid: 725bb7be805811642acfbcb3d4032de0, type: 3}
-  _scriptAssetHash: 582ac9bd08ba5e1979c918ea15fb38f5
+  _scriptAssetHash: fee6bcfe825f0acf2d667b0ff680c658
   UiEventForwarders: []
 --- !u!114 &4076310110140147517
 MonoBehaviour:
@@ -128,9 +128,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858dc640ae684bacb8622d5d44eb4ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serializedProperties: []
+  _serializedProperties:
+  - IntValue: 0
+    LongValue: 0
+    DoubleValue: 0
+    FloatValue: 0
+    BoolValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    UnityObjectReference: {fileID: 423238798690240520, guid: c90880731f73ad844ba84191c8370a67,
+      type: 3}
+    LayerMaskValue:
+      serializedVersion: 2
+      m_Bits: 0
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    RectValue:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    AnimationCurveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    BoundsValue:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
+    Vector2IntValue: {x: 0, y: 0}
+    Vector3IntValue: {x: 0, y: 0, z: 0}
+    RectIntValue:
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    BoundsIntValue:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+    GeniesBehaviourReference: {fileID: 0}
+    GeniesSOReference: {fileID: 0}
+    SerializedCsObjectValue: 
+    CsObjectReferences: []
+    TypeName: UnityEngine.GameObject
+    ArrayLength: 0
+    IsArray: 0
+    ArrayDimension: -1
+    IsPrefabOverride: 0
+    PropType: 4
+    PropKey: particles
+    BasePath: particles
   _script: {fileID: 4458252877524076426, guid: 3b79ec6c5283840459fa7dee871120ea, type: 3}
-  _scriptAssetHash: da01e9cdebae496d16ed6e4dc7ea9ab6
+  _scriptAssetHash: adafa7ef692c88427191f9a7249d84ca
   UiEventForwarders: []
 --- !u!54 &2628458827009331047
 Rigidbody:
@@ -385,6 +438,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 27
       objectReference: {fileID: 0}
+    - target: {fileID: -6093592463355912122, guid: 13acdf2bd4a273d418602e6f5c4b26ba,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eec960dba147ad84485c35c9ec5c2d3a, type: 2}
     - target: {fileID: -5477749408508380018, guid: 13acdf2bd4a273d418602e6f5c4b26ba,
         type: 3}
       propertyPath: m_LocalPosition.x

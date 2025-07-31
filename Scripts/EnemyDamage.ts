@@ -1,10 +1,11 @@
 
-import { MonoBehaviour, Object, Collision } from "UnityEngine";
+import { MonoBehaviour, Object, Collision, GameObject, Quaternion, Transform, Vector3 } from "UnityEngine";
 import RoundManager from "./RoundManager";
 import EnemySpawner from "./EnemySpawner";
 import PlayerHealth from "./PlayerHealth";
 export default class EnemyDamage extends MonoBehaviour {
 
+    @SerializeField private particles: GameObject;
     private health: int = 2;
     
     //Called when script instance is loaded
@@ -31,6 +32,12 @@ export default class EnemyDamage extends MonoBehaviour {
         if (this.health <= 0)
         {
             // Die
+            // Spawn particles
+            let offset = Vector3.op_Addition(this.transform.position, new Vector3(0, 0.1, 0));
+            let rot = Quaternion.Euler(-90, 0, 0);
+            Object.Instantiate(this.particles, offset, rot);
+
+            // Destroy
             Object.Destroy(this.gameObject);
         }
     }

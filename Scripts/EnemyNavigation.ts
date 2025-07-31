@@ -1,18 +1,16 @@
 
-import { GameObject, LayerMask, MonoBehaviour, Physics, Quaternion, Ray, RaycastHit, Rigidbody, Time, Transform, Vector2, Vector3 } from "UnityEngine";
-import { NavMeshAgent } from "UnityEngine.AI";
-import PlayerController from "./PlayerController";
-import CameraMovement from "./CameraMovement";
-import EnemySpawner from "./EnemySpawner";
+import { Color, Debug, GameObject, LayerMask, MonoBehaviour, Physics, Quaternion, Ray, RaycastHit, Rigidbody, Time, Transform, Vector3 } from "UnityEngine";
 import RoundManager from "./RoundManager";
+
 export default class EnemyNavigation extends MonoBehaviour {
 
+    // public Rigidbody rb;
     @SerializeField rb: Rigidbody;
 
+    // private Transform target;
     private target: Transform;
 
     private speed: float = 1.5;
-    private turnSpeed: float = 3.0;
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer6");
 
@@ -21,9 +19,7 @@ export default class EnemyNavigation extends MonoBehaviour {
     private wallDirection: Vector3 = Vector3.zero;
 
     public static isWalking: bool;
-    
-    //Called when script instance is loaded
-    private Awake() : void {}
+    //Debug.DrawRay(this.transform.position, playerDirection.normalized, Color.white);
 
     //Start is called on the frame when a script is enabled just 
     //before any of the Update methods are called the first time.
@@ -48,11 +44,15 @@ export default class EnemyNavigation extends MonoBehaviour {
 
         // Shoot ray towards player
         let playerDirection = Vector3.op_Subtraction(this.target.position, this.transform.position);
+        //let playerDirection = this.target.position - this.transform.position;
         let ray = new Ray(this.transform.position, playerDirection.normalized);
         let hit = $ref<RaycastHit>();
 
+        let rayDistance = (this.onWall) ? 2.0 : 1.0;
+        //Debug.DrawRay(this.transform.position, Vector3.op_Multiply(playerDirection.normalized, rayDistance), Color.white);
+        
         // Is the ray hitting a nearby wall?
-        if (Physics.Raycast(ray, hit, 1.0, this.layerMask))
+        if (Physics.Raycast(ray, hit, rayDistance, this.layerMask))
         {
             if (!this.onWall)
             {
