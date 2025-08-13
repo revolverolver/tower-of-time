@@ -1,0 +1,51 @@
+fileFormatVersion: 2
+guid: 0022f51d82b21754599d70a0460e5236
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.63","ReferencedSpecifiers":["@assets/Experience/tower-of-time/Scripts/UpgradeItem","@assets/Experience/tower-of-time/Scripts/CameraMovement"],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nconst UpgradeItem_1 = require(\"@assets/Experience/tower-of-time/Scripts/UpgradeItem\");\nconst
+    CameraMovement_1 = require(\"@assets/Experience/tower-of-time/Scripts/CameraMovement\");\nclass
+    UpgradeMenu extends UnityEngine_1.MonoBehaviour {\n    //Called when script instance
+    is loaded\n    Awake() {\n        UpgradeMenu.Instance = this;\n    }\n    //Start
+    is called on the frame when a script is enabled just \n    //before any of the
+    Update methods are called the first time.\n    Start() {\n        this.gameManager
+    = CameraMovement_1.default.Instance;\n        // Setup upgrade items\n       
+    //this.SetupUpgradeItems();\n    }\n    OnEnable() {\n        // Setup upgrade
+    items\n        this.SetupUpgradeItems();\n        this.chooseText.SetActive(true);\n   
+    }\n    //Update is called every frame, if the MonoBehaviour is enabled.\n   
+    Update() { }\n    SetupUpgradeItems() {\n        // true if one of the options
+    is rare or legendary\n        let hasRare = false;\n        // Cycle through
+    the upgrade options, and set up them one by one\n        for (let i = 0; i <
+    this.upgrades.length; i++) {\n            // First determine rarity of upgrade\n           
+    let randomNumber = // @ts-ignore\n             UnityEngine_1.Random.Range_EBB7509C_H1075CF37(0.0,
+    100.0);\n            let rarity = (hasRare && randomNumber > 84.9) ? UpgradeItem_1.Rarity.UNCOMMON
+    : this.UpgradeRarity(randomNumber);\n            if (rarity == UpgradeItem_1.Rarity.RARE
+    && !hasRare || rarity == UpgradeItem_1.Rarity.LEGENDARY && !hasRare)\n               
+    hasRare = true;\n            // Set rarity\n            this.upgrades[i].rarity
+    = rarity;\n            // Setup upgrade item\n            this.upgrades[i].SetupUpgradeItem();\n       
+    }\n    }\n    // number is a value between 0 and 100\n    UpgradeRarity(randomNumber)
+    {\n        let rarity = UpgradeItem_1.Rarity.COMMON;\n        if (randomNumber
+    < 50.0)\n            rarity = UpgradeItem_1.Rarity.COMMON;\n        else if (randomNumber
+    < 85.0)\n            rarity = UpgradeItem_1.Rarity.UNCOMMON;\n        else if
+    (randomNumber < 95.0)\n            rarity = UpgradeItem_1.Rarity.RARE;\n       
+    else\n            rarity = UpgradeItem_1.Rarity.LEGENDARY;\n        return rarity;\n   
+    }\n    PlaySelectedUpgradeAnimation(option) {\n        console.log(\"Play animation\");\n       
+    // Disable \"choose\" text\n        this.chooseText.SetActive(false);\n       
+    // Play animation\n        switch (option) {\n            case 1:\n               
+    // @ts-ignore\n                this.animator.Play_EBB7509C_H78681CF5((\"First_Option\"),
+    -1, (0));\n                break;\n            case 2:\n                // @ts-ignore\n               
+    this.animator.Play_EBB7509C_H78681CF5((\"Second_Option\"), -1, (0));\n               
+    break;\n            case 3:\n                // @ts-ignore\n                this.animator.Play_EBB7509C_H78681CF5((\"Third_Option\"),
+    -1, (0));\n                break;\n        }\n        // Wait for animation,
+    then pan to tower\n        this.StartCoroutine(this.AfterUpgrade());\n    }\n   
+    *AfterUpgrade() {\n        yield new UnityEngine_1.WaitForSeconds(1.3);\n       
+    this.gameManager.ChangeCameraState(CameraMovement_1.CameraState.PAN_TO_CLOCK_TOWER);\n   
+    }\n}\nexports.default = UpgradeMenu;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVXBncmFkZU1lbnUuanMiLCJtYXBwaW5ncyI6Ijs7QUFDQSw2Q0FBMkc7QUFDM0csc0ZBQW1EO0FBQ25ELDRGQUE4RDtBQUU5RCxNQUFxQixXQUFZLFNBQVEsMkJBQWE7SUFXbEQsdUNBQXNDO0lBQzlCLEtBQUs7UUFFVCxXQUFXLENBQUMsUUFBUSxHQUFHLElBQUk7SUFDL0I7SUFFQSw2REFBNEQ7SUFDNUQsNkRBQTREO0lBQ3BELEtBQUs7UUFFVCxJQUFJLENBQUMsV0FBVyxHQUFHLHdCQUFjLENBQUMsUUFBUTtRQUUxQyxzQkFBcUI7UUFDckIsMkJBQTBCO0lBQzlCO0lBRVEsUUFBUTtRQUVaLHNCQUFxQjtRQUNyQixJQUFJLENBQUMsaUJBQWlCLEVBQUU7UUFFeEIsSUFBSSxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDO0lBQ25DO0lBRUEsZ0VBQStEO0lBQ3ZELE1BQU0sS0FBVztJQUVqQixpQkFBaUI7UUFFckIsa0RBQWlEO1FBQ2pELElBQUksT0FBTyxHQUFHLEtBQUs7UUFFbkIsZ0VBQStEO1FBQy9ELEtBQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxJQUFJLENBQUMsUUFBUSxDQUFDLE1BQU0sRUFBRSxDQUFDLEVBQUUsRUFDN0M7WUFDSSxvQ0FBbUM7WUFDbkMsSUFBSSxZQUFZLEdBQUU7YUFBQyxvQkFBTSxDQUFDLHdCQUFLLENBQUMsR0FBRyxFQUFFLEtBQUssQ0FBQztZQUMzQyxJQUFJLE1BQU0sR0FBRyxDQUFDLE9BQU8sSUFBSSxZQUFZLEdBQUcsSUFBSSxDQUFDLENBQUMsQ0FBQyxDQUFDLG9CQUFNLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsYUFBYSxDQUFDLFlBQVksQ0FBQztZQUVsRyxJQUFJLE1BQU0sSUFBSSxvQkFBTSxDQUFDLElBQUksSUFBSSxDQUFDLE9BQU8sSUFBSSxNQUFNLElBQUksb0JBQU0sQ0FBQyxTQUFTLElBQUksQ0FBQyxPQUFPO2dCQUMzRSxPQUFPLEdBQUcsSUFBSTtZQUVsQixhQUFZO1lBQ1osSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsQ0FBQyxNQUFNLEdBQUcsTUFBTTtZQUVoQyxxQkFBb0I7WUFDcEIsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsQ0FBQyxnQkFBZ0IsRUFBRTtRQUN2QztJQUNKO0lBRUEsc0NBQXFDO0lBQzdCLGFBQWEsQ0FBQyxZQUFtQjtRQUVyQyxJQUFJLE1BQU0sR0FBRyxvQkFBTSxDQUFDLE1BQU07UUFFMUIsSUFBSSxZQUFZLEdBQUcsSUFBSTtZQUNuQixNQUFNLEdBQUcsb0JBQU0sQ0FBQyxNQUFNO2FBQ3JCLElBQUksWUFBWSxHQUFHLElBQUk7WUFDeEIsTUFBTSxHQUFHLG9CQUFNLENBQUMsUUFBUTthQUN2QixJQUFJLFlBQVksR0FBRyxJQUFJO1lBQ3hCLE1BQU0sR0FBRyxvQkFBTSxDQUFDLElBQUk7O1lBRXBCLE1BQU0sR0FBRyxvQkFBTSxDQUFDLFNBQVM7UUFFN0IsT0FBTyxNQUFNO0lBQ2pCO0lBRU8sNEJBQTRCLENBQUMsTUFBVztRQUUzQyxPQUFPLENBQUMsR0FBRyxDQUFDLGdCQUFnQixDQUFDO1FBQzdCLHdCQUF1QjtRQUN2QixJQUFJLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUM7UUFFaEMsaUJBQWdCO1FBQ2hCLFFBQVEsTUFBTSxFQUNkO1lBQ0ksS0FBSyxDQUFDO2dCQUNIO2dCQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsdUJBQUcsQ0FBQyxDQUFDLGNBQWEsQ0FBQyxFQUFFLENBQUMsQ0FBQyxHQUFFLEVBQUMsQ0FBQztnQkFDekMsTUFBSztZQUNULEtBQUssQ0FBQztnQkFDSDtnQkFBQyxJQUFJLENBQUMsUUFBUSxDQUFDLHVCQUFHLENBQUMsQ0FBQyxlQUFjLENBQUMsRUFBRSxDQUFDLENBQUMsRUFBQyxDQUFDLENBQUMsRUFBQztnQkFDMUMsTUFBSztZQUNULEtBQUssQ0FBQztnQkFDSDtnQkFBQyxJQUFJLENBQUMsUUFBUSxDQUFDLHVCQUFHLENBQUMsQ0FBQyxjQUFhLENBQUMsRUFBRSxDQUFDLENBQUMsR0FBRSxFQUFDLENBQUM7Z0JBQ3pDLE1BQUs7UUFDYjtRQUVBLHdDQUF1QztRQUN2QyxJQUFJLENBQUMsY0FBYyxDQUFDLElBQUksQ0FBQyxZQUFZLEVBQUUsQ0FBQztJQUM1QztJQUVBLENBQUMsWUFBWTtRQUVULE1BQU0sSUFBSSw0QkFBYyxDQUFDLEdBQUcsQ0FBQztRQUU3QixJQUFJLENBQUMsV0FBVyxDQUFDLGlCQUFpQixDQUFDLDRCQUFXLENBQUMsa0JBQWtCLENBQUM7SUFDdEU7Q0FDSjtBQTVHQSw4QkE0R0EiLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbIlVwZ3JhZGVNZW51LnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF19","ScriptHash":"698f3da9956ffff0521432a40744375c","Specifier":"@assets/Experience/tower-of-time/Scripts/UpgradeMenu","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/UpgradeMenu.UpgradeMenu","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/UpgradeMenu.UpgradeMenu","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.11.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"upgrades","Name":"upgrades","TypeName":"@assets/Experience/tower-of-time/Scripts/UpgradeItem.UpgradeItem","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":1,"IsArray":true,"IsEnum":false,"ArrayElementInitializer":{"Path":"upgrades_D1","Name":"upgrades","TypeName":"@assets/Experience/tower-of-time/Scripts/UpgradeItem.UpgradeItem","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":true,"IsGeniesScriptableObjectRef":false,"Decorators":[],"Initializers":[],"ArrayDimension":1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Upgrades","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},"ChildProperties":[],"PrettyName":"Upgrades","_arrayElementInitializerJson":"{\"Path\":\"upgrades_D1\",\"Name\":\"upgrades\",\"TypeName\":\"@assets/Experience/tower-of-time/Scripts/UpgradeItem.UpgradeItem\",\"AssemblyName\":null,\"EnumKeys\":[],\"EnumValues\":[],\"IsGeniesBehaviourRef\":true,\"IsGeniesScriptableObjectRef\":false,\"Decorators\":[],\"Initializers\":[],\"ArrayDimension\":1,\"IsArray\":false,\"IsEnum\":false,\"ArrayElementInitializer\":null,\"ChildProperties\":[],\"PrettyName\":\"Upgrades\",\"_arrayElementInitializerJson\":null,\"_childPropertiesJson\":\"[]\",\"_prettyName\":null}","_childPropertiesJson":"[]","_prettyName":null},{"Path":"animator","Name":"animator","TypeName":"UnityEngine.Animator","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Animator","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"chooseText","Name":"chooseText","TypeName":"UnityEngine.GameObject","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Choose
+    Text","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null}],"SupportedUiEvents":"None","DisplayName":"UpgradeMenu","name":"UpgradeMenu","hideFlags":"NotEditable"}'

@@ -1,15 +1,17 @@
 
-import { MonoBehaviour, Object, Quaternion, Time, Transform, Vector2, Vector3 } from "UnityEngine";
+import { Input, MonoBehaviour, Object, Quaternion, Time, Transform, Vector2, Vector3 } from "UnityEngine";
 import Tower from "./Tower";
 import GameManager, { GameState } from "./GameManager";
 
 export enum CameraState
 {
     LOADING,
+    MAIN_MENU,
     START_PAN,
     PAN_TO_CLOCK_TOWER,
     FOLLOWING_PLAYER,
     CLOCK_TOWER,
+    ROUND_OVER,
     GAME_OVER
 }
 
@@ -66,7 +68,7 @@ export default class CameraMovement extends MonoBehaviour {
         if (this.cameraState == CameraState.LOADING || this.cameraState == CameraState.CLOCK_TOWER)
             return;
 
-        if (this.cameraState == CameraState.FOLLOWING_PLAYER)
+        if (this.cameraState == CameraState.FOLLOWING_PLAYER || this.cameraState == CameraState.ROUND_OVER)
         {
             this.FollowPlayer();
         }
@@ -77,6 +79,10 @@ export default class CameraMovement extends MonoBehaviour {
         else if (this.cameraState == CameraState.START_PAN)
         {
             this.Panning();
+        }
+        else if (this.cameraState == CameraState.MAIN_MENU)
+        {
+            this.MainMenuing();
         }
     }
 
@@ -96,7 +102,7 @@ export default class CameraMovement extends MonoBehaviour {
     {
         this.rabbit = Vector3.Lerp(this.camPoints[0].position, this.camPoints[1].position, this.t);
         this.transform.rotation = Quaternion.Lerp(this.camPoints[0].rotation, this.camPoints[1].rotation, this.t);
-        this.t += Time.deltaTime * 0.25;
+        this.t += Time.deltaTime * 0.4;
 
         // Move camera
         this.transform.position = Vector3.Lerp(this.transform.position, this.rabbit, Time.deltaTime * 6);
@@ -106,6 +112,18 @@ export default class CameraMovement extends MonoBehaviour {
             // Tell Tower to do stuff
             this.tower.NewRound();
             this.cameraState = CameraState.CLOCK_TOWER;
+        }
+    }
+
+    private MainMenuing() : void 
+    {
+        this.transform.position = this.camPoints[0].position;
+        this.transform.rotation = this.camPoints[0].rotation;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Change camera state to panning
+            this.ChangeCameraState(CameraState.START_PAN);
         }
     }
 
@@ -132,7 +150,7 @@ export default class CameraMovement extends MonoBehaviour {
                 this.cameraState = CameraState.LOADING;
                 break;
             case GameState.GAME_PLAY:
-                this.cameraState = CameraState.START_PAN;
+                this.cameraState = CameraState.MAIN_MENU;
                 break;
             case GameState.GAME_OVER:
                 

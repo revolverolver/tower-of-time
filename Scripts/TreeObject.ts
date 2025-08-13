@@ -1,9 +1,11 @@
 
-import { Animator, Collider, GameObject, MonoBehaviour, Object, Quaternion, Time, Vector2, Vector3 } from "UnityEngine";
+import { Animator, Collider, GameObject, MonoBehaviour, Object, Quaternion, Time, Vector2, Vector3, WaitForSeconds } from "UnityEngine";
 import { QualityMode } from "UnityEngine.LightProbeProxyVolume";
 import WoodBackpack from './WoodBackpack';
 import PlayerSounds from "./PlayerSounds";
 import CameraMovement, {CameraState} from "./CameraMovement";
+import RoundManager from "./RoundManager";
+import PlayerController from "./PlayerController";
 
 export default class TreeObject extends MonoBehaviour {
 
@@ -16,10 +18,10 @@ export default class TreeObject extends MonoBehaviour {
 
     private woodLeft: int = 5;
     private chopTime: float = 0.8;
+    private respawnTime: float = 120.0;
 
     private isChopping: bool;
     private isPlaying: bool;
-    private isAlive: bool = true;
 
     private playerSounds: PlayerSounds;
     
@@ -30,6 +32,10 @@ export default class TreeObject extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
+        // stop respawn coroutines
+        this.StopAllCoroutines();
+        this.respawnTime = 180.0;
+
         this.playerSounds = PlayerSounds.Instance;
         this.animator.applyRootMotion = true;
 
@@ -110,11 +116,47 @@ export default class TreeObject extends MonoBehaviour {
         {
             // Chopped the whole tree
             this.StopChopping();
-            this.isAlive = false;
 
             this.treeMesh.SetActive(false);
             this.shadow.SetActive(false);
             this.gameObject.GetComponent<Collider>().enabled = false;
+
+            // Respawn
+            this.respawnTime = 180.0;
+            this.StartCoroutine(this.RespawnTree());
         }
+    }
+
+    *RespawnTree()
+    {
+        // Wait for respawn / Time only ticks down when a round is active
+        while (this.respawnTime > 0)
+        {
+            if (this.isPlaying)
+            {
+                this.respawnTime -= Time.deltaTime;
+                yield null;
+            }
+            else
+            {
+                yield null;
+            }
+        }
+
+        // New wood
+        this.woodLeft = 5;
+
+        // Show Mesh
+        this.treeMesh.SetActive(true);
+        this.shadow.SetActive(true);
+
+        // Play Animation
+        this.animator.Play("Grow", -1, 0);
+
+        // Wait for animation to finish
+        yield new WaitForSeconds(2.0);
+
+        // Enable collider after animation
+        this.gameObject.GetComponent<Collider>().enabled = true;
     }
 }

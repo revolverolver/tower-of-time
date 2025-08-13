@@ -38,6 +38,8 @@ export default class JoystickControls extends MonoBehaviour {
             case CameraState.PAN_TO_CLOCK_TOWER:
                 this.Nullify();
                 break;
+            case CameraState.ROUND_OVER:
+                this.Nullify();
         }
     }
 

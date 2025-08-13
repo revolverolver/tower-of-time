@@ -1,6 +1,6 @@
 
 import { Enum } from "System";
-import { MonoBehaviour, Vector3, Mathf, Time, Animator, Quaternion, Transform, Random, Input } from "UnityEngine";
+import { MonoBehaviour, Vector3, Mathf, Time, Animator, Quaternion, Transform, Random, Input, AudioClip, AudioSource } from "UnityEngine";
 import RoundManager from "./RoundManager";
 import CameraMovement, { CameraState } from './CameraMovement';
 import TimeManager from "./TimeManager";
@@ -21,6 +21,9 @@ export default class Tower extends MonoBehaviour {
     @SerializeField private pointerShort: Transform;
     @SerializeField private animator: Animator;
     @SerializeField private roundText: TextMeshProUGUI;
+
+    @SerializeField private source: AudioSource;
+    @SerializeField private soundClips: AudioClip[];
 
     private isSpinning: bool;
     private slowingDown: bool;
@@ -104,6 +107,12 @@ export default class Tower extends MonoBehaviour {
         // Start spawning enemies
         EnemySpawner.killAll = false;
         EnemySpawner.isSpawning = true;
+
+        // Play Sound
+        let pitch = 2.7 - (this.spinSpeed / 2000.0);
+        this.source.pitch = pitch;
+        this.source.clip = this.soundClips[1];
+        this.source.Play();
     }
 
     private StopSpin() : void
@@ -181,6 +190,11 @@ export default class Tower extends MonoBehaviour {
         this.timeManager.ShowRound(round);
 
         this.ChangeState(ClockState.TAP_TO_SPIN);
+
+        // Play Sound
+        this.source.clip = this.soundClips[0];
+        this.source.pitch = 1.2;
+        this.source.Play();
     }
 
     public ChangeState(newState: ClockState) : void

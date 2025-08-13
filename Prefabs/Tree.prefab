@@ -333,7 +333,7 @@ MonoBehaviour:
     PropKey: shadow
     BasePath: shadow
   _script: {fileID: 4458252877524076426, guid: 281d5b2fc67fe874ca6ddf5bcdfc8795, type: 3}
-  _scriptAssetHash: 2e8e4bed25f00a856d5dae516d1b011f
+  _scriptAssetHash: c75b19babf540eca444fce802513551e
   UiEventForwarders: []
 --- !u!1001 &3732284395779125925
 PrefabInstance:

@@ -1,5 +1,5 @@
 
-import { MonoBehaviour, Collider, Object, GameObject } from "UnityEngine";
+import { MonoBehaviour, Collider, Object, GameObject, ParticleSystem, AudioSource } from "UnityEngine";
 import PlayerSounds from "./PlayerSounds";
 import { TextMeshProUGUI } from "TMPro";
 export default class Building extends MonoBehaviour {
@@ -7,6 +7,8 @@ export default class Building extends MonoBehaviour {
     @SerializeField private building: GameObject;
     @SerializeField private levelText: TextMeshProUGUI;
     @SerializeField private woodText: TextMeshProUGUI;
+    @SerializeField private upgradeParticles: ParticleSystem;
+    @SerializeField private source: AudioSource;
 
     private playerSounds: PlayerSounds;
 
@@ -22,6 +24,7 @@ export default class Building extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
+        this.upgradeParticles.Stop();
         this.playerSounds = PlayerSounds.Instance;
         //this.levelText.text = "";
     }
@@ -52,6 +55,15 @@ export default class Building extends MonoBehaviour {
             this.level++;
             this.levelText.text = "LV. " + this.level.toString();
             this.currentWood = 0;
+
+            if (this.level > 1)
+            {
+                // Play particle effect
+                this.upgradeParticles.Play();
+
+                // Play upgrade sound
+                this.source.Play();
+            }
         }
 
         // Update text

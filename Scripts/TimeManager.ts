@@ -76,7 +76,7 @@ export default class TimeManager extends MonoBehaviour {
             }
 
             // Change game state
-            this.gameManager.ChangeCameraState(CameraState.PAN_TO_CLOCK_TOWER);
+            this.gameManager.ChangeCameraState(CameraState.ROUND_OVER);
         }
     }
 

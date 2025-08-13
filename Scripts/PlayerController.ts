@@ -34,7 +34,7 @@ export default class PlayerController extends MonoBehaviour {
         //Load the user Avatar
         this.userAvatar = await GeniesAvatarsSdk.LoadUserAvatarAsync("UserAvatar", this.transform, this.playerAnimator);
         //send message to GameManager that the Avatar has been loaded
-        this.gameManager.ChangeCameraState(CameraState.START_PAN);
+        this.gameManager.ChangeCameraState(CameraState.MAIN_MENU);
 
         PlayerController.movement = 0;
     }

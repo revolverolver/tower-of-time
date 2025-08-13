@@ -12,6 +12,8 @@ export default class CanvasController extends MonoBehaviour {
     @SerializeField private replayButton: Button;
     @SerializeField private loadingPanel: GameObject;
     @SerializeField private scorePanel: GameObject;
+    @SerializeField private mainMenuPanel: GameObject;
+    @SerializeField private roundOverPanel: GameObject;
     @SerializeField private scoreText: TMP_Text;
     @SerializeField private personalHighScoreText: TMP_Text;
     @SerializeField private globalHighScoreText: TMP_Text;
@@ -51,6 +53,9 @@ export default class CanvasController extends MonoBehaviour {
             case CameraState.LOADING:
                 this.OnLoading();
                 break;
+            case CameraState.MAIN_MENU:
+                this.OnMainMenu();
+                break;
             case CameraState.START_PAN:
                 this.OnClockWatching();
                 break;
@@ -59,6 +64,9 @@ export default class CanvasController extends MonoBehaviour {
                 break;
             case CameraState.FOLLOWING_PLAYER:
                 this.OnGamePlay();
+                break;
+            case CameraState.ROUND_OVER:
+                this.OnRoundOver();
                 break;
             case CameraState.GAME_OVER:
                 this.OnGameOver();
@@ -71,12 +79,28 @@ export default class CanvasController extends MonoBehaviour {
         this.scorePanel.SetActive(false);
         this.gameOverPanel.SetActive(false);
         this.loadingPanel.SetActive(true);
+        this.roundOverPanel.SetActive(false);
+    }
+
+    private OnMainMenu()
+    {
+        this.scorePanel.SetActive(false);
+        this.gameOverPanel.SetActive(false);
+        this.loadingPanel.SetActive(false);
+        this.mainMenuPanel.SetActive(true);
     }
 
     private OnClockWatching() {
         this.scorePanel.SetActive(false);
         this.gameOverPanel.SetActive(false);
         this.loadingPanel.SetActive(false);
+        this.mainMenuPanel.SetActive(false);
+        this.roundOverPanel.SetActive(false);
+    }
+
+    private OnRoundOver() {
+        this.scorePanel.SetActive(false);
+        this.roundOverPanel.SetActive(true);
     }
 
     /** This will manage the canvas once the game starts. */
@@ -84,6 +108,7 @@ export default class CanvasController extends MonoBehaviour {
         this.scorePanel.SetActive(true);
         this.gameOverPanel.SetActive(false);
         this.loadingPanel.SetActive(false);
+        this.roundOverPanel.SetActive(false);
         //this.score = 0;
         //this.coroutine = this.StartCoroutine(this.StartScore());
     }
@@ -92,6 +117,7 @@ export default class CanvasController extends MonoBehaviour {
     private OnGameOver() {
         this.gameOverPanel.SetActive(true);
         this.loadingPanel.SetActive(false);
+        this.roundOverPanel.SetActive(false);
         //this.CheckHighScore(this.personalStorage, this.personalHighScoreText, this.personalString);
         //this.CheckHighScore(this.globalStorage, this.globalHighScoreText, this.globalString);
         if(this.coroutine) {
