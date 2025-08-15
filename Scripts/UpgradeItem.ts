@@ -1,7 +1,7 @@
 
 import { Enum } from "System";
 import { TextMeshProUGUI } from "TMPro";
-import { Color, MonoBehaviour } from "UnityEngine";
+import { Color, GameObject, MonoBehaviour } from "UnityEngine";
 import { Button, Image } from "UnityEngine.UI";
 import UpgradeMenu from "./UpgradeMenu";
 
@@ -39,20 +39,48 @@ export default class UpgradeItem extends MonoBehaviour {
 
     public upgradeType: UpgradeType;
     public rarity: Rarity;
-    public amount: float;
+    //public amount: float;
 
     @SerializeField commonColor: Color;
     @SerializeField uncommonColor: Color;
     @SerializeField rareColor: Color;
     @SerializeField legendaryColor: Color;
+
+    @SerializeField iconImages: GameObject[];
+
+    // Upgrade values and affixes, EX: "+" "20" "%" = +20%
+    private amounts: float[][] = [
+        [5, 10, 20], // Walk Speed
+        [10, 15, 30], // Chop Speed
+        [2, 3, 6], // Wood Capacity
+        [5, 10, 20], // Carrying Strength
+        [-10, -15, -25], // Regrowth Time
+        [50], // Turret Damage
+        [100] // Full heal
+    ];
+    private suffixes: string[] = [
+        "%", // Walk Speed
+        "%", // Chop Speed
+        "", // Wood Capacity
+        "%", // Carrying Strength
+        "s", // Regrowth Time
+        "%", // Turret Damage
+        "%" // Full heal
+    ];
+    private prefixes: string[] = [
+        "+", // Walk Speed
+        "+", // Chop Speed
+        "+", // Wood Capacity
+        "+", // Carrying Strength
+        "", // Regrowth Time
+        "+", // Turret Damage
+        "" // Full heal
+    ];
     
     //Called when script instance is loaded
     private Awake() : void 
     {
-        //SignalBus.subscribe("MyEvent", this.ChooseUpgrade);
-
-        //this.button.onClick.AddListener(() => SignalBus.trigger("MyEvent"));
-        //this.SetupUpgradeItem();    
+          
     }
 
     //Start is called on the frame when a script is enabled just 
@@ -80,12 +108,31 @@ export default class UpgradeItem extends MonoBehaviour {
 
         // Setup texts
         this.rarityText.text = this.RarityString();
+        this.nameText.text = this.TypeString();
+        this.amountText.text = this.MakeUpgradeValueString(this.upgradeType, this.rarity);
+
+        // Setup Icon
+        for (let i = 0; i < this.iconImages.length; i++)
+        {
+            if (i == this.upgradeType)
+                this.iconImages[i].SetActive(true);
+            else
+                this.iconImages[i].SetActive(false);
+        }
     }
 
     private ChooseUpgrade()
     {
         // Improve stat and play animation before panning to the tower
         this.menu.PlaySelectedUpgradeAnimation(this.buttonNumber);
+    }
+
+    private MakeUpgradeValueString(upgrade: int, rarity: int): string
+    {
+        if (rarity == 3) rarity = 0; // if Legendary, "amounts" only has one option
+        let word = this.prefixes[upgrade] + this.amounts[upgrade][rarity].toString() + this.suffixes[upgrade];
+
+        return word;
     }
 
     private ItemColor() : Color
@@ -113,7 +160,7 @@ export default class UpgradeItem extends MonoBehaviour {
 
     private RarityString() : string
     {
-        let name = "common";
+        let name = "null";
 
         switch(this.rarity)
         {
@@ -132,5 +179,37 @@ export default class UpgradeItem extends MonoBehaviour {
         }
 
         return name;
+    }
+
+    private TypeString() : string
+    {
+        let type = "null";
+
+        switch(this.upgradeType)
+        {
+            case UpgradeType.CARRYING_STRENGTH:
+                type = "carry strength";
+                break;
+            case UpgradeType.CARRY_CAPACITY:
+                type = "wood capacity";
+                break;
+            case UpgradeType.CHOP_SPEED:
+                type = "chop speed";
+                break;
+            case UpgradeType.REGROWTH_TIME:
+                type = "regrowth time";
+                break;
+            case UpgradeType.WALK_SPEED:
+                type = "walk speed";
+                break;
+            case UpgradeType.HEAL_FULL:
+                type = "full heal";
+                break;
+            case UpgradeType.TURRET_DAMAGE:
+                type = "turret damage";
+                break;
+        }
+
+        return type;
     }
 }

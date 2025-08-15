@@ -1,7 +1,8 @@
 
 import { Animator, Coroutine, Debug, GameObject, MonoBehaviour, Random, WaitForSeconds } from "UnityEngine";
-import UpgradeItem, { Rarity } from "./UpgradeItem";
+import UpgradeItem, { Rarity, UpgradeType } from "./UpgradeItem";
 import CameraMovement, { CameraState } from "./CameraMovement";
+import { List$1 } from "System.Collections.Generic";
 
 export default class UpgradeMenu extends MonoBehaviour {
 
@@ -46,12 +47,16 @@ export default class UpgradeMenu extends MonoBehaviour {
         // true if one of the options is rare or legendary
         let hasRare = false;
 
+        // Type candidates for the upgrades
+        let typeArray = [ UpgradeType.CARRYING_STRENGTH, UpgradeType.CARRY_CAPACITY, 
+            UpgradeType.CHOP_SPEED, UpgradeType.REGROWTH_TIME, UpgradeType.WALK_SPEED ];
+
         // Cycle through the upgrade options, and set up them one by one
         for (let i = 0; i < this.upgrades.length; i++)
         {
             // First determine rarity of upgrade
             let randomNumber = Random.Range(0.0, 100.0);
-            let rarity = (hasRare && randomNumber > 84.9) ? Rarity.UNCOMMON : this.UpgradeRarity(randomNumber);
+            let rarity = (hasRare && randomNumber > 74.9) ? Rarity.UNCOMMON : this.UpgradeRarity(randomNumber);
 
             if (rarity == Rarity.RARE && !hasRare || rarity == Rarity.LEGENDARY && !hasRare)
                 hasRare = true;
@@ -59,26 +64,51 @@ export default class UpgradeMenu extends MonoBehaviour {
             // Set rarity
             this.upgrades[i].rarity = rarity;
 
-            // Setup upgrade item
+            // Determine upgrade type
+            this.upgrades[i].upgradeType = this.GetUpgradeType(rarity, typeArray);
+
+            // Remove upgrade type from the array, to prevent multiple options of the same type
+            typeArray = typeArray.filter(n => n !== this.upgrades[i].upgradeType);
+
+            // FINALLY Setup upgrade item
             this.upgrades[i].SetupUpgradeItem();
         }
     }
 
-    // number is a value between 0 and 100
+    // randomNumber is a value between 0 and 100
     private UpgradeRarity(randomNumber: float) : Rarity
     {
         let rarity = Rarity.COMMON;
 
         if (randomNumber < 50.0)
             rarity = Rarity.COMMON;
-        else if (randomNumber < 85.0)
+        else if (randomNumber < 75.0)
             rarity = Rarity.UNCOMMON;
-        else if (randomNumber < 95.0)
+        else if (randomNumber < 90.0)
             rarity = Rarity.RARE;
         else
             rarity = Rarity.LEGENDARY;
 
         return rarity;
+    }
+
+    private GetUpgradeType(rarity: Rarity, types: UpgradeType[]) : UpgradeType
+    {
+        let type = UpgradeType.WALK_SPEED;
+
+        if (rarity == Rarity.LEGENDARY)
+        {
+            // Special type for legendary options
+            type = (Random.Range(0.0, 100.0) > 50.0) ? UpgradeType.TURRET_DAMAGE : UpgradeType.HEAL_FULL;
+        }
+        else
+        {
+            // Get random normal type
+            let r = Random.Range(0, types.length);
+            type = types[r];
+        }
+
+        return type;
     }
 
     public PlaySelectedUpgradeAnimation(option: int) : void
