@@ -3,6 +3,7 @@ import { Animator, AudioClip, AudioSource, Collider, LayerMask, MonoBehaviour, P
 import EnemyDamage from "./EnemyDamage";
 import EnemyNavigation from "./EnemyNavigation";
 import Building from "./Building";
+import Upgrades from "./Upgrades";
 export default class Turret extends MonoBehaviour {
 
     private target: Transform;
@@ -17,7 +18,7 @@ export default class Turret extends MonoBehaviour {
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer3"); 
 
     private fireRate: float = 0.8;
-    private damage: int = 1;
+    //private damage: int = 10;
     private shootSide: int = 0;
 
     private isActive: bool;
@@ -67,7 +68,7 @@ export default class Turret extends MonoBehaviour {
             if (this.target != null && EnemyNavigation.isWalking)
             {
                 let enemy = this.target.GetComponent<EnemyDamage>();
-                enemy.TakeDamage(this.damage);
+                enemy.TakeDamage(Upgrades.turretDamage);
 
                 // Play animation
                 if (!this.headAnimator.isActiveAndEnabled)

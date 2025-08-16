@@ -6,6 +6,7 @@ import { Button, Image } from "UnityEngine.UI";
 import UpgradeMenu from "./UpgradeMenu";
 import Upgrades from "./Upgrades";
 import WoodBackpack from "./WoodBackpack";
+import PlayerHealth from "./PlayerHealth";
 
 export enum UpgradeType
 {
@@ -31,6 +32,7 @@ export default class UpgradeItem extends MonoBehaviour {
     private menu: UpgradeMenu;
 
     private backpack: WoodBackpack;
+    private playerHealth: PlayerHealth;
 
     @SerializeField button: Button;
     public buttonNumber: int;
@@ -89,6 +91,7 @@ export default class UpgradeItem extends MonoBehaviour {
     {
         // Get references
         this.backpack = GameObject.FindGameObjectWithTag("Player").GetComponent<WoodBackpack>();
+        this.playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     //Start is called on the frame when a script is enabled just 
@@ -169,10 +172,11 @@ export default class UpgradeItem extends MonoBehaviour {
                 Upgrades.walkSpeed += (this.amounts[type][rarity]) / 100;
                 break;
             case UpgradeType.HEAL_FULL:
-                
+                PlayerHealth.health = PlayerHealth.maxHealth;
+                this.playerHealth.UpdateHealthBar();
                 break;
             case UpgradeType.TURRET_DAMAGE:
-                
+                Upgrades.turretDamage += 5;
                 break;
         }
     }
@@ -297,10 +301,12 @@ export default class UpgradeItem extends MonoBehaviour {
                 to = parseFloat((Upgrades.walkSpeed + increases[rarity]).toFixed(2)).toString();
                 break;
             case UpgradeType.HEAL_FULL:
-                
+                from = parseFloat(PlayerHealth.health.toFixed(2)).toString();
+                to = parseFloat((PlayerHealth.maxHealth).toFixed(2)).toString();
                 break;
             case UpgradeType.TURRET_DAMAGE:
-                
+                from = parseFloat(Upgrades.turretDamage.toFixed(2)).toString();
+                to = parseFloat((Upgrades.turretDamage + 5).toFixed(2)).toString();
                 break;
         }
 

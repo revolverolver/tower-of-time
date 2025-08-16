@@ -15,10 +15,14 @@ export default class PlayerHealth extends MonoBehaviour {
 
     public static isAlive: bool = true;
 
-    private health: int = 10;
+    public static maxHealth: int = 10;
+    public static health: int = 10;
     
     //Called when script instance is loaded
-    private Awake() : void {}
+    private Awake() : void 
+    {
+        PlayerHealth.health = PlayerHealth.maxHealth;
+    }
 
     //Start is called on the frame when a script is enabled just 
     //before any of the Update methods are called the first time.
@@ -33,20 +37,20 @@ export default class PlayerHealth extends MonoBehaviour {
 
     public ReceiveDamage(damage: int) : void
     {
-        if (this.health <= 0)
+        if (PlayerHealth.health <= 0)
             return;
 
-        this.health -= damage;
+        PlayerHealth.health -= damage;
 
         // Update health bar
-        let x = this.health / 10;
+        let x = PlayerHealth.health / PlayerHealth.maxHealth;
         this.healthBar.localScale = new Vector3(x, 1, 1);
 
         // Play damage animation
         //this.animator.enabled = true;
         this.damageIndicatorAnimator.Play("Damaged", -1, 0);
 
-        if (this.health <= 0)
+        if (PlayerHealth.health <= 0)
         {
             // Died and game over
             this.DieAndStopGame();
@@ -66,5 +70,11 @@ export default class PlayerHealth extends MonoBehaviour {
 
         // Show game over
         this.gameManager.ChangeCameraState(CameraState.GAME_OVER);
+    }
+
+    public UpdateHealthBar() : void
+    {
+        let x = PlayerHealth.health / PlayerHealth.maxHealth;
+        this.healthBar.localScale = new Vector3(x, 1, 1);
     }
 }

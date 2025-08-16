@@ -8,6 +8,7 @@ export default class Upgrades extends MonoBehaviour {
     public static woodCapacity: int = 20;
     public static carryStrength: float = 1.0;
     public static reGrowthTime: float = 180;
+    public static turretDamage: int = 10;
     
     //Called when script instance is loaded
     private Awake() : void {}
