@@ -113,7 +113,6 @@ export default class UpgradeMenu extends MonoBehaviour {
 
     public PlaySelectedUpgradeAnimation(option: int) : void
     {
-        console.log("Play animation");
         // Disable "choose" text
         this.chooseText.SetActive(false);
 

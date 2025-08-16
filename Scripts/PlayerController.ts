@@ -7,11 +7,12 @@ import TreeObject from './TreeObject';
 import WoodBackpack from './WoodBackpack';
 import CameraMovement, { CameraState } from './CameraMovement';
 import PlayerHealth from './PlayerHealth';
+import Upgrades from './Upgrades';
 
 export default class PlayerController extends MonoBehaviour {
     
     @Header("Player Settings")
-    @SerializeField private playerSpeed: float = 2;
+    @SerializeField private playerSpeed: float = 2.2; // OG: 2.0
     @SerializeField private playerAnimator: RuntimeAnimatorController;
     @SerializeField private cameraTarget: Transform;
     @SerializeField private rb: Rigidbody;
@@ -94,7 +95,7 @@ export default class PlayerController extends MonoBehaviour {
             value = value * 0.012;
 
             // Change value based on weight
-            let weight = (WoodBackpack.woodAmount / 20) * 0.45;
+            let weight = ((WoodBackpack.woodAmount / 20) * 0.45) / Upgrades.carryStrength;
             value -= weight;
 
             this.moveDirection = Vector3.op_Multiply(direction.normalized, -value);
@@ -122,7 +123,8 @@ export default class PlayerController extends MonoBehaviour {
         if (this.moveDirection == Vector3.zero)
             return;
 
-        let speed = this.playerSpeed * Time.fixedDeltaTime;
+        // Set player speed
+        let speed = this.playerSpeed * Time.fixedDeltaTime * (Upgrades.walkSpeed * 0.9);
         let translatedDirection = new Vector3(this.moveDirection.x * speed, 0, this.moveDirection.y * speed);
         this.rb.MovePosition(Vector3.op_Addition(this.transform.position, translatedDirection));
     }

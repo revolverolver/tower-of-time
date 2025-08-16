@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: bbbd389747dc77740b5f955c6d93ce89
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"IsCompiled":true,"CompilerVersion":"2.0.63","ReferencedSpecifiers":[],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nclass Upgrades extends UnityEngine_1.MonoBehaviour
+    {\n    //Called when script instance is loaded\n    Awake() { }\n    //Start
+    is called on the frame when a script is enabled just \n    //before any of the
+    Update methods are called the first time.\n    Start() { }\n    //Update is called
+    every frame, if the MonoBehaviour is enabled.\n    Update() { }\n}\nUpgrades.walkSpeed
+    = 1.0;\nUpgrades.chopSpeed = 1.0;\nUpgrades.woodCapacity = 20;\nUpgrades.carryStrength
+    = 1.0;\nUpgrades.reGrowthTime = 180;\nexports.default = Upgrades;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVXBncmFkZXMuanMiLCJtYXBwaW5ncyI6Ijs7QUFDQSw2Q0FBMkM7QUFFM0MsTUFBcUIsUUFBUyxTQUFRLDJCQUFhO0lBUS9DLHVDQUFzQztJQUM5QixLQUFLLEtBQVc7SUFFeEIsNkRBQTREO0lBQzVELDZEQUE0RDtJQUNwRCxLQUFLLEtBQVc7SUFFeEIsZ0VBQStEO0lBQ3ZELE1BQU0sS0FBVzs7QUFkWCxrQkFBUyxHQUFVLEdBQUc7QUFDdEIsa0JBQVMsR0FBVSxHQUFHO0FBQ3RCLHFCQUFZLEdBQVEsRUFBRTtBQUN0QixzQkFBYSxHQUFVLEdBQUc7QUFDMUIscUJBQVksR0FBVSxHQUFHO2tCQU50QixRQUFRIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJVcGdyYWRlcy50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdfQ==","ScriptHash":"46e6f3faf68363f4accce6e438b26821","Specifier":"@assets/Experience/tower-of-time/Scripts/Upgrades","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/Upgrades.Upgrades","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/Upgrades.Upgrades","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.11.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[],"SupportedUiEvents":"None","DisplayName":"Upgrades","name":"Upgrades","hideFlags":"NotEditable"}'

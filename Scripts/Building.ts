@@ -12,7 +12,7 @@ export default class Building extends MonoBehaviour {
 
     private playerSounds: PlayerSounds;
 
-    private woodNeeded: int = 20;
+    private woodNeeded: int = 20; 
     private currentWood: int = 0;
 
     public level: int = 0;
@@ -34,7 +34,8 @@ export default class Building extends MonoBehaviour {
 
     public WoodNeeded() : int
     {
-        let amount = this.woodNeeded; // - this.currentWood;
+        // No limit to have much wood can be sent
+        let amount = 100;//this.woodNeeded; // - this.currentWood;
         return amount;
     }
 

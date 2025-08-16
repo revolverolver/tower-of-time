@@ -6,6 +6,7 @@ import Building from "./Building";
 import { TextMeshProUGUI } from "TMPro";
 import PlayerSounds from "./PlayerSounds";
 import CameraMovement, {CameraState} from "./CameraMovement";
+import Upgrades from "./Upgrades";
 export default class WoodBackpack extends MonoBehaviour {
 
     @SerializeField private woodText: TextMeshProUGUI;
@@ -16,7 +17,7 @@ export default class WoodBackpack extends MonoBehaviour {
 
     private playerSounds: PlayerSounds;
     
-    private maxWood: int = 20;
+    //private maxWood: int = 20;
     public static woodAmount: int = 0;
 
     public static woodFull: bool;
@@ -45,6 +46,12 @@ export default class WoodBackpack extends MonoBehaviour {
         WoodBackpack.woodFull = false;
 
         this.gameManager.OnCameraStateChange.addListener(this.CheckGameState);
+
+        // Get the slots in backpack
+        for (let i = 0; i < this.backpack.childCount; i++)
+        {
+            this.slots[i] = this.backpack.GetChild(i);
+        }
     }
 
     private CheckGameState(newState: CameraState) {
@@ -96,12 +103,12 @@ export default class WoodBackpack extends MonoBehaviour {
         WoodBackpack.woodAmount++;
 
         // Update text
-        this.woodText.text = WoodBackpack.woodAmount + "/" + this.maxWood;
+        this.woodText.text = WoodBackpack.woodAmount + "/" + Upgrades.woodCapacity;
 
         // Play sound
         this.playerSounds.PlayQuickSound(1, 0.8);
 
-        if (WoodBackpack.woodAmount >= this.maxWood)
+        if (WoodBackpack.woodAmount >= Upgrades.woodCapacity)
         {
             WoodBackpack.woodFull = true;
         }
@@ -140,7 +147,7 @@ export default class WoodBackpack extends MonoBehaviour {
         this.sendAmount--;
 
         // Update text
-        this.woodText.text = WoodBackpack.woodAmount.toString() + "/" + this.maxWood.toString();
+        this.woodText.text = WoodBackpack.woodAmount.toString() + "/" + Upgrades.woodCapacity.toString();
 
         // Play sound
         this.playerSounds.PlayQuickSound(0, 0.3, 0.8);
@@ -193,5 +200,11 @@ export default class WoodBackpack extends MonoBehaviour {
         {
             this.sendingWood = false;
         }
+    }
+
+    public UpdateText() : void
+    {
+        // Update text
+        this.woodText.text = WoodBackpack.woodAmount.toString() + "/" + Upgrades.woodCapacity.toString();
     }
 }

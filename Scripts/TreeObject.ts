@@ -6,6 +6,7 @@ import PlayerSounds from "./PlayerSounds";
 import CameraMovement, {CameraState} from "./CameraMovement";
 import RoundManager from "./RoundManager";
 import PlayerController from "./PlayerController";
+import Upgrades from "./Upgrades";
 
 export default class TreeObject extends MonoBehaviour {
 
@@ -18,7 +19,8 @@ export default class TreeObject extends MonoBehaviour {
 
     private woodLeft: int = 5;
     private chopTime: float = 0.8;
-    private respawnTime: float = 120.0;
+    private respawnTime: float = 180;
+    private currentReSpawnTime: float = 180;
 
     private isChopping: bool;
     private isPlaying: bool;
@@ -34,7 +36,8 @@ export default class TreeObject extends MonoBehaviour {
     {
         // stop respawn coroutines
         this.StopAllCoroutines();
-        this.respawnTime = 180.0;
+        this.respawnTime = Upgrades.reGrowthTime;
+        this.currentReSpawnTime = Upgrades.reGrowthTime;
 
         this.playerSounds = PlayerSounds.Instance;
         this.animator.applyRootMotion = true;
@@ -70,7 +73,7 @@ export default class TreeObject extends MonoBehaviour {
                 this.Chop();
 
                 // Reset chopping
-                this.chopTime = 0.8;
+                this.chopTime = 1.4 - (0.6 * Upgrades.chopSpeed); // OG chopTime: 0.8
             }
         }
     }
@@ -81,7 +84,7 @@ export default class TreeObject extends MonoBehaviour {
             return;
 
         this.isChopping = true;
-        this.chopTime = 0.8;
+        this.chopTime = 1.4 - (0.6 * Upgrades.chopSpeed); // OG chopTime: 0.8
 
         // Chop once
         this.Chop();
@@ -122,7 +125,7 @@ export default class TreeObject extends MonoBehaviour {
             this.gameObject.GetComponent<Collider>().enabled = false;
 
             // Respawn
-            this.respawnTime = 180.0;
+            this.respawnTime = Upgrades.reGrowthTime;
             this.StartCoroutine(this.RespawnTree());
         }
     }
@@ -135,6 +138,17 @@ export default class TreeObject extends MonoBehaviour {
             if (this.isPlaying)
             {
                 this.respawnTime -= Time.deltaTime;
+
+                // Check if regrowth time has been upgraded
+                if (this.currentReSpawnTime > Upgrades.reGrowthTime)
+                {
+                    // Regrowth time has been upgraded, so let's spawn the tree faster
+                    let dif = this.currentReSpawnTime - Upgrades.reGrowthTime;
+                    this.respawnTime -= dif;
+
+                    this.currentReSpawnTime = Upgrades.reGrowthTime;
+                }
+                
                 yield null;
             }
             else

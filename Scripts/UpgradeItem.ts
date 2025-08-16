@@ -4,6 +4,8 @@ import { TextMeshProUGUI } from "TMPro";
 import { Color, GameObject, MonoBehaviour } from "UnityEngine";
 import { Button, Image } from "UnityEngine.UI";
 import UpgradeMenu from "./UpgradeMenu";
+import Upgrades from "./Upgrades";
+import WoodBackpack from "./WoodBackpack";
 
 export enum UpgradeType
 {
@@ -28,14 +30,17 @@ export default class UpgradeItem extends MonoBehaviour {
 
     private menu: UpgradeMenu;
 
+    private backpack: WoodBackpack;
+
     @SerializeField button: Button;
     public buttonNumber: int;
 
     @SerializeField private rimImage: Image;
-    @SerializeField private icon: Image;
+    //@SerializeField private icon: Image;
     @SerializeField private nameText: TextMeshProUGUI;
     @SerializeField private amountText: TextMeshProUGUI;
     @SerializeField private rarityText: TextMeshProUGUI;
+    @SerializeField private fromToText: TextMeshProUGUI;
 
     public upgradeType: UpgradeType;
     public rarity: Rarity;
@@ -53,7 +58,7 @@ export default class UpgradeItem extends MonoBehaviour {
         [5, 10, 20], // Walk Speed
         [10, 15, 30], // Chop Speed
         [2, 3, 6], // Wood Capacity
-        [5, 10, 20], // Carrying Strength
+        [10, 15, 30], // Carrying Strength
         [-10, -15, -25], // Regrowth Time
         [50], // Turret Damage
         [100] // Full heal
@@ -76,11 +81,14 @@ export default class UpgradeItem extends MonoBehaviour {
         "+", // Turret Damage
         "" // Full heal
     ];
+
+    private clickedUpgrade: bool = false;
     
     //Called when script instance is loaded
     private Awake() : void 
     {
-          
+        // Get references
+        this.backpack = GameObject.FindGameObjectWithTag("Player").GetComponent<WoodBackpack>();
     }
 
     //Start is called on the frame when a script is enabled just 
@@ -110,6 +118,7 @@ export default class UpgradeItem extends MonoBehaviour {
         this.rarityText.text = this.RarityString();
         this.nameText.text = this.TypeString();
         this.amountText.text = this.MakeUpgradeValueString(this.upgradeType, this.rarity);
+        this.fromToText.text = this.FromTo(this.upgradeType, this.rarity);
 
         // Setup Icon
         for (let i = 0; i < this.iconImages.length; i++)
@@ -119,12 +128,53 @@ export default class UpgradeItem extends MonoBehaviour {
             else
                 this.iconImages[i].SetActive(false);
         }
+
+        // Make button clickable
+        this.clickedUpgrade = false;
     }
 
+    // Called when clicking the button with the chosen upgrade
     private ChooseUpgrade()
     {
-        // Improve stat and play animation before panning to the tower
+        if (this.clickedUpgrade)
+            return;
+
+        this.clickedUpgrade = true;
+
+        // Improve stat
+        this.ImproveStat(this.upgradeType, this.rarity);
+
+        // Play animation, before panning to the tower
         this.menu.PlaySelectedUpgradeAnimation(this.buttonNumber);
+    }
+
+    private ImproveStat(type: UpgradeType, rarity: int): void
+    {
+        switch (type)
+        {
+            case UpgradeType.CARRYING_STRENGTH:
+                Upgrades.carryStrength += (this.amounts[type][rarity]) / 100;
+                break;
+            case UpgradeType.CARRY_CAPACITY:
+                Upgrades.woodCapacity += (this.amounts[type][rarity]);
+                this.backpack.UpdateText();
+                break;
+            case UpgradeType.CHOP_SPEED:
+                Upgrades.chopSpeed += (this.amounts[type][rarity]) / 100;
+                break;
+            case UpgradeType.REGROWTH_TIME:
+                Upgrades.reGrowthTime += (this.amounts[type][rarity]);
+                break;
+            case UpgradeType.WALK_SPEED:
+                Upgrades.walkSpeed += (this.amounts[type][rarity]) / 100;
+                break;
+            case UpgradeType.HEAL_FULL:
+                
+                break;
+            case UpgradeType.TURRET_DAMAGE:
+                
+                break;
+        }
     }
 
     private MakeUpgradeValueString(upgrade: int, rarity: int): string
@@ -211,5 +261,51 @@ export default class UpgradeItem extends MonoBehaviour {
         }
 
         return type;
+    }
+
+    private FromTo(type: UpgradeType, rarity: int): string
+    {
+        let from = "from";
+        let to = "to";
+        let increases = [ 0.0, 0.0, 0.0 ];
+
+        switch(this.upgradeType)
+        {
+            case UpgradeType.CARRYING_STRENGTH:
+                increases = [ 0.1, 0.15, 0.3 ];
+                from = parseFloat(Upgrades.carryStrength.toFixed(2)).toString();
+                to = parseFloat((Upgrades.carryStrength + increases[rarity]).toFixed(2)).toString();
+                break;
+            case UpgradeType.CARRY_CAPACITY:
+                increases = [ 2, 3, 6 ];
+                from = Upgrades.woodCapacity.toString();
+                to = (Upgrades.woodCapacity + increases[rarity]).toString();
+                break;
+            case UpgradeType.CHOP_SPEED:
+                increases = [ 0.1, 0.15, 0.3 ];
+                from = parseFloat(Upgrades.chopSpeed.toFixed(2)).toString();
+                to = parseFloat((Upgrades.chopSpeed + increases[rarity]).toFixed(2)).toString();
+                break;
+            case UpgradeType.REGROWTH_TIME:
+                increases = [ -10, -15, -25 ];
+                from = Upgrades.reGrowthTime.toString();
+                to = (Upgrades.reGrowthTime + increases[rarity]).toString();
+                break;
+            case UpgradeType.WALK_SPEED:
+                increases = [ 0.05, 0.1, 0.2 ];
+                from = parseFloat(Upgrades.walkSpeed.toFixed(2)).toString();
+                to = parseFloat((Upgrades.walkSpeed + increases[rarity]).toFixed(2)).toString();
+                break;
+            case UpgradeType.HEAL_FULL:
+                
+                break;
+            case UpgradeType.TURRET_DAMAGE:
+                
+                break;
+        }
+
+        // Make final string, EX: "1.2  >  1.3"
+        let fromTo = from + "  >  " + to;
+        return fromTo;
     }
 }
