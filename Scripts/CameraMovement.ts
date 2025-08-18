@@ -1,5 +1,5 @@
 
-import { Input, MonoBehaviour, Object, Quaternion, Time, Transform, Vector2, Vector3 } from "UnityEngine";
+import { GameObject, Input, MonoBehaviour, Object, Quaternion, Time, Transform, Vector2, Vector3 } from "UnityEngine";
 import Tower from "./Tower";
 import GameManager, { GameState } from "./GameManager";
 
@@ -175,5 +175,13 @@ export default class CameraMovement extends MonoBehaviour {
             CameraMovement.focusingOnPlayer = true;
         else
             CameraMovement.focusingOnPlayer = false;
+    }
+
+    public DestroyInstance() : void 
+    {
+        console.log(`Destroying CameraMovement`);
+
+        CameraMovement.Instance = null;
+        GameObject.Destroy(this.gameObject);
     }
 }

@@ -15,7 +15,15 @@ export default class Upgrades extends MonoBehaviour {
 
     //Start is called on the frame when a script is enabled just 
     //before any of the Update methods are called the first time.
-    private Start() : void {}
+    private Start() : void 
+    {
+        Upgrades.walkSpeed = 1.0;
+        Upgrades.chopSpeed = 1.0;
+        Upgrades.woodCapacity = 20;
+        Upgrades.carryStrength = 1.0;
+        Upgrades.reGrowthTime = 180;
+        Upgrades.turretDamage = 10;
+    }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void {}

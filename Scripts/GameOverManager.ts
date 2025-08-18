@@ -8,6 +8,10 @@ import { CloudSaveStorage } from "Genies.Experience.CloudSave";
 import GameSetup from "./GameSetup";
 import EnemySpawner from "./EnemySpawner";
 import Turret from "./Turret";
+import UpgradeMenu from "./UpgradeMenu";
+import GameManager from "./GameManager";
+import CameraMovement from "./CameraMovement";
+import PlayerSounds from "./PlayerSounds";
 export default class GameOverManager extends MonoBehaviour {
 
     @SerializeField restartButton: Button;
@@ -15,6 +19,8 @@ export default class GameOverManager extends MonoBehaviour {
     @SerializeField setupManager: GameSetup;
     @SerializeField roundsSurvivedText: TextMeshProUGUI;
     @SerializeField yourBestText: TextMeshProUGUI;
+
+    @SerializeField playerRoot: GameObject;
 
     @SerializeField spawner: EnemySpawner;
     @SerializeField turrets: Turret[];
@@ -60,13 +66,21 @@ export default class GameOverManager extends MonoBehaviour {
         // Show loading screen
         console.log(`PLAY AGAIN`);
 
-        // Stop coroutines
-        this.spawner.GameOver();
+        // Stop coroutines || likely redundant and causes errors
+        /*this.spawner.GameOver();
 
         for (let i = 0; i < this.turrets.length; i++)
         {
             this.turrets[i].GameOver();
-        }
+        }*/
+
+        //GameObject.Destroy(this.playerRoot);
+
+        // Remove Instances
+        UpgradeMenu.Instance.DestroyInstance();
+        GameManager.Instance.DestroyInstance();
+        CameraMovement.Instance.DestroyInstance();
+        PlayerSounds.Instance.DestroyInstance();
 
         SceneManager.LoadScene("Game");
 

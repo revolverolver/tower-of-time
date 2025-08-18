@@ -1,5 +1,5 @@
 
-import { MonoBehaviour, AudioSource, Mathf, Time, AudioClip, Random, Object, Physics, LayerMask, Vector3 } from "UnityEngine";
+import { MonoBehaviour, AudioSource, Mathf, Time, AudioClip, Random, Object, Physics, LayerMask, Vector3, GameObject } from "UnityEngine";
 import PlayerController from "./PlayerController";
 export default class PlayerSounds extends MonoBehaviour {
 
@@ -85,5 +85,13 @@ export default class PlayerSounds extends MonoBehaviour {
         // Adjust volume
         this.enemySource.volume = Mathf.Lerp(0.0, maxVol, (5 - dist) / 5);
         this.enemySource.pitch = 0.9 + (maxVol / 3.5);
+    }
+
+    public DestroyInstance() : void 
+    {
+        console.log(`Destroying PlayerSounds`);
+
+        PlayerSounds.Instance = null;
+        GameObject.Destroy(this.gameObject);
     }
 }

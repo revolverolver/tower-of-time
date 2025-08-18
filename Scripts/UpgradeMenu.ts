@@ -1,5 +1,5 @@
 
-import { Animator, Coroutine, Debug, GameObject, MonoBehaviour, Random, WaitForSeconds } from "UnityEngine";
+import { Animator, AudioClip, AudioSource, Coroutine, Debug, GameObject, MonoBehaviour, Random, WaitForSeconds } from "UnityEngine";
 import UpgradeItem, { Rarity, UpgradeType } from "./UpgradeItem";
 import CameraMovement, { CameraState } from "./CameraMovement";
 import { List$1 } from "System.Collections.Generic";
@@ -10,6 +10,8 @@ export default class UpgradeMenu extends MonoBehaviour {
 
     @SerializeField private upgrades: UpgradeItem[];
     @SerializeField private animator: Animator;
+    @SerializeField private source: AudioSource;
+    @SerializeField clips: AudioClip[];
 
     @SerializeField private chooseText: GameObject;
 
@@ -130,6 +132,12 @@ export default class UpgradeMenu extends MonoBehaviour {
                 break;
         }
 
+        // Play Sound
+        this.source.clip = this.clips[0];
+        this.source.pitch = 1;
+        this.source.volume = 1;
+        this.source.Play();
+
         // Wait for animation, then pan to tower
         this.StartCoroutine(this.AfterUpgrade());
     }
@@ -139,5 +147,13 @@ export default class UpgradeMenu extends MonoBehaviour {
         yield new WaitForSeconds(1.3);
 
         this.gameManager.ChangeCameraState(CameraState.PAN_TO_CLOCK_TOWER);
+    }
+
+    public DestroyInstance() : void 
+    {
+        console.log(`Destroying UpgradeMenu`);
+
+        UpgradeMenu.Instance = null;
+        GameObject.Destroy(this.gameObject);
     }
 }

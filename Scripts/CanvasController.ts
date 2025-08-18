@@ -39,8 +39,9 @@ export default class CanvasController extends MonoBehaviour {
         //Get GameManager singleton and add a listener to OnGameStateChange event
         this.gameManager = CameraMovement.Instance;
         this.gameManager.OnCameraStateChange.addListener(this.CheckGameState);
+
         //Add a listener to the ReplayButton click event
-        this.replayButton.onClick.AddListener(this.OnReplay);
+        //this.replayButton.onClick.AddListener(this.OnReplay);
         //Initialize both high scores
         this.InitializeHighScores();
     }

@@ -5973,7 +5973,7 @@ MonoBehaviour:
     PropKey: source
     BasePath: source
   _script: {fileID: 4458252877524076426, guid: 6b126724baa76f8479cb5e0c8603db73, type: 3}
-  _scriptAssetHash: 787f6e6dcad6d63984d806f388861291
+  _scriptAssetHash: 6089ebe7e47d8608fcb522c9bb335879
   UiEventForwarders: []
 --- !u!54 &7062059219564043447
 Rigidbody:
@@ -6604,7 +6604,7 @@ MonoBehaviour:
     PropKey: building
     BasePath: building
   _script: {fileID: 4458252877524076426, guid: 935177760aa589849a16a0826a3e8a9b, type: 3}
-  _scriptAssetHash: 6d436c046bf82d04727c47d02c85cab2
+  _scriptAssetHash: bb22c907dec09146457361a3ecf630d9
   UiEventForwarders: []
 --- !u!95 &329064779705234082
 Animator:

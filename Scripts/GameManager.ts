@@ -51,4 +51,12 @@ export default class GameManager extends MonoBehaviour {
         this.OnGameStateChange.trigger(newState);
         this.gameState = newState;
     }
+
+    public DestroyInstance() : void 
+    {
+        console.log(`Destroying GameManager`);
+
+        GameManager.Instance = null;
+        GameObject.Destroy(this.gameObject);
+    }
 }

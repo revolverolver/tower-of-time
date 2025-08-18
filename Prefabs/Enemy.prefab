@@ -183,7 +183,7 @@ MonoBehaviour:
     PropKey: particles
     BasePath: particles
   _script: {fileID: 4458252877524076426, guid: 3b79ec6c5283840459fa7dee871120ea, type: 3}
-  _scriptAssetHash: adafa7ef692c88427191f9a7249d84ca
+  _scriptAssetHash: fd5c94d258779185804765fab482af76
   UiEventForwarders: []
 --- !u!54 &2628458827009331047
 Rigidbody:
