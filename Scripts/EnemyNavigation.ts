@@ -1,11 +1,15 @@
 
 import { Color, Debug, GameObject, LayerMask, MonoBehaviour, Physics, Quaternion, Ray, RaycastHit, Rigidbody, Time, Transform, Vector3 } from "UnityEngine";
 import RoundManager from "./RoundManager";
+import Turret from "./Turret";
+import EnemySpawner from "./EnemySpawner";
 
 export default class EnemyNavigation extends MonoBehaviour {
 
     // public Rigidbody rb;
     @SerializeField rb: Rigidbody;
+
+    @SerializeField public turrets: Turret[];
 
     // private Transform target;
     private target: Transform;
@@ -26,6 +30,9 @@ export default class EnemyNavigation extends MonoBehaviour {
     private Start() : void 
     {
         this.target = GameObject.FindGameObjectWithTag("Player").transform;
+        this.turrets = GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemySpawner>().turrets;
+
+        //console.log(this.turrets.length);
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
@@ -35,6 +42,8 @@ export default class EnemyNavigation extends MonoBehaviour {
         {
             this.WalkTowardsPlayer();
         }
+
+        this.CheckTurretRanges();
     }
 
     private WalkTowardsPlayer() : void
@@ -101,5 +110,24 @@ export default class EnemyNavigation extends MonoBehaviour {
         let finalPosition = Vector3.op_Addition(this.transform.position, walkDirection);
 
         this.rb.MovePosition(finalPosition);
+    }
+
+    // See if in range of any turret, then tell the turret if in range
+    private CheckTurretRanges() : void 
+    {
+        for (let i = 0; i < this.turrets.length; i++)
+        {
+            //console.log(this.turrets[5].isActive);
+            // Check if turret has been built
+            if (!this.turrets[i].isActive)
+                continue;
+
+            //console.log("TURRET ACTIVE");
+            if (Vector3.Distance(this.transform.position, this.turrets[i].transform.position) < 4)
+            {
+                // Enemy is within shooting range of turret
+                this.turrets[i].RequestPotentialTarget(this.transform);
+            }
+        }
     }
 }

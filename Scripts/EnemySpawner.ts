@@ -1,16 +1,20 @@
 
 import { GameObject, LayerMask, MonoBehaviour, Object, Physics, Quaternion, Random, Ray, RaycastHit, Transform, Vector3, WaitForSeconds } from "UnityEngine";
 import RoundManager from "./RoundManager";
+import Turret from "./Turret";
 export default class EnemySpawner extends MonoBehaviour {
 
     @SerializeField private enemy: GameObject;
     @SerializeField private player: Transform;
+
+    @SerializeField public turrets: Turret[];
 
     private layerMask: int = (1 << LayerMask.NameToLayer("CustomLayer2")) | (1 << LayerMask.NameToLayer("CustomLayer6"));
 
     public static spawnFrequenzy: float = 5.0;
     public static killAll: bool;
     public static isSpawning: bool;
+    public static wormsAlive: int = 0;
 
     public static startSwarming: bool;
     
@@ -25,6 +29,7 @@ export default class EnemySpawner extends MonoBehaviour {
         EnemySpawner.killAll = false;
         EnemySpawner.isSpawning = false;
         EnemySpawner.startSwarming = false;
+        EnemySpawner.wormsAlive = 0;
         
         this.StartCoroutine(this.Spawner());
     }
@@ -56,6 +61,9 @@ export default class EnemySpawner extends MonoBehaviour {
 
                     let spawnPosition = this.FindSpawnPosition();
                     Object.Instantiate(this.enemy, spawnPosition, Quaternion.identity, this.transform);
+                    
+                    // Increase count
+                    EnemySpawner.wormsAlive++;
 
                     yield new WaitForSeconds(0.1);
                 }
@@ -66,8 +74,16 @@ export default class EnemySpawner extends MonoBehaviour {
             // Look for spawn point
             let spawnPosition = this.FindSpawnPosition();
 
-            // Spawn enemy
-            Object.Instantiate(this.enemy, spawnPosition, Quaternion.identity, this.transform);
+            if (EnemySpawner.wormsAlive < 100)
+            {
+                // Spawn enemy
+                Object.Instantiate(this.enemy, spawnPosition, Quaternion.identity, this.transform);
+
+                // Increase count
+                EnemySpawner.wormsAlive++;
+
+                console.log(EnemySpawner.wormsAlive);
+            }
         }
     }
 
@@ -91,8 +107,6 @@ export default class EnemySpawner extends MonoBehaviour {
             // Make sure the random position is far away enough from the player, to prevent seeing the enemies spawn
             if (this.IsTooCloseToPlayer(randomPosition) == true)
                 continue;
-
-            console.log(randomPosition);
 
             // If randomPosition is not too close, check if the position is okay to spawn at, or if there is a collider in the way
             randomPosition.y = 10;

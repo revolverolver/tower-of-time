@@ -73,6 +73,13 @@ export default class TimeManager extends MonoBehaviour {
             {
                 RoundManager.swarmRound = false;
                 EnemySpawner.killAll = true;
+
+                // Clear turrets
+                let turrets = GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemySpawner>().turrets;
+                for (let i = 0; i < turrets.length; i++)
+                {
+                    turrets[i].ClearTargets();
+                }
             }
 
             // Change game state

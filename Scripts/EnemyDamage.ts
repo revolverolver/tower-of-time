@@ -50,4 +50,10 @@ export default class EnemyDamage extends MonoBehaviour {
             player.ReceiveDamage(1);
         }
     }
+
+    private OnDestroy() 
+    {
+        // Reduce count
+        EnemySpawner.wormsAlive--;	
+    }
 }

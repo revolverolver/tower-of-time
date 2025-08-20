@@ -98,7 +98,6 @@ export default class UpgradeItem extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
-        console.log("START BUTTON");
         this.menu = UpgradeMenu.Instance;
 
         this.button.onClick.AddListener(this.ChooseUpgrade);

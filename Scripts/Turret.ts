@@ -15,16 +15,24 @@ export default class Turret extends MonoBehaviour {
     @SerializeField private source: AudioSource;
     @SerializeField private audioClips: AudioClip[];
 
+    public potentialTargets: (Transform | null)[] = new Array(5);
+
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer3"); 
 
     private fireRate: float = 0.8;
     //private damage: int = 10;
     private shootSide: int = 0;
 
-    private isActive: bool;
+    public isActive: bool;
     
     //Called when script instance is loaded
-    private Awake() : void {}
+    private Awake() : void 
+    {
+        for (let i = 0; i < this.potentialTargets.length; i++)
+        {
+            this.potentialTargets[i] = null;
+        }
+    }
 
     //Start is called on the frame when a script is enabled just 
     //before any of the Update methods are called the first time.
@@ -32,6 +40,8 @@ export default class Turret extends MonoBehaviour {
     {
         //this.animator.Play("Popup");
         this.source.clip = this.audioClips[0];
+
+        this.isActive = true;
 
         // Start shooting coroutine
         this.StartCoroutine(this.Shooting());
@@ -47,12 +57,16 @@ export default class Turret extends MonoBehaviour {
         this.AimAtTarget();
     }
 
+    private LateUpdate() 
+    {
+        //this.potentialTargets.fill(null);
+    }
+
     *Shooting()
     {
         // Wait for build animation to finish
         yield new WaitForSeconds(0.6);
         this.animator.enabled = false;
-        this.isActive = true;
         this.source.clip = this.audioClips[1];
 
         while (true)
@@ -83,6 +97,9 @@ export default class Turret extends MonoBehaviour {
                 // Play sound
                 this.source.pitch = Random.Range(0.5, 0.6);
                 this.source.Play();
+
+                // Clear array
+                this.potentialTargets.fill(null);
             }
         }
     }
@@ -114,6 +131,45 @@ export default class Turret extends MonoBehaviour {
 
     private FindTarget() : void
     {
+        /*console.log("0 = " + this.potentialTargets[0] + 
+            ", 1 = " + this.potentialTargets[1] +
+        ", 2 = " + this.potentialTargets[2] +
+    ", 3 = " + this.potentialTargets[3] +
+", 4 = " + this.potentialTargets[4]);*/
+
+        // Is any enemy within reach?
+        if (this.potentialTargets[0] == null)
+        {
+            // No target within reach
+            this.target = null;
+        }
+        else
+        {
+            let closest = 100.0;
+
+            for(let i = 0; i < this.potentialTargets.length; i++)
+            {
+                if (this.potentialTargets[i] == null)
+                    continue;
+
+                let distance = Vector3.op_Subtraction(this.transform.position, this.potentialTargets[i].position).magnitude;
+
+                if (distance < closest)
+                {
+                    this.target = this.potentialTargets[i];
+                }
+
+                // Remove enemy if it's too far away
+                if (Vector3.Distance(this.transform.position, this.potentialTargets[i].position) > 4)
+                {
+                    this.potentialTargets[i] = null;
+                }
+            }
+        }
+    }
+
+    private FindTarget2() : void
+    {
         // Find enemies within reach
         let colliders = Physics.OverlapSphere(this.transform.position, 4, this.layerMask);
 
@@ -136,6 +192,24 @@ export default class Turret extends MonoBehaviour {
             // No target within reach
             this.target = null;
         }
+    }
+
+    public RequestPotentialTarget(t: Transform) : void
+    {
+        for (let i = 0; i < this.potentialTargets.length; i++)
+        {
+            if (this.potentialTargets[i] == null)
+            {
+                // Found a free spot
+                this.potentialTargets[i] = t;
+                return;
+            }
+        }
+    }
+
+    public ClearTargets() : void 
+    {
+        this.potentialTargets.fill(null);
     }
 
     public GameOver() : void

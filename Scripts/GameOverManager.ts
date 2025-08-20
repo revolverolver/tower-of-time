@@ -82,7 +82,7 @@ export default class GameOverManager extends MonoBehaviour {
         CameraMovement.Instance.DestroyInstance();
         PlayerSounds.Instance.DestroyInstance();
 
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         // Restart Everything
         //this.setupManager.RestartEverything();
