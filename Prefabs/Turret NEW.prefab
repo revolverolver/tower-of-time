@@ -5972,60 +5972,8 @@ MonoBehaviour:
     PropType: 4
     PropKey: source
     BasePath: source
-  - IntValue: 0
-    LongValue: 0
-    DoubleValue: 0
-    FloatValue: 0
-    BoolValue: 0
-    StringValue: 
-    ColorValue: {r: 0, g: 0, b: 0, a: 0}
-    UnityObjectReference: {fileID: 0}
-    LayerMaskValue:
-      serializedVersion: 2
-      m_Bits: 0
-    Vector2Value: {x: 0, y: 0}
-    Vector3Value: {x: 0, y: 0, z: 0}
-    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
-    RectValue:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    AnimationCurveValue:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    BoundsValue:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
-    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
-    Vector2IntValue: {x: 0, y: 0}
-    Vector3IntValue: {x: 0, y: 0, z: 0}
-    RectIntValue:
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    BoundsIntValue:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    GeniesBehaviourReference: {fileID: 469592970718365668}
-    GeniesSOReference: {fileID: 0}
-    SerializedCsObjectValue: 
-    CsObjectReferences: []
-    TypeName: '@assets/Experience/tower-of-time/Scripts/Turret.Turret'
-    ArrayLength: 0
-    IsArray: 0
-    ArrayDimension: -1
-    IsPrefabOverride: 0
-    PropType: 1
-    PropKey: turretScript
-    BasePath: turretScript
   _script: {fileID: 4458252877524076426, guid: 6b126724baa76f8479cb5e0c8603db73, type: 3}
-  _scriptAssetHash: 84a9a000864fcb7f420195f294c08584
+  _scriptAssetHash: 561a849bb71afed03a50d8413cf71ea2
   UiEventForwarders: []
 --- !u!54 &7062059219564043447
 Rigidbody:
@@ -6155,7 +6103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &623066964514973603
 Transform:
   m_ObjectHideFlags: 0

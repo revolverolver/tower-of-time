@@ -47,6 +47,12 @@ export default class Turret extends MonoBehaviour {
         this.StartCoroutine(this.Shooting());
     }
 
+    private OnDisable() 
+    {
+        this.isActive = false;	
+        this.StopAllCoroutines();
+    }
+
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
     {
@@ -55,11 +61,6 @@ export default class Turret extends MonoBehaviour {
 
         this.FindTarget();
         this.AimAtTarget();
-    }
-
-    private LateUpdate() 
-    {
-        //this.potentialTargets.fill(null);
     }
 
     *Shooting()

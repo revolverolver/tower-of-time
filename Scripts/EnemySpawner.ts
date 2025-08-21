@@ -8,7 +8,8 @@ export default class EnemySpawner extends MonoBehaviour {
     @SerializeField private enemy: GameObject;
     @SerializeField private player: Transform;
 
-    @NonSerialized public turrets: Turret[] = new Array(6);
+    //@SerializeField private turretParent: GameObject;
+    @SerializeField public turrets: Turret[];
 
     private layerMask: int = (1 << LayerMask.NameToLayer("CustomLayer2")) | (1 << LayerMask.NameToLayer("CustomLayer6"));
 
@@ -33,17 +34,14 @@ export default class EnemySpawner extends MonoBehaviour {
         EnemySpawner.wormsAlive = 0;
 
         // Find turret references
-        let turretsFound = GameObject.FindGameObjectsWithTag("Turret");
-        console.log(turretsFound.length);
-        for (let i = 0; i < turretsFound.length; i++)
+        //this.turrets = this.turretParent.GetComponentsInChildren<Turret>();
+        
+        for (let i = 0; i < this.turrets.length; i++)
         {
-            this.turrets[i] = turretsFound[i].GetComponent<Turret>();
-            
-            console.log(turretsFound[i].GetComponent<Turret>());
-
             this.turrets[i].gameObject.SetActive(false);
         }
-        
+
+        // Start the spawner
         this.StartCoroutine(this.Spawner());
     }
 

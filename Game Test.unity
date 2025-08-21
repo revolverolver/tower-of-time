@@ -12504,7 +12504,7 @@ MonoBehaviour:
     PropKey: player
     BasePath: player
   _script: {fileID: 4458252877524076426, guid: c53c30fe9917dbe45941d22f3a8cc699, type: 3}
-  _scriptAssetHash: 78506844bc64582b4b0ab795c253245b
+  _scriptAssetHash: 71f5a0ec5868e2dc4cf85070e6e27715
   UiEventForwarders: []
 --- !u!1 &1059723146
 GameObject:

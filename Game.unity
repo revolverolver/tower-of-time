@@ -2652,6 +2652,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret NEW (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Double Barrel D
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2707,12 +2717,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b377aa0734a6cc48a43024c6c1500e5, type: 3}
---- !u!4 &163864260 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 163864259}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &181160071
 GameObject:
   m_ObjectHideFlags: 0
@@ -6310,6 +6314,91 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret NEW (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1011090363280357285, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.070000395
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011090363280357285, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.015000091
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237917946955273478, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237917946955273478, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9212601
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.3889471
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510967965081642528, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510967965081642528, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510967965081642528, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.80894524
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510967965081642528, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.587884
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510967965081642528, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Double Barrel C
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6365,12 +6454,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b377aa0734a6cc48a43024c6c1500e5, type: 3}
---- !u!4 &366108069 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 366108068}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &377607126
 GameObject:
   m_ObjectHideFlags: 0
@@ -12112,6 +12195,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret NEW (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Double Barrel B
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12167,12 +12260,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b377aa0734a6cc48a43024c6c1500e5, type: 3}
---- !u!4 &1007071856 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1007071855}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1008142133
 GameObject:
   m_ObjectHideFlags: 0
@@ -12513,13 +12600,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1044926117
-RectTransform:
+--- !u!4 &1044926117
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044926116}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -12528,11 +12616,6 @@ RectTransform:
   - {fileID: 2006126161}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1044926118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12651,8 +12734,372 @@ MonoBehaviour:
     PropType: 4
     PropKey: player
     BasePath: player
+  - IntValue: 0
+    LongValue: 0
+    DoubleValue: 0
+    FloatValue: 0
+    BoolValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    UnityObjectReference: {fileID: 0}
+    LayerMaskValue:
+      serializedVersion: 2
+      m_Bits: 0
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    RectValue:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    AnimationCurveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    BoundsValue:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
+    Vector2IntValue: {x: 0, y: 0}
+    Vector3IntValue: {x: 0, y: 0, z: 0}
+    RectIntValue:
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    BoundsIntValue:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+    GeniesBehaviourReference: {fileID: 0}
+    GeniesSOReference: {fileID: 0}
+    SerializedCsObjectValue: 
+    CsObjectReferences: []
+    TypeName: '@assets/Experience/tower-of-time/Scripts/Turret.Turret'
+    ArrayLength: 6
+    IsArray: 1
+    ArrayDimension: 1
+    IsPrefabOverride: 0
+    PropType: 0
+    PropKey: turrets
+    BasePath: turrets
+  - IntValue: 0
+    LongValue: 0
+    DoubleValue: 0
+    FloatValue: 0
+    BoolValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    UnityObjectReference: {fileID: 0}
+    LayerMaskValue:
+      serializedVersion: 2
+      m_Bits: 0
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    RectValue:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    AnimationCurveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    BoundsValue:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
+    Vector2IntValue: {x: 0, y: 0}
+    Vector3IntValue: {x: 0, y: 0, z: 0}
+    RectIntValue:
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    BoundsIntValue:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+    GeniesBehaviourReference: {fileID: 3507642831115832151}
+    GeniesSOReference: {fileID: 0}
+    SerializedCsObjectValue: 
+    CsObjectReferences: []
+    TypeName: '@assets/Experience/tower-of-time/Scripts/Turret.Turret'
+    ArrayLength: 0
+    IsArray: 0
+    ArrayDimension: 0
+    IsPrefabOverride: 0
+    PropType: 1
+    PropKey: turrets.[0]
+    BasePath: turrets_D1
+  - IntValue: 0
+    LongValue: 0
+    DoubleValue: 0
+    FloatValue: 0
+    BoolValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    UnityObjectReference: {fileID: 0}
+    LayerMaskValue:
+      serializedVersion: 2
+      m_Bits: 0
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    RectValue:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    AnimationCurveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    BoundsValue:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
+    Vector2IntValue: {x: 0, y: 0}
+    Vector3IntValue: {x: 0, y: 0, z: 0}
+    RectIntValue:
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    BoundsIntValue:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+    GeniesBehaviourReference: {fileID: 469592970651694475}
+    GeniesSOReference: {fileID: 0}
+    SerializedCsObjectValue: 
+    CsObjectReferences: []
+    TypeName: '@assets/Experience/tower-of-time/Scripts/Turret.Turret'
+    ArrayLength: 0
+    IsArray: 0
+    ArrayDimension: 0
+    IsPrefabOverride: 0
+    PropType: 1
+    PropKey: turrets.[1]
+    BasePath: turrets_D1
+  - IntValue: 0
+    LongValue: 0
+    DoubleValue: 0
+    FloatValue: 0
+    BoolValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    UnityObjectReference: {fileID: 0}
+    LayerMaskValue:
+      serializedVersion: 2
+      m_Bits: 0
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    RectValue:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    AnimationCurveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    BoundsValue:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
+    Vector2IntValue: {x: 0, y: 0}
+    Vector3IntValue: {x: 0, y: 0, z: 0}
+    RectIntValue:
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    BoundsIntValue:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+    GeniesBehaviourReference: {fileID: 469592971065563712}
+    GeniesSOReference: {fileID: 0}
+    SerializedCsObjectValue: 
+    CsObjectReferences: []
+    TypeName: '@assets/Experience/tower-of-time/Scripts/Turret.Turret'
+    ArrayLength: 0
+    IsArray: 0
+    ArrayDimension: 0
+    IsPrefabOverride: 0
+    PropType: 1
+    PropKey: turrets.[2]
+    BasePath: turrets_D1
+  - IntValue: 0
+    LongValue: 0
+    DoubleValue: 0
+    FloatValue: 0
+    BoolValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    UnityObjectReference: {fileID: 0}
+    LayerMaskValue:
+      serializedVersion: 2
+      m_Bits: 0
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    RectValue:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    AnimationCurveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    BoundsValue:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
+    Vector2IntValue: {x: 0, y: 0}
+    Vector3IntValue: {x: 0, y: 0, z: 0}
+    RectIntValue:
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    BoundsIntValue:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+    GeniesBehaviourReference: {fileID: 469592970865416487}
+    GeniesSOReference: {fileID: 0}
+    SerializedCsObjectValue: 
+    CsObjectReferences: []
+    TypeName: '@assets/Experience/tower-of-time/Scripts/Turret.Turret'
+    ArrayLength: 0
+    IsArray: 0
+    ArrayDimension: 0
+    IsPrefabOverride: 0
+    PropType: 1
+    PropKey: turrets.[3]
+    BasePath: turrets_D1
+  - IntValue: 0
+    LongValue: 0
+    DoubleValue: 0
+    FloatValue: 0
+    BoolValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    UnityObjectReference: {fileID: 0}
+    LayerMaskValue:
+      serializedVersion: 2
+      m_Bits: 0
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    RectValue:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    AnimationCurveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    BoundsValue:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
+    Vector2IntValue: {x: 0, y: 0}
+    Vector3IntValue: {x: 0, y: 0, z: 0}
+    RectIntValue:
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    BoundsIntValue:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+    GeniesBehaviourReference: {fileID: 469592972306671762}
+    GeniesSOReference: {fileID: 0}
+    SerializedCsObjectValue: 
+    CsObjectReferences: []
+    TypeName: '@assets/Experience/tower-of-time/Scripts/Turret.Turret'
+    ArrayLength: 0
+    IsArray: 0
+    ArrayDimension: 0
+    IsPrefabOverride: 0
+    PropType: 1
+    PropKey: turrets.[4]
+    BasePath: turrets_D1
+  - IntValue: 0
+    LongValue: 0
+    DoubleValue: 0
+    FloatValue: 0
+    BoolValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    UnityObjectReference: {fileID: 0}
+    LayerMaskValue:
+      serializedVersion: 2
+      m_Bits: 0
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    RectValue:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    AnimationCurveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    BoundsValue:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
+    Vector2IntValue: {x: 0, y: 0}
+    Vector3IntValue: {x: 0, y: 0, z: 0}
+    RectIntValue:
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    BoundsIntValue:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+    GeniesBehaviourReference: {fileID: 469592972293254376}
+    GeniesSOReference: {fileID: 0}
+    SerializedCsObjectValue: 
+    CsObjectReferences: []
+    TypeName: '@assets/Experience/tower-of-time/Scripts/Turret.Turret'
+    ArrayLength: 0
+    IsArray: 0
+    ArrayDimension: 0
+    IsPrefabOverride: 0
+    PropType: 1
+    PropKey: turrets.[5]
+    BasePath: turrets_D1
   _script: {fileID: 4458252877524076426, guid: c53c30fe9917dbe45941d22f3a8cc699, type: 3}
-  _scriptAssetHash: 574e1f5292bfc4dc296bc93e8878ffb2
+  _scriptAssetHash: 37bfb177cd1986141edfd47e181db95a
   UiEventForwarders: []
 --- !u!1 &1059723146
 GameObject:
@@ -14912,12 +15359,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7994993554961628997}
-  - {fileID: 1007071856}
-  - {fileID: 366108069}
-  - {fileID: 163864260}
-  - {fileID: 1609281399}
-  - {fileID: 1581214477}
+  - {fileID: 5687445245143742366}
+  - {fileID: 8702132686840056130}
+  - {fileID: 8702132686426089097}
+  - {fileID: 8702132686625973742}
+  - {fileID: 8702132687328498779}
+  - {fileID: 8702132687341817889}
   m_Father: {fileID: 1608031702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -16189,6 +16636,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret NEW (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Double Barrel F
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16244,12 +16701,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b377aa0734a6cc48a43024c6c1500e5, type: 3}
---- !u!4 &1581214477 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1581214476}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1581593730
 GameObject:
   m_ObjectHideFlags: 0
@@ -16534,6 +16985,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret NEW (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Double Barrel E
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16589,12 +17050,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b377aa0734a6cc48a43024c6c1500e5, type: 3}
---- !u!4 &1609281399 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1609281398}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1621621677
 GameObject:
   m_ObjectHideFlags: 0
@@ -20306,6 +20761,78 @@ Transform:
   m_Children: []
   m_Father: {fileID: 773372202}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &469592970651694475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 469592970718365668, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1007071855}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858dc640ae684bacb8622d5d44eb4ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &469592970865416487 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 469592970718365668, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 163864259}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858dc640ae684bacb8622d5d44eb4ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &469592971065563712 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 469592970718365668, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 366108068}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858dc640ae684bacb8622d5d44eb4ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &469592972293254376 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 469592970718365668, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1581214476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858dc640ae684bacb8622d5d44eb4ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &469592972306671762 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 469592970718365668, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1609281398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858dc640ae684bacb8622d5d44eb4ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3507642831115832151 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 469592970718365668, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 3902917474431700147}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858dc640ae684bacb8622d5d44eb4ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3902917474431700147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20318,6 +20845,91 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Turret NEW
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011090363280357285, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.070000395
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011090363280357285, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.015000091
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237917946955273478, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237917946955273478, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9212601
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.3889471
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464963270218793312, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510967965081642528, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510967965081642528, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510967965081642528, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.80894524
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510967965081642528, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.587884
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510967965081642528, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Double Barrel A
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924182638823321972, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
         type: 3}
@@ -20492,11 +21104,41 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 777522c6e0ddc7d43a34074c145fa6a6, type: 3}
---- !u!4 &7994993554961628997 stripped
+--- !u!4 &5687445245143742366 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
     type: 3}
   m_PrefabInstance: {fileID: 3902917474431700147}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8702132686426089097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 366108068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8702132686625973742 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 163864259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8702132686840056130 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1007071855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8702132687328498779 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1609281398}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8702132687341817889 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8702132686773058349, guid: 2b377aa0734a6cc48a43024c6c1500e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1581214476}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9053446937506375221
 PrefabInstance:

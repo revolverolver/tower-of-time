@@ -397,7 +397,7 @@ MonoBehaviour:
     PropKey: building
     BasePath: building
   _script: {fileID: 4458252877524076426, guid: 6b126724baa76f8479cb5e0c8603db73, type: 3}
-  _scriptAssetHash: 6089ebe7e47d8608fcb522c9bb335879
+  _scriptAssetHash: 561a849bb71afed03a50d8413cf71ea2
   UiEventForwarders: []
 --- !u!54 &2208912227648039990
 Rigidbody:
