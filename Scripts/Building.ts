@@ -2,6 +2,7 @@
 import { MonoBehaviour, Collider, Object, GameObject, ParticleSystem, AudioSource } from "UnityEngine";
 import PlayerSounds from "./PlayerSounds";
 import { TextMeshProUGUI } from "TMPro";
+import Turret from "./Turret";
 export default class Building extends MonoBehaviour {
 
     @SerializeField private building: GameObject;
@@ -9,6 +10,7 @@ export default class Building extends MonoBehaviour {
     @SerializeField private woodText: TextMeshProUGUI;
     @SerializeField private upgradeParticles: ParticleSystem;
     @SerializeField private source: AudioSource;
+    //@SerializeField public turretScript: Turret;
 
     private playerSounds: PlayerSounds;
 

@@ -2,12 +2,13 @@
 import { GameObject, LayerMask, MonoBehaviour, Object, Physics, Quaternion, Random, Ray, RaycastHit, Transform, Vector3, WaitForSeconds } from "UnityEngine";
 import RoundManager from "./RoundManager";
 import Turret from "./Turret";
+import Building from "./Building";
 export default class EnemySpawner extends MonoBehaviour {
 
     @SerializeField private enemy: GameObject;
     @SerializeField private player: Transform;
 
-    @SerializeField public turrets: Turret[];
+    @NonSerialized public turrets: Turret[] = new Array(6);
 
     private layerMask: int = (1 << LayerMask.NameToLayer("CustomLayer2")) | (1 << LayerMask.NameToLayer("CustomLayer6"));
 
@@ -30,6 +31,18 @@ export default class EnemySpawner extends MonoBehaviour {
         EnemySpawner.isSpawning = false;
         EnemySpawner.startSwarming = false;
         EnemySpawner.wormsAlive = 0;
+
+        // Find turret references
+        let turretsFound = GameObject.FindGameObjectsWithTag("Turret");
+        console.log(turretsFound.length);
+        for (let i = 0; i < turretsFound.length; i++)
+        {
+            this.turrets[i] = turretsFound[i].GetComponent<Turret>();
+            
+            console.log(turretsFound[i].GetComponent<Turret>());
+
+            this.turrets[i].gameObject.SetActive(false);
+        }
         
         this.StartCoroutine(this.Spawner());
     }

@@ -15,7 +15,7 @@ export default class Turret extends MonoBehaviour {
     @SerializeField private source: AudioSource;
     @SerializeField private audioClips: AudioClip[];
 
-    public potentialTargets: (Transform | null)[] = new Array(5);
+    @NonSerialized public potentialTargets: (Transform | null)[] = new Array(5);
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer3"); 
 
