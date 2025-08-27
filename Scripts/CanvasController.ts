@@ -14,6 +14,7 @@ export default class CanvasController extends MonoBehaviour {
     @SerializeField private scorePanel: GameObject;
     @SerializeField private mainMenuPanel: GameObject;
     @SerializeField private roundOverPanel: GameObject;
+    @SerializeField private timePanel: GameObject;
     @SerializeField private scoreText: TMP_Text;
     @SerializeField private personalHighScoreText: TMP_Text;
     @SerializeField private globalHighScoreText: TMP_Text;
@@ -117,6 +118,8 @@ export default class CanvasController extends MonoBehaviour {
     /** This will manage the canvas once the game ends. */
     private OnGameOver() {
         this.gameOverPanel.SetActive(true);
+        this.scorePanel.SetActive(false);
+        this.timePanel.SetActive(false);
         this.loadingPanel.SetActive(false);
         this.roundOverPanel.SetActive(false);
         //this.CheckHighScore(this.personalStorage, this.personalHighScoreText, this.personalString);
