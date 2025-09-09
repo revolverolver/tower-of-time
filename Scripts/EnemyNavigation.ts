@@ -15,6 +15,7 @@ export default class EnemyNavigation extends MonoBehaviour {
     private target: Transform;
 
     private speed: float = 1.5;
+    public walkSpeed: float;
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer6");
 
@@ -106,7 +107,7 @@ export default class EnemyNavigation extends MonoBehaviour {
         
         // Walk forward
         this.speed = (RoundManager.swarmRound) ? 1.5 : 1.0;
-        walkDirection = Vector3.op_Multiply(walkDirection, Time.fixedDeltaTime * this.speed);
+        walkDirection = Vector3.op_Multiply(walkDirection, Time.fixedDeltaTime * this.speed * this.walkSpeed);
         let finalPosition = Vector3.op_Addition(this.transform.position, walkDirection);
 
         this.rb.MovePosition(finalPosition);

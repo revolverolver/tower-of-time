@@ -14,12 +14,14 @@ export default class TimeManager extends MonoBehaviour {
     @SerializeField private roundObject: GameObject;
     @SerializeField private roundText: TextMeshProUGUI;
     @SerializeField private tapToSpin: GameObject;
+    @SerializeField private swarmWarning: GameObject;
 
-    @SerializeField private animator: Animator;
+    //@SerializeField private animator: Animator;
 
     private gameManager: CameraMovement;
 
     private roundTimeLeft: float;
+    public static totalTime: float = 0.0;
     
     public static isCounting: bool;
 
@@ -34,6 +36,7 @@ export default class TimeManager extends MonoBehaviour {
         this.inGameTimeText.text = "";
 
         TimeManager.isCounting = false;
+        TimeManager.totalTime = 0.0;
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
@@ -56,6 +59,9 @@ export default class TimeManager extends MonoBehaviour {
 
         let finalTime = minutes.toString() + ":" + secString;
         this.inGameTimeText.text = finalTime;
+
+        // Convert time to XP
+        TimeManager.totalTime += Time.deltaTime;
 
         // When count is over
         if (this.roundTimeLeft < 0.1)
@@ -92,6 +98,7 @@ export default class TimeManager extends MonoBehaviour {
     {
         this.roundTimeObject.SetActive(false);
         this.roundObject.SetActive(false);
+        this.swarmWarning.SetActive(false);
 
         let sec = Math.ceil(degrees / 60);
         let roundTime = sec * 10;

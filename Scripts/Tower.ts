@@ -1,6 +1,6 @@
 
 import { Enum } from "System";
-import { MonoBehaviour, Vector3, Mathf, Time, Animator, Quaternion, Transform, Random, Input, AudioClip, AudioSource } from "UnityEngine";
+import { MonoBehaviour, Vector3, Mathf, Time, Animator, Quaternion, Transform, Random, Input, AudioClip, AudioSource, WaitForSeconds } from "UnityEngine";
 import RoundManager from "./RoundManager";
 import CameraMovement, { CameraState } from './CameraMovement';
 import TimeManager from "./TimeManager";
@@ -20,6 +20,7 @@ export default class Tower extends MonoBehaviour {
     @SerializeField private pointerLong: Transform;
     @SerializeField private pointerShort: Transform;
     @SerializeField private animator: Animator;
+    @SerializeField private timeUiAnimator: Animator;
     @SerializeField private roundText: TextMeshProUGUI;
 
     @SerializeField private source: AudioSource;
@@ -99,7 +100,7 @@ export default class Tower extends MonoBehaviour {
         }
 
         // Increase spawn frequenzy
-        EnemySpawner.spawnFrequenzy = EnemySpawner.spawnFrequenzy / 1.35;
+        EnemySpawner.spawnFrequenzy = EnemySpawner.spawnFrequenzy / 1.25;
 
         if (EnemySpawner.spawnFrequenzy <= 0.1)
             EnemySpawner.spawnFrequenzy = 0.1;
@@ -153,6 +154,13 @@ export default class Tower extends MonoBehaviour {
                     // See how much time for the round based on rotation of pointerLong
                     let euler = this.pointerLong.eulerAngles.z;
                     this.timeManager.ShowRoundTime(euler);
+
+                    if (RoundManager.swarmRound)
+                    {
+                        // Show swarm warning before starting the round
+                        this.StartCoroutine(this.WarnForSwarm());
+                        this.t = 2.5;
+                    }
                 }
 
                 if (this.t <= 0)
@@ -195,6 +203,16 @@ export default class Tower extends MonoBehaviour {
         this.source.clip = this.soundClips[0];
         this.source.pitch = 1.2;
         this.source.Play();
+    }
+
+    *WarnForSwarm()
+    {
+        // Play swarm warning animation
+        this.timeUiAnimator.enabled = true;
+        this.timeUiAnimator.Play("Swarm_Round_Popup", -1, 0);
+
+        yield new WaitForSeconds(2.7);
+        this.timeUiAnimator.enabled = false;
     }
 
     public ChangeState(newState: ClockState) : void

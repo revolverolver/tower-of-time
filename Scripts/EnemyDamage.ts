@@ -6,7 +6,7 @@ import PlayerHealth from "./PlayerHealth";
 export default class EnemyDamage extends MonoBehaviour {
 
     @SerializeField private particles: GameObject;
-    private health: int = 20;
+    public health: int;
     
     //Called when script instance is loaded
     private Awake() : void {}

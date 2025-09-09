@@ -1,0 +1,73 @@
+fileFormatVersion: 2
+guid: 4f1ae1c31cf4d7c40b6acbef4cc0351f
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"__scriptableObject__name":"XPLeveling","__scriptableObject__type":"Genies.Scripting.AssetTypes.TsAsset,
+    Genies.Scripting, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","IsCompiled":true,"CompilerVersion":"2.0.66","ReferencedSpecifiers":["@assets/Experience/tower-of-time/Scripts/PlayerLevels","@assets/Experience/tower-of-time/Scripts/TimeManager","@assets/Experience/tower-of-time/Scripts/RoundManager","@com.genies.experience.sdk/Samples~/Experience/LeaderboardsSample/Scripts/LeaderboardViewEntry"],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    Genies_Experience_CloudSave_1 = require(\"Genies.Experience.CloudSave\");\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nconst PlayerLevels_1 = require(\"@assets/Experience/tower-of-time/Scripts/PlayerLevels\");\nconst
+    TimeManager_1 = require(\"@assets/Experience/tower-of-time/Scripts/TimeManager\");\nconst
+    RoundManager_1 = require(\"@assets/Experience/tower-of-time/Scripts/RoundManager\");\nclass
+    XPLeveling extends UnityEngine_1.MonoBehaviour {\n    constructor() {\n       
+    super(...arguments);\n        this.xpGained = 0;\n        this.totalAfterGain
+    = 0;\n        this.animatedXp = 0.0;\n        this.animatedLevel = 0;\n    }\n   
+    //Called when script instance is loaded\n    Awake() { }\n    SetupXP() {\n       
+    // Convert total time to XP\n        let timeXp = Math.round(TimeManager_1.default.totalTime);\n       
+    this.xpGained += timeXp;\n        // Gain 50xp for each round survived\n       
+    this.xpGained += 50 * (RoundManager_1.default.round - 1);\n        console.log(\"XP
+    GAINED: \" + this.xpGained.toString());\n    }\n    //Start is called on the
+    frame when a script is enabled just \n    //before any of the Update methods
+    are called the first time.\n    Start() {\n        this.SetupXP();\n        //
+    Setup Level number\n        this.lvlNumberText.text = PlayerLevels_1.default.playerLevel.toString();\n       
+    // Set bar fill length based on previous xp\n        let nextTotal = 50 * PlayerLevels_1.default.playerLevel
+    * (PlayerLevels_1.default.playerLevel + 3);\n        let currentTotal = 50 *
+    (PlayerLevels_1.default.playerLevel - 1) * ((PlayerLevels_1.default.playerLevel
+    - 1) + 3);\n        let normalizedXp = (PlayerLevels_1.default.playerXp - currentTotal)
+    / (nextTotal - currentTotal); // value between 0-1\n        this.barFill.transform.localScale
+    = new UnityEngine_1.Vector3(normalizedXp, 1, 1); // Set bar length\n        //
+    Get starting values for the fill animation\n        this.animatedLevel = PlayerLevels_1.default.playerLevel;\n       
+    this.animatedXp = PlayerLevels_1.default.playerXp;\n        this.totalAfterGain
+    = PlayerLevels_1.default.playerXp + this.xpGained;\n        this.StartCoroutine(this.FillUpXpBar());\n       
+    // Set and save new XP and Level\n        PlayerLevels_1.default.playerXp +=
+    this.xpGained;\n        PlayerLevels_1.default.playerLevel = this.GetPlayerLevel();\n       
+    // Save level and xp to cloud\n        this.SetSaveData();\n    }\n    GetPlayerLevel()
+    {\n        let lvl = 1;\n        let check = false;\n        while (check ==
+    false) {\n            let nextLvl = 50 * lvl * (lvl + 3);\n            if (PlayerLevels_1.default.playerXp
+    > nextLvl) {\n                lvl++;\n            }\n            else {\n               
+    check = true;\n            }\n        }\n        return lvl;\n    }\n    //Update
+    is called every frame, if the MonoBehaviour is enabled.\n    Update() { }\n   
+    *FillUpXpBar() {\n        // Wait for animation to complete\n        yield new
+    UnityEngine_1.WaitForSeconds(1.0);\n        console.log(\"Wait over \" + this.totalAfterGain
+    + \" anim: \" + this.animatedXp);\n        // Start filling up bar\n        while
+    (this.animatedXp < this.totalAfterGain) {\n            // Get variables for the
+    levels'' XP\n            let nextTotal = 50 * this.animatedLevel * (this.animatedLevel
+    + 3);\n            let currentTotal = 50 * (this.animatedLevel - 1) * ((this.animatedLevel
+    - 1) + 3);\n            // Increase XP\n            this.animatedXp += UnityEngine_1.Time.deltaTime
+    * 350;\n            if (this.animatedXp >= this.totalAfterGain)\n               
+    this.animatedXp = this.totalAfterGain;\n            // Check for a level up\n           
+    if (this.animatedXp >= nextTotal) {\n                // Level up\n               
+    this.animatedLevel++;\n                // Update XP values\n                nextTotal
+    = 50 * this.animatedLevel * (this.animatedLevel + 3);\n                currentTotal
+    = 50 * (this.animatedLevel - 1) * ((this.animatedLevel - 1) + 3);\n               
+    // Update text\n                this.lvlNumberText.text = this.animatedLevel.toString();\n           
+    }\n            // set bar fill length\n            let normalizedXp = (this.animatedXp
+    - currentTotal) / (nextTotal - currentTotal); // value between 0-1\n           
+    this.barFill.transform.localScale = new UnityEngine_1.Vector3(normalizedXp, 1,
+    1); // Set bar length\n            // Wait for the next frame\n            yield
+    null;\n        }\n    }\n    async SetSaveData() {\n        let playerStorage
+    = new Genies_Experience_CloudSave_1.CloudSaveStorage(\"PlayerStorage\");\n       
+    let levelKey = \"PlayerLevel\";\n        let xpKey = \"PlayerXP\";\n        await
+    $promise(playerStorage.Load());\n        // Set values\n        playerStorage.SetInt(levelKey,
+    PlayerLevels_1.default.playerLevel);\n        playerStorage.SetInt(xpKey, PlayerLevels_1.default.playerXp);\n       
+    // Save to cloud\n        await $promise(playerStorage.Save());\n        console.log(\"Level:
+    \" + PlayerLevels_1.default.playerLevel + \" & XP: \" + PlayerLevels_1.default.playerXp
+    + \" saved to cloud\");\n    }\n}\nexports.default = XPLeveling;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,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LGNBQWE7Z0JBQ2IsSUFBSSxDQUFDLGFBQWEsQ0FBQyxJQUFJLEdBQUcsSUFBSSxDQUFDLGFBQWEsQ0FBQyxRQUFRLEVBQUU7WUFDM0Q7WUFFQSxzQkFBcUI7WUFDckIsSUFBSSxZQUFZLEdBQUcsQ0FBQyxJQUFJLENBQUMsVUFBVSxHQUFHLFlBQVksQ0FBQyxHQUFHLENBQUMsU0FBUyxHQUFHLFlBQVksQ0FBQyxDQUFDLENBQUMsb0JBQW1CO1lBQ3JHLElBQUksQ0FBQyxPQUFPLENBQUMsU0FBUyxDQUFDLFVBQVUsR0FBRyxJQUFJLHFCQUFPLENBQUMsWUFBWSxFQUFFLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxDQUFDLGlCQUFnQjtZQUVyRiwwQkFBeUI7WUFDekIsTUFBTSxJQUFJO1FBQ2Q7SUFDSjtJQUVRLEtBQUssQ0FBQyxXQUFXO1FBRXJCLElBQUksYUFBYSxHQUFzQixJQUFJLDhDQUFnQixDQUFDLGVBQWUsQ0FBQztRQUM1RSxJQUFJLFFBQVEsR0FBRyxhQUFhO1FBQzVCLElBQUksS0FBSyxHQUFHLFVBQVU7UUFFdEIsTUFBSyxTQUFDLGFBQWEsQ0FBQyxJQUFJLEVBQUMsQ0FBQztRQUUxQixhQUFZO1FBQ1osYUFBYSxDQUFDLE1BQU0sQ0FBQyxRQUFRLEVBQUUsc0JBQVksQ0FBQyxXQUFXLENBQUM7UUFDeEQsYUFBYSxDQUFDLE1BQU0sQ0FBQyxLQUFLLEVBQUUsc0JBQVksQ0FBQyxRQUFRLENBQUM7UUFFbEQsZ0JBQWU7UUFDZixNQUFLLFNBQUMsYUFBYSxDQUFDLElBQUksRUFBQyxDQUFDO1FBRTFCLE9BQU8sQ0FBQyxHQUFHLENBQUMsU0FBUyxHQUFHLHNCQUFZLENBQUMsV0FBVyxHQUFHLFNBQVMsR0FBRyxzQkFBWSxDQUFDLFFBQVEsR0FBRyxpQkFBaUIsQ0FBQztJQUM3RztDQUNKO0FBMUlBLDZCQTBJQSIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiWFBMZXZlbGluZy50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdfQ==","ScriptHash":"a510a597d27f4b4a99d4c2dfc8366706","Specifier":"@assets/Experience/tower-of-time/Scripts/XPLeveling","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/XPLeveling.XPLeveling","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/XPLeveling.XPLeveling","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.13.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"lvlNumberText","Name":"lvlNumberText","TypeName":"TMPro.TextMeshProUGUI","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Lvl
+    Number Text","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"barFill","Name":"barFill","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Bar
+    Fill","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null}],"SupportedUiEvents":"None"}'

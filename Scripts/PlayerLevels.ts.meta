@@ -1,0 +1,39 @@
+fileFormatVersion: 2
+guid: 61a72835e366c104dad1028b3a5c7885
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"__scriptableObject__name":"PlayerLevels","__scriptableObject__type":"Genies.Scripting.AssetTypes.TsAsset,
+    Genies.Scripting, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","IsCompiled":true,"CompilerVersion":"2.0.66","ReferencedSpecifiers":["@assets/Experience/tower-of-time/Scripts/XPLeveling"],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nconst Genies_Experience_CloudSave_1
+    = require(\"Genies.Experience.CloudSave\");\nclass PlayerLevels extends UnityEngine_1.MonoBehaviour
+    {\n    // XP formula: 50xp per round, 1xp per second alive | ex: round 9 (400xp),
+    295s alive (295xp) = 695 xp total\n    // survive 1st round: 50xp, survive 2nd
+    round: 100xp, survive 3rd round: 150xp, etc. \n    // Level formula: 50n(n +
+    3) where n = player level\n    // lvl 1: 200xp, lvl 2: 500xp, lvl 3: 900xp, lvl
+    4: 1400xp .... lvl 10: 6500xp, lvl 11: 7700xp, lvl 12: 9000xp ... lvl 20: 23,000xp\n   
+    //Called when script instance is loaded\n    Awake() {\n    }\n    //Start is
+    called on the frame when a script is enabled just \n    //before any of the Update
+    methods are called the first time.\n    async Start() {\n        await this.GetSaveData();\n   
+    }\n    //Update is called every frame, if the MonoBehaviour is enabled.\n   
+    Update() { }\n    async GetSaveData() {\n        let playerStorage = new Genies_Experience_CloudSave_1.CloudSaveStorage(\"PlayerStorage\");\n       
+    let levelKey = \"PlayerLevel\";\n        let xpKey = \"PlayerXP\";\n        await
+    this.EstablishScoreData(playerStorage, levelKey, 1);\n        await this.EstablishScoreData(playerStorage,
+    xpKey, 0);\n        PlayerLevels.playerLevel = playerStorage.GetInt(levelKey);\n       
+    PlayerLevels.playerXp = playerStorage.GetInt(xpKey);\n    }\n    async EstablishScoreData(storage,
+    scoreKey, defaultValue) {\n        //Load data from storage\n        await $promise(storage.Load());\n       
+    //Check if key exists in data\n        if (storage.Has(scoreKey)) {\n           
+    //Get key value from data\n            let score = storage.GetInt(scoreKey);\n           
+    console.log(\"Storage of \" + scoreKey + \" has a value of \" + score.toString());\n       
+    }\n        else {\n            console.log(\"Storage of \" + scoreKey + \" does
+    not have a value yet\");\n            //Set initial key value\n            storage.SetInt(scoreKey,
+    defaultValue);\n            //Save data to storage\n            await $promise(storage.Save());\n           
+    console.log(\"Storage of \" + scoreKey + \" now has a value of \" + defaultValue);\n       
+    }\n    }\n}\nPlayerLevels.playerLevel = 1;\nPlayerLevels.playerXp = 0;\nexports.default
+    = PlayerLevels;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUGxheWVyTGV2ZWxzLmpzIiwibWFwcGluZ3MiOiI7O0FBQ0EsNkNBQTJDO0FBQzNDLDZFQUE4RDtBQUc5RCxNQUFxQixZQUFhLFNBQVEsMkJBQWE7SUFPbkQsNEdBQTJHO0lBQzNHLHFGQUFvRjtJQUVwRixtREFBa0Q7SUFDbEQsbUlBQWtJO0lBRWxJLHVDQUFzQztJQUM5QixLQUFLO0lBR2I7SUFFQSw2REFBNEQ7SUFDNUQsNkRBQTREO0lBQzVELEtBQUssQ0FBQyxLQUFLO1FBRVAsTUFBTSxJQUFJLENBQUMsV0FBVyxFQUFFO0lBQzVCO0lBRUEsZ0VBQStEO0lBQ3ZELE1BQU0sS0FBVztJQUVqQixLQUFLLENBQUMsV0FBVztRQUVyQixJQUFJLGFBQWEsR0FBc0IsSUFBSSw4Q0FBZ0IsQ0FBQyxlQUFlLENBQUM7UUFDNUUsSUFBSSxRQUFRLEdBQUcsYUFBYTtRQUM1QixJQUFJLEtBQUssR0FBRyxVQUFVO1FBRXRCLE1BQU0sSUFBSSxDQUFDLGtCQUFrQixDQUFDLGFBQWEsRUFBRSxRQUFRLEVBQUUsQ0FBQyxDQUFDO1FBQ3pELE1BQU0sSUFBSSxDQUFDLGtCQUFrQixDQUFDLGFBQWEsRUFBRSxLQUFLLEVBQUUsQ0FBQyxDQUFDO1FBRXRELFlBQVksQ0FBQyxXQUFXLEdBQUcsYUFBYSxDQUFDLE1BQU0sQ0FBQyxRQUFRLENBQUM7UUFDekQsWUFBWSxDQUFDLFFBQVEsR0FBRyxhQUFhLENBQUMsTUFBTSxDQUFDLEtBQUssQ0FBQztJQUN2RDtJQUVRLEtBQUssQ0FBQyxrQkFBa0IsQ0FBQyxPQUF5QixFQUFFLFFBQWdCLEVBQUUsWUFBaUI7UUFDM0Ysd0JBQXVCO1FBQ3ZCLE1BQUssU0FBQyxPQUFPLENBQUMsSUFBSSxFQUFDLENBQUM7UUFDcEIsNkJBQTRCO1FBQzVCLElBQUksT0FBTyxDQUFDLEdBQUcsQ0FBQyxRQUFRLENBQUMsRUFBRTtZQUN2Qix5QkFBd0I7WUFDeEIsSUFBSSxLQUFLLEdBQVMsT0FBTyxDQUFDLE1BQU0sQ0FBQyxRQUFRLENBQUM7WUFDMUMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxhQUFhLEdBQUcsUUFBUSxHQUFHLGtCQUFrQixHQUFHLEtBQUssQ0FBQyxRQUFRLEVBQUUsQ0FBQztRQUNqRixDQUFDO2FBQUk7WUFDRCxPQUFPLENBQUMsR0FBRyxDQUFDLGFBQWEsR0FBRyxRQUFRLEdBQUcsNEJBQTRCLENBQUM7WUFDcEUsdUJBQXNCO1lBQ3RCLE9BQU8sQ0FBQyxNQUFNLENBQUMsUUFBUSxFQUFFLFlBQVksQ0FBQztZQUN0QyxzQkFBcUI7WUFDckIsTUFBSyxTQUFDLE9BQU8sQ0FBQyxJQUFJLEVBQUMsQ0FBQztZQUNwQixPQUFPLENBQUMsR0FBRyxDQUFDLGFBQWEsR0FBRyxRQUFRLEdBQUcsc0JBQXNCLEdBQUcsWUFBWSxDQUFDO1FBQ2pGO0lBQ0o7O0FBdERjLHdCQUFXLEdBQVEsQ0FBQztBQUNwQixxQkFBUSxHQUFRLENBQUM7a0JBTGQsWUFBWSIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiUGxheWVyTGV2ZWxzLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF19","ScriptHash":"d96ebfbff723667517841d260330c715","Specifier":"@assets/Experience/tower-of-time/Scripts/PlayerLevels","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/PlayerLevels.PlayerLevels","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/PlayerLevels.PlayerLevels","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.13.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"leveling","Name":"leveling","TypeName":"@assets/Experience/tower-of-time/Scripts/XPLeveling.XPLeveling","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":true,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Leveling","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null}],"SupportedUiEvents":"None"}'

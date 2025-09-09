@@ -6,6 +6,7 @@ import Building from "./Building";
 export default class EnemySpawner extends MonoBehaviour {
 
     @SerializeField private enemy: GameObject;
+    @SerializeField private enemyBig: GameObject;
     @SerializeField private player: Transform;
 
     //@SerializeField private turretParent: GameObject;
@@ -71,7 +72,7 @@ export default class EnemySpawner extends MonoBehaviour {
                     c--;
 
                     let spawnPosition = this.FindSpawnPosition();
-                    Object.Instantiate(this.enemy, spawnPosition, Quaternion.identity, this.transform);
+                    Object.Instantiate(this.EnemyToSpawn(), spawnPosition, Quaternion.identity, this.transform);
                     
                     // Increase count
                     EnemySpawner.wormsAlive++;
@@ -88,14 +89,30 @@ export default class EnemySpawner extends MonoBehaviour {
             if (EnemySpawner.wormsAlive < 100)
             {
                 // Spawn enemy
-                Object.Instantiate(this.enemy, spawnPosition, Quaternion.identity, this.transform);
+                Object.Instantiate(this.EnemyToSpawn(), spawnPosition, Quaternion.identity, this.transform);
 
                 // Increase count
                 EnemySpawner.wormsAlive++;
-
-                console.log(EnemySpawner.wormsAlive);
             }
         }
+    }
+
+    private EnemyToSpawn() : GameObject
+    {
+        let tempEnemy = this.enemy;
+
+        let randomNumber = Random.Range(0.0, 100.0);
+        if (randomNumber < 92)
+        {
+            // Normal enemy
+        }
+        else if (RoundManager.round > 3)
+        {
+            // Big enemy
+            tempEnemy = this.enemyBig;
+        }
+
+        return tempEnemy;
     }
 
     private FindSpawnPosition() : Vector3
