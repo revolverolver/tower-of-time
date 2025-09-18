@@ -926,7 +926,7 @@ MonoBehaviour:
     PropKey: timeUiAnimator
     BasePath: timeUiAnimator
   _script: {fileID: 4458252877524076426, guid: c750d1fc1458f144387018107f234b79, type: 3}
-  _scriptAssetHash: 43a524336e70ff58f51c2938c0d25027
+  _scriptAssetHash: c0e2db7119628a98f23c62a0bb6e7b95
   UiEventForwarders: []
 --- !u!95 &52764035
 Animator:
@@ -8233,7 +8233,7 @@ MonoBehaviour:
     PropKey: playerRoot
     BasePath: playerRoot
   _script: {fileID: 4458252877524076426, guid: 3cf08003f08755049935cf03aef00c19, type: 3}
-  _scriptAssetHash: 06ddf44e9d316c7770e13a46584720f0
+  _scriptAssetHash: c557d4d9e5ec1c4ae5a67421fe344219
   UiEventForwarders: []
 --- !u!1 &558817153
 GameObject:
@@ -12659,6 +12659,58 @@ MonoBehaviour:
     PropType: 0
     PropKey: turrets
     BasePath: turrets
+  - IntValue: 0
+    LongValue: 0
+    DoubleValue: 0
+    FloatValue: 0
+    BoolValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    UnityObjectReference: {fileID: 0}
+    LayerMaskValue:
+      serializedVersion: 2
+      m_Bits: 0
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    RectValue:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    AnimationCurveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    BoundsValue:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
+    Vector2IntValue: {x: 0, y: 0}
+    Vector3IntValue: {x: 0, y: 0, z: 0}
+    RectIntValue:
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    BoundsIntValue:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+    GeniesBehaviourReference: {fileID: 0}
+    GeniesSOReference: {fileID: 0}
+    SerializedCsObjectValue: 
+    CsObjectReferences: []
+    TypeName: UnityEngine.GameObject
+    ArrayLength: 0
+    IsArray: 0
+    ArrayDimension: -1
+    IsPrefabOverride: 0
+    PropType: 4
+    PropKey: enemyBig
+    BasePath: enemyBig
   _script: {fileID: 4458252877524076426, guid: c53c30fe9917dbe45941d22f3a8cc699, type: 3}
   _scriptAssetHash: 813161d7e28c7b7a124a705ba965422a
   UiEventForwarders: []

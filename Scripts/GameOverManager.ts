@@ -24,16 +24,6 @@ export default class GameOverManager extends MonoBehaviour {
 
     @SerializeField spawner: EnemySpawner;
     @SerializeField turrets: Turret[];
-
-    private personalStorageKey: string = "PersonalStorageKey";
-    private globalStorageKey: string = "GlobalStorageKey";
-    private floatHighScoreKey: string = "FloatHighScoreKey";
-
-    private personalString: string = "Personal Best: ";
-    private globalString: string = "Global Best: ";
-
-    private personalStorage: CloudSaveStorage;
-    private globalStorage: CloudSaveStorage;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -59,6 +49,49 @@ export default class GameOverManager extends MonoBehaviour {
         this.roundsSurvivedText.text = RoundManager.round.toString();
 
         // Your best score
+        this.GetSetBestScore();
+    }
+
+    async GetSetBestScore()
+    {
+        let storage: CloudSaveStorage = new CloudSaveStorage("ScoreStorage");
+        let bestKey = "BestScore";
+
+        await this.EstablishScoreData(storage, bestKey, 0);
+
+        // Get best score from cloud save
+        let bestScore = storage.GetInt(bestKey);
+
+        // Check if the best score if beaten
+        if (RoundManager.round > bestScore)
+        {
+            // Save new best score
+            bestScore = RoundManager.round;
+            await storage.Load();
+            await storage.SetInt(bestKey, bestScore);
+            await storage.Save();
+        }
+
+        // Set best score Text
+        this.yourBestText.text = bestScore.toString();
+    }
+
+    private async EstablishScoreData(storage: CloudSaveStorage, scoreKey: string, defaultValue: int) {
+        //Load data from storage
+        await storage.Load();
+        //Check if key exists in data
+        if (storage.Has(scoreKey)) {
+            //Get key value from data
+            let score: int =  storage.GetInt(scoreKey);
+            console.log("Storage of " + scoreKey + " has a value of " + score.toString());
+        }else{
+            console.log("Storage of " + scoreKey + " does not have a value yet");
+            //Set initial key value
+            storage.SetInt(scoreKey, defaultValue);
+            //Save data to storage
+            await storage.Save();
+            console.log("Storage of " + scoreKey + " now has a value of " + defaultValue);
+        }
     }
 
     private PlayAgain()
@@ -66,21 +99,11 @@ export default class GameOverManager extends MonoBehaviour {
         // Show loading screen
         console.log(`PLAY AGAIN`);
 
-        // Stop coroutines || likely redundant and causes errors
-        /*this.spawner.GameOver();
-
-        for (let i = 0; i < this.turrets.length; i++)
-        {
-            this.turrets[i].GameOver();
-        }*/
-
-        //GameObject.Destroy(this.playerRoot);
-
         // Remove Instances
-        UpgradeMenu.Instance.DestroyInstance();
-        GameManager.Instance.DestroyInstance();
-        CameraMovement.Instance.DestroyInstance();
-        PlayerSounds.Instance.DestroyInstance();
+        //UpgradeMenu.Instance.DestroyInstance();
+        //GameManager.Instance.DestroyInstance();
+        //CameraMovement.Instance.DestroyInstance();
+        //PlayerSounds.Instance.DestroyInstance();
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 

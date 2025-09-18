@@ -8,6 +8,7 @@ import WoodBackpack from './WoodBackpack';
 import CameraMovement, { CameraState } from './CameraMovement';
 import PlayerHealth from './PlayerHealth';
 import Upgrades from './Upgrades';
+import PlayerStats from './PlayerStats';
 
 export default class PlayerController extends MonoBehaviour {
     
@@ -95,7 +96,7 @@ export default class PlayerController extends MonoBehaviour {
             value = value * 0.012;
 
             // Change value based on weight
-            let weight = ((WoodBackpack.woodAmount / 20) * 0.45) / Upgrades.carryStrength;
+            let weight = ((WoodBackpack.woodAmount / 20) * 0.45) / 1.4 * Upgrades.carryStrength * PlayerStats.carryBoost;
             value -= weight;
 
             this.moveDirection = Vector3.op_Multiply(direction.normalized, -value);
@@ -124,7 +125,7 @@ export default class PlayerController extends MonoBehaviour {
             return;
 
         // Set player speed
-        let speed = this.playerSpeed * Time.fixedDeltaTime * (Upgrades.walkSpeed * 0.9);
+        let speed = this.playerSpeed * Time.fixedDeltaTime * (Upgrades.walkSpeed * 0.9) * PlayerStats.walkBoost;
         let translatedDirection = new Vector3(this.moveDirection.x * speed, 0, this.moveDirection.y * speed);
         this.rb.MovePosition(Vector3.op_Addition(this.transform.position, translatedDirection));
     }

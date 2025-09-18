@@ -1,16 +1,21 @@
 
 import { TextMeshProUGUI } from "TMPro";
 import { CloudSaveStorage } from "Genies.Experience.CloudSave";
-import { MonoBehaviour, Time, Transform, Vector3, WaitForSeconds } from "UnityEngine";
+import { Animator, GameObject, MonoBehaviour, Time, Transform, Vector3, WaitForSeconds } from "UnityEngine";
 import PlayerLevels from "./PlayerLevels";
 import TimeManager from "./TimeManager";
 import RoundManager from "./RoundManager";
-import LeaderboardEntryView from "@com.genies.experience.sdk/Samples~/Experience/LeaderboardsSample/Scripts/LeaderboardViewEntry";
 
 export default class XPLeveling extends MonoBehaviour {
 
     @SerializeField private lvlNumberText: TextMeshProUGUI;
     @SerializeField private barFill: Transform;
+    @SerializeField private animator: Animator;
+
+    @SerializeField private permanentIcons: GameObject[];
+    @SerializeField private permanentText: TextMeshProUGUI;
+
+    private permanentAmounts: string[] = ["+1", "+2%", "+2%", "+2%"];
 
     private xpGained: int = 0;
 
@@ -117,6 +122,12 @@ export default class XPLeveling extends MonoBehaviour {
 
                 // Update text
                 this.lvlNumberText.text = this.animatedLevel.toString();
+
+                // Setup level up animation
+                this.SetupLevelUp();
+
+                // Play animation
+                this.animator.Play("Level_Up", -1, 0);
             }
 
             // set bar fill length
@@ -126,6 +137,29 @@ export default class XPLeveling extends MonoBehaviour {
             // Wait for the next frame
             yield null;
         }
+    }
+
+    private SetupLevelUp() : void
+    {
+        // Calculate which upgrade to show
+        let counter: int = 0;
+        for (let i = 1; i < this.animatedLevel - 1; i++)
+        {
+            counter++;
+            if (counter > 3) counter = 0;
+        }
+
+        // Show icon and hide the other
+        for (let i = 0; i < 4; i++)
+        {
+            if (i == counter) 
+                this.permanentIcons[i].SetActive(true);
+            else 
+                this.permanentIcons[i].SetActive(false);
+        }
+
+        // Set the text
+        this.permanentText.text = this.permanentAmounts[counter];
     }
 
     private async SetSaveData()

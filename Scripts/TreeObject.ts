@@ -7,6 +7,7 @@ import CameraMovement, {CameraState} from "./CameraMovement";
 import RoundManager from "./RoundManager";
 import PlayerController from "./PlayerController";
 import Upgrades from "./Upgrades";
+import PlayerStats from "./PlayerStats";
 
 export default class TreeObject extends MonoBehaviour {
 
@@ -73,7 +74,7 @@ export default class TreeObject extends MonoBehaviour {
                 this.Chop();
 
                 // Reset chopping
-                this.chopTime = 1.4 - (0.6 * Upgrades.chopSpeed); // OG chopTime: 0.8
+                this.chopTime = 1.4 - (0.6 * Upgrades.chopSpeed * PlayerStats.chopBoost); // OG chopTime: 0.8
             }
         }
     }
@@ -84,7 +85,7 @@ export default class TreeObject extends MonoBehaviour {
             return;
 
         this.isChopping = true;
-        this.chopTime = 1.4 - (0.6 * Upgrades.chopSpeed); // OG chopTime: 0.8
+        this.chopTime = 1.4 - (0.6 * Upgrades.chopSpeed * PlayerStats.chopBoost); // OG chopTime: 0.8
 
         // Chop once
         this.Chop();

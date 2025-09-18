@@ -41,6 +41,10 @@ export default class PlayerLevels extends MonoBehaviour {
         await this.EstablishScoreData(playerStorage, levelKey, 1);
         await this.EstablishScoreData(playerStorage, xpKey, 0);
 
+        //playerStorage.SetInt(levelKey, 1);
+        //playerStorage.SetInt(xpKey, 0);
+        //await playerStorage.Save();
+
         PlayerLevels.playerLevel = playerStorage.GetInt(levelKey);
         PlayerLevels.playerXp = playerStorage.GetInt(xpKey);
     }

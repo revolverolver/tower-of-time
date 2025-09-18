@@ -1,0 +1,79 @@
+fileFormatVersion: 2
+guid: 0c11369c9ecfb3b4bad89d1aa4eb6f0d
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"__scriptableObject__name":"PlayerStats","__scriptableObject__type":"Genies.Scripting.AssetTypes.TsAsset,
+    Genies.Scripting, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","IsCompiled":true,"CompilerVersion":"2.0.66","ReferencedSpecifiers":["@assets/Experience/tower-of-time/Scripts/Upgrades","@assets/Experience/tower-of-time/Scripts/PlayerHealth"],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    Genies_Experience_CloudSave_1 = require(\"Genies.Experience.CloudSave\");\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nconst PlayerHealth_1 = require(\"@assets/Experience/tower-of-time/Scripts/PlayerHealth\");\nclass
+    PlayerStats extends UnityEngine_1.MonoBehaviour {\n    constructor() {\n       
+    super(...arguments);\n        this.healthUpgrades = [1, 5, 9, 13, 17, 21, 25,
+    29, 33, 37, 41];\n        this.walkUpgrades = [2, 6, 10, 14, 18, 22, 26, 30,
+    34, 38, 42];\n        this.chopUpgrades = [3, 7, 1, 15, 19, 23, 27, 31, 35, 39,
+    43];\n        this.carryUpgrades = [4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44];\n   
+    }\n    //Called when script instance is loaded\n    Awake() { }\n    //Start
+    is called on the frame when a script is enabled just \n    //before any of the
+    Update methods are called the first time.\n    Start() {\n        this.GetSaveData();\n   
+    }\n    //Update is called every frame, if the MonoBehaviour is enabled.\n   
+    Update() { }\n    async GetSaveData() {\n        let playerStorage = new Genies_Experience_CloudSave_1.CloudSaveStorage(\"PlayerStorage\");\n       
+    let levelKey = \"PlayerLevel\";\n        await this.EstablishScoreData(playerStorage,
+    levelKey, 1);\n        this.playerLevel = playerStorage.GetInt(levelKey);\n       
+    this.lvlNumberText.text = this.playerLevel.toString();\n        // Set stats\n       
+    this.SetUpgradeStats();\n        this.SetTexts();\n    }\n    async EstablishScoreData(storage,
+    scoreKey, defaultValue) {\n        //Load data from storage\n        await $promise(storage.Load());\n       
+    //Check if key exists in data\n        if (storage.Has(scoreKey)) {\n           
+    //Get key value from data\n            let score = storage.GetInt(scoreKey);\n           
+    console.log(\"Storage of \" + scoreKey + \" has a value of \" + score.toString());\n       
+    }\n        else {\n            console.log(\"Storage of \" + scoreKey + \" does
+    not have a value yet\");\n            //Set initial key value\n            storage.SetInt(scoreKey,
+    defaultValue);\n            //Save data to storage\n            await $promise(storage.Save());\n           
+    console.log(\"Storage of \" + scoreKey + \" now has a value of \" + defaultValue);\n       
+    }\n    }\n    SetUpgradeStats() {\n        // Health points\n        for (let
+    i = 0; i < this.healthUpgrades.length; i++) {\n            if (this.playerLevel
+    <= this.healthUpgrades[i]) {\n                // Player level hasn''t reached
+    [i]. No upgrade\n                break;\n            }\n            else {\n               
+    // Set upgrade at this level\n                PlayerHealth_1.default.maxHealth
+    = 10 + i + 1; // 1 point increase\n                PlayerHealth_1.default.health
+    = 10 + i + 1; // 1 point increase\n            }\n        }\n        // Walk
+    speed\n        for (let i = 0; i < this.walkUpgrades.length; i++) {\n           
+    if (this.playerLevel <= this.walkUpgrades[i]) {\n                // Player level
+    hasn''t reached [i]. No upgrade\n                if (i == 0) {\n                   
+    // Set default value\n                    PlayerStats.walkBoost = 1.0;\n               
+    }\n                break;\n            }\n            else {\n               
+    // Set upgrade at this level\n                let value = ((i + 1) / 100) * 2;
+    // 2% increase\n                PlayerStats.walkBoost = 1.0 + value;\n           
+    }\n        }\n        // Chop speed\n        for (let i = 0; i < this.chopUpgrades.length;
+    i++) {\n            if (this.playerLevel <= this.chopUpgrades[i]) {\n               
+    // Player level hasn''t reached [i]. No upgrade\n                if (i == 0)
+    {\n                    // Set default value\n                    PlayerStats.chopBoost
+    = 1.0;\n                }\n                break;\n            }\n           
+    else {\n                // Set upgrade at this level\n                let value
+    = ((i + 1) / 100) * 2; // 2% increase\n                PlayerStats.chopBoost
+    = 1.0 + value;\n            }\n        }\n        // Carry strength\n       
+    for (let i = 0; i < this.carryUpgrades.length; i++) {\n            if (this.playerLevel
+    <= this.carryUpgrades[i]) {\n                // Player level hasn''t reached
+    [i]. No upgrade\n                if (i == 0) {\n                    // Set default
+    value\n                    PlayerStats.carryBoost = 1.0;\n                }\n               
+    break;\n            }\n            else {\n                // Set upgrade at
+    this level\n                let value = ((i + 1) / 100) * 2; // 2% increase\n               
+    PlayerStats.carryBoost = 1.0 + value;\n            }\n        }\n    }\n    SetTexts()
+    {\n        this.healthText.text = PlayerHealth_1.default.maxHealth.toString();\n       
+    // \"boost\" = 1.0X (ex: 1.04 = 4% boost),  remove 1.0 = 0.0X to get a single
+    digit percentage\n        this.walkText.text = \"+\" + ((PlayerStats.walkBoost
+    - 1.0) * 100).toFixed(0) + \"%\";\n        this.chopText.text = \"+\" + ((PlayerStats.chopBoost
+    - 1.0) * 100).toFixed(0) + \"%\";\n        this.carryText.text = \"+\" + ((PlayerStats.carryBoost
+    - 1.0) * 100).toFixed(0) + \"%\";\n        // (this.playerLevel == 1) ? \"+0%\"
+    : \n    }\n}\nPlayerStats.walkBoost = 0;\nPlayerStats.chopBoost = 0;\nPlayerStats.carryBoost
+    = 0;\nexports.default = PlayerStats;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,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LENBQUMsU0FBUyxHQUFHLEdBQUcsQ0FBQyxHQUFHLEdBQUcsQ0FBQyxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsR0FBRyxHQUFHO1FBQ2pGLElBQUksQ0FBQyxRQUFRLENBQUMsSUFBSSxHQUFHLEdBQUcsR0FBRyxDQUFDLENBQUMsV0FBVyxDQUFDLFNBQVMsR0FBRyxHQUFHLENBQUMsR0FBRyxHQUFHLENBQUMsQ0FBQyxPQUFPLENBQUMsQ0FBQyxDQUFDLEdBQUcsR0FBRztRQUNqRixJQUFJLENBQUMsU0FBUyxDQUFDLElBQUksR0FBRyxHQUFHLEdBQUcsQ0FBQyxDQUFDLFdBQVcsQ0FBQyxVQUFVLEdBQUcsR0FBRyxDQUFDLEdBQUcsR0FBRyxDQUFDLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxHQUFHLEdBQUc7UUFDbkYscUNBQW9DO0lBQ3hDOztBQWpJYyxxQkFBUyxHQUFVLENBQUMsQUFBWCxDQUFXO0FBQ3BCLHFCQUFTLEdBQVUsQ0FBQyxBQUFYLENBQVc7QUFDcEIsc0JBQVUsR0FBVSxDQUFDLEFBQVgsQ0FBVztrQkFqQmxCLFdBQVciLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbIlBsYXllclN0YXRzLnRzIl0sInNvdXJjZXNDb250ZW50IjpbbnVsbF19","ScriptHash":"312bc88502267a5650a0ee4c10721221","Specifier":"@assets/Experience/tower-of-time/Scripts/PlayerStats","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/PlayerStats.PlayerStats","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/PlayerStats.PlayerStats","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.13.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"lvlNumberText","Name":"lvlNumberText","TypeName":"TMPro.TextMeshProUGUI","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Lvl
+    Number Text","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"healthText","Name":"healthText","TypeName":"TMPro.TextMeshProUGUI","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Health
+    Text","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"walkText","Name":"walkText","TypeName":"TMPro.TextMeshProUGUI","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Walk
+    Text","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"chopText","Name":"chopText","TypeName":"TMPro.TextMeshProUGUI","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Chop
+    Text","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"carryText","Name":"carryText","TypeName":"TMPro.TextMeshProUGUI","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Carry
+    Text","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null}],"SupportedUiEvents":"None"}'
