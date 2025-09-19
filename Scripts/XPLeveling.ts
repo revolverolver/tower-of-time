@@ -12,6 +12,7 @@ export default class XPLeveling extends MonoBehaviour {
     @SerializeField private barFill: Transform;
     @SerializeField private animator: Animator;
 
+    @SerializeField private xpGainedText: TextMeshProUGUI;
     @SerializeField private permanentIcons: GameObject[];
     @SerializeField private permanentText: TextMeshProUGUI;
 
@@ -34,6 +35,9 @@ export default class XPLeveling extends MonoBehaviour {
 
         // Gain 50xp for each round survived
         this.xpGained += 50 * (RoundManager.round - 1);
+
+        // Set XP gained text
+        this.xpGainedText.text = "+" + this.xpGained + " XP";
 
         console.log("XP GAINED: " + this.xpGained.toString());
     }

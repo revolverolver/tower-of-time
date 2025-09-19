@@ -17,7 +17,7 @@ export default class PlayerStats extends MonoBehaviour {
     private playerLevel: int;
     private healthUpgrades: int[] = [1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41];
     private walkUpgrades: int[] = [2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42];
-    private chopUpgrades: int[] = [3, 7, 1, 15, 19, 23, 27, 31, 35, 39, 43];
+    private chopUpgrades: int[] = [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43];
     private carryUpgrades: int[] = [4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44];
 
     public static walkBoost: float = 0;
