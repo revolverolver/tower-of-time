@@ -4598,7 +4598,7 @@ MonoBehaviour:
     PropKey: rb
     BasePath: rb
   _script: {fileID: 4458252877524076426, guid: 6a34c31e5ba1c4d488d96cc33dfda594, type: 3}
-  _scriptAssetHash: 2134e459f1b3f7ac83106e9dbde5e99d
+  _scriptAssetHash: 4ef1599bfd49d92367ae3bd8150a5661
   UiEventForwarders: []
 --- !u!114 &181160078
 MonoBehaviour:
@@ -10255,7 +10255,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 93.19739}
+  m_AnchoredPosition: {x: 0, y: 93.197266}
   m_SizeDelta: {x: 0, y: 683.6051}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &472629256
@@ -20217,8 +20217,61 @@ MonoBehaviour:
     PropType: 4
     PropKey: enemyBig
     BasePath: enemyBig
+  - IntValue: 0
+    LongValue: 0
+    DoubleValue: 0
+    FloatValue: 0
+    BoolValue: 0
+    StringValue: 
+    ColorValue: {r: 0, g: 0, b: 0, a: 0}
+    UnityObjectReference: {fileID: 8988152909746101970, guid: c683916b326cd4e4a951a8184ee16bb9,
+      type: 3}
+    LayerMaskValue:
+      serializedVersion: 2
+      m_Bits: 0
+    Vector2Value: {x: 0, y: 0}
+    Vector3Value: {x: 0, y: 0, z: 0}
+    Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+    RectValue:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    AnimationCurveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    BoundsValue:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    QuaternionValue: {x: 0, y: 0, z: 0, w: 0}
+    Vector2IntValue: {x: 0, y: 0}
+    Vector3IntValue: {x: 0, y: 0, z: 0}
+    RectIntValue:
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    BoundsIntValue:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 0, y: 0, z: 0}
+    GeniesBehaviourReference: {fileID: 0}
+    GeniesSOReference: {fileID: 0}
+    SerializedCsObjectValue: 
+    CsObjectReferences: []
+    TypeName: UnityEngine.GameObject
+    ArrayLength: 0
+    IsArray: 0
+    ArrayDimension: -1
+    IsPrefabOverride: 0
+    PropType: 4
+    PropKey: enemyFast
+    BasePath: enemyFast
   _script: {fileID: 4458252877524076426, guid: c53c30fe9917dbe45941d22f3a8cc699, type: 3}
-  _scriptAssetHash: 813161d7e28c7b7a124a705ba965422a
+  _scriptAssetHash: 5b45a7033ae565e301b8536e09e9e4af
   UiEventForwarders: []
 --- !u!1 &1054393058
 GameObject:
@@ -28216,7 +28269,7 @@ MonoBehaviour:
     PropKey: clips.[0]
     BasePath: clips_D1
   _script: {fileID: 4458252877524076426, guid: 0022f51d82b21754599d70a0460e5236, type: 3}
-  _scriptAssetHash: 1325305b847176ecbc8658223022dc24
+  _scriptAssetHash: fc7b1e21ef553dddaf9f0cc6515d7e78
   UiEventForwarders: []
 --- !u!95 &1716322539
 Animator:

@@ -16,12 +16,15 @@ export default class EnemyNavigation extends MonoBehaviour {
 
     private speed: float = 1.5;
     public walkSpeed: float;
+    @SerializeField private fastEnemy: bool = false;
+    private rayTime: float = 0.0;
 
     private layerMask: int = 1 << LayerMask.NameToLayer("CustomLayer6");
 
     private onWall: bool;
     private wallNormal: Vector3;
     private wallDirection: Vector3 = Vector3.zero;
+    private direction: Vector3 = Vector3.zero;
 
     public static isWalking: bool;
     //Debug.DrawRay(this.transform.position, playerDirection.normalized, Color.white);
@@ -61,45 +64,61 @@ export default class EnemyNavigation extends MonoBehaviour {
         let rayDistance = (this.onWall) ? 2.0 : 1.0;
         //Debug.DrawRay(this.transform.position, Vector3.op_Multiply(playerDirection.normalized, rayDistance), Color.white);
         
-        // Is the ray hitting a nearby wall?
-        if (Physics.Raycast(ray, hit, rayDistance, this.layerMask))
+        this.rayTime -= Time.fixedDeltaTime;
+
+        // Raycast only if time has passed
+        if (this.rayTime < 0)
         {
-            if (!this.onWall)
-            {
-                // If so, change direction based on hit normal
-                // I'm not sure what Cross does but it works 
-                let cross = Vector3.Cross(playerDirection.normalized, hit.value.normal);
+            this.rayTime = 0.3;
 
-                // if cross.y > 0, player is on the enemies right, if cross.y < 0, he is on the left
-                // Take the normal and rotate it 90 degrees to the left or right depending on where the player is
-                let deg = (cross.y > 0) ? -90.0 : 90.0;
-                let rot = Quaternion.Euler(0, deg, 0);
+            // Is the ray hitting a nearby wall?
+            if (Physics.Raycast(ray, hit, rayDistance, this.layerMask))
+            {
+                if (!this.onWall)
+                {
+                    // If so, change direction based on hit normal
+                    // I'm not sure what Cross does but it works 
+                    let cross = Vector3.Cross(playerDirection.normalized, hit.value.normal);
+
+                    // if cross.y > 0, player is on the enemies right, if cross.y < 0, he is on the left
+                    // Take the normal and rotate it 90 degrees to the left or right depending on where the player is
+                    let deg = (cross.y > 0) ? -90.0 : 90.0;
+                    let rot = Quaternion.Euler(0, deg, 0);
             
-                // Set direction
-                walkDirection = rot * hit.value.normal;
+                    // Set direction
+                    walkDirection = rot * hit.value.normal;
 
-                // Remember wall
-                this.wallNormal = hit.value.normal;
-                this.wallDirection = walkDirection;
-                this.onWall = true;
+                    // Remember wall
+                    this.wallNormal = hit.value.normal;
+                    this.wallDirection = walkDirection;
+                    this.onWall = true;
+                }
+                else if (this.onWall && hit.value.normal == this.wallNormal)
+                {
+                    // Follow up the same wall
+                    walkDirection = new Vector3(this.wallDirection.x, this.wallDirection.y, this.wallDirection.z);
+                }
+                else if (this.onWall && hit.value.normal != this.wallNormal)
+                {
+                    // Reset if you hit a new wall
+                    this.onWall = false;
+                }
             }
-            else if (this.onWall && hit.value.normal == this.wallNormal)
+            else
             {
-                // Follow up the same wall
-                walkDirection = new Vector3(this.wallDirection.x, this.wallDirection.y, this.wallDirection.z);
-            }
-            else if (this.onWall && hit.value.normal != this.wallNormal)
-            {
-                // Reset if you hit a new wall
+                // Otherwise walk in player direction
+                walkDirection = playerDirection.normalized;
                 this.onWall = false;
             }
         }
         else
         {
             // Otherwise walk in player direction
-            walkDirection = playerDirection.normalized;
-            this.onWall = false;
+            walkDirection = this.direction;
         }
+
+        // Save walkDirection for next frame
+        this.direction = walkDirection;
 
         // Turn to walk direction
         let look = Quaternion.LookRotation(walkDirection, Vector3.up);
@@ -107,6 +126,11 @@ export default class EnemyNavigation extends MonoBehaviour {
         
         // Walk forward
         this.speed = (RoundManager.swarmRound) ? 1.5 : 1.0;
+        this.speed = (this.fastEnemy) ? 1.25 : 1.0;
+
+        // Move faster every round
+        this.speed *= (0.04 * RoundManager.round) + 0.92;
+
         walkDirection = Vector3.op_Multiply(walkDirection, Time.fixedDeltaTime * this.speed * this.walkSpeed);
         let finalPosition = Vector3.op_Addition(this.transform.position, walkDirection);
 

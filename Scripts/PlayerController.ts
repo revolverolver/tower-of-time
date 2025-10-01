@@ -96,7 +96,8 @@ export default class PlayerController extends MonoBehaviour {
             value = value * 0.012;
 
             // Change value based on weight
-            let weight = ((WoodBackpack.woodAmount / 20) * 0.45) / 1.4 * Upgrades.carryStrength * PlayerStats.carryBoost;
+            let weight: float = ((WoodBackpack.woodAmount / 20) * 0.45) / (3.0 * (Upgrades.carryStrength - 1.0) + 1.0);
+            weight = weight - ((PlayerStats.carryBoost - 1.0) * 0.45);
             value -= weight;
 
             this.moveDirection = Vector3.op_Multiply(direction.normalized, -value);

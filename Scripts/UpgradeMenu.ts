@@ -3,6 +3,7 @@ import { Animator, AudioClip, AudioSource, Coroutine, Debug, GameObject, MonoBeh
 import UpgradeItem, { Rarity, UpgradeType } from "./UpgradeItem";
 import CameraMovement, { CameraState } from "./CameraMovement";
 import { List$1 } from "System.Collections.Generic";
+import RoundManager from "./RoundManager";
 
 export default class UpgradeMenu extends MonoBehaviour {
 
@@ -101,7 +102,8 @@ export default class UpgradeMenu extends MonoBehaviour {
         if (rarity == Rarity.LEGENDARY)
         {
             // Special type for legendary options
-            type = (Random.Range(0.0, 100.0) > 50.0) ? UpgradeType.TURRET_DAMAGE : UpgradeType.HEAL_FULL;
+            type = (Random.Range(0.0, 100.0) > 65.0 && RoundManager.round > 5) ? 
+            UpgradeType.TURRET_DAMAGE : UpgradeType.HEAL_FULL;
         }
         else
         {

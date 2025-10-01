@@ -58,6 +58,7 @@ export default class Building extends MonoBehaviour {
             this.level++;
             this.levelText.text = "LV. " + this.level.toString();
             this.currentWood = 0;
+            this.woodNeeded += 5;
 
             if (this.level > 1)
             {
@@ -70,7 +71,7 @@ export default class Building extends MonoBehaviour {
         }
 
         // Update text
-        this.woodText.text = this.currentWood.toString() + "/20";
+        this.woodText.text = this.currentWood.toString() + "/" + this.woodNeeded;
     }
 
     private OnTriggerEnter(other: Collider) 

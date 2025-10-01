@@ -7,6 +7,7 @@ export default class EnemySpawner extends MonoBehaviour {
 
     @SerializeField private enemy: GameObject;
     @SerializeField private enemyBig: GameObject;
+    @SerializeField private enemyFast: GameObject;
     @SerializeField private player: Transform;
 
     //@SerializeField private turretParent: GameObject;
@@ -18,6 +19,7 @@ export default class EnemySpawner extends MonoBehaviour {
     public static killAll: bool;
     public static isSpawning: bool;
     public static wormsAlive: int = 0;
+    private maxEnemies: int = 55;
 
     public static startSwarming: bool;
     
@@ -86,7 +88,7 @@ export default class EnemySpawner extends MonoBehaviour {
             // Look for spawn point
             let spawnPosition = this.FindSpawnPosition();
 
-            if (EnemySpawner.wormsAlive < 100)
+            if (EnemySpawner.wormsAlive < this.maxEnemies)
             {
                 // Spawn enemy
                 Object.Instantiate(this.EnemyToSpawn(), spawnPosition, Quaternion.identity, this.transform);
@@ -104,6 +106,12 @@ export default class EnemySpawner extends MonoBehaviour {
         let randomNumber = Random.Range(0.0, 100.0);
         if (randomNumber < 92)
         {
+            if (RoundManager.round > 6 && randomNumber < 10)
+            {
+                // Fast enemy
+                tempEnemy = this.enemyFast;
+            }
+
             // Normal enemy
         }
         else if (RoundManager.round > 3)
