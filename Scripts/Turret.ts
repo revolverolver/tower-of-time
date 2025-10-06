@@ -83,7 +83,10 @@ export default class Turret extends MonoBehaviour {
             if (this.target != null && EnemyNavigation.isWalking)
             {
                 let enemy = this.target.GetComponent<EnemyDamage>();
-                enemy.TakeDamage(Upgrades.turretDamage);
+
+                // Increase damage if level 6 or higher. 2 more damage per level up
+                let damage = (this.building.level > 5) ? Upgrades.turretDamage + (this.building.level - 5) * 2 : Upgrades.turretDamage;
+                enemy.TakeDamage(damage);
 
                 // Play animation
                 if (!this.headAnimator.isActiveAndEnabled)

@@ -102,8 +102,8 @@ export default class Tower extends MonoBehaviour {
         // Increase spawn frequenzy
         EnemySpawner.spawnFrequenzy = EnemySpawner.spawnFrequenzy / 1.25;
 
-        if (EnemySpawner.spawnFrequenzy <= 0.1)
-            EnemySpawner.spawnFrequenzy = 0.1;
+        if (EnemySpawner.spawnFrequenzy <= 0.02)
+            EnemySpawner.spawnFrequenzy = 0.02;
 
         // Start spawning enemies
         EnemySpawner.killAll = false;

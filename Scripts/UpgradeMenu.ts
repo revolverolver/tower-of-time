@@ -17,6 +17,8 @@ export default class UpgradeMenu extends MonoBehaviour {
     @SerializeField private chooseText: GameObject;
 
     private gameManager: CameraMovement;
+
+    private turretChance: float = 50;
     
     //Called when script instance is loaded
     private Awake() : void 
@@ -83,11 +85,11 @@ export default class UpgradeMenu extends MonoBehaviour {
     {
         let rarity = Rarity.COMMON;
 
-        if (randomNumber < 50.0)
+        if (randomNumber < 65.0)
             rarity = Rarity.COMMON;
-        else if (randomNumber < 75.0)
+        else if (randomNumber < 85.0)
             rarity = Rarity.UNCOMMON;
-        else if (randomNumber < 90.0)
+        else if (randomNumber < 95.0)
             rarity = Rarity.RARE;
         else
             rarity = Rarity.LEGENDARY;
@@ -102,8 +104,12 @@ export default class UpgradeMenu extends MonoBehaviour {
         if (rarity == Rarity.LEGENDARY)
         {
             // Special type for legendary options
-            type = (Random.Range(0.0, 100.0) > 65.0 && RoundManager.round > 5) ? 
+            type = (Random.Range(0.0, 100.0) > this.turretChance && RoundManager.round > 5) ? 
             UpgradeType.TURRET_DAMAGE : UpgradeType.HEAL_FULL;
+
+            // Make chance of getting TURRET_DAMAGE less
+            if (type == UpgradeType.TURRET_DAMAGE) 
+                this.turretChance += 25;
         }
         else
         {

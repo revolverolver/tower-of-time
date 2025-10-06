@@ -1,0 +1,33 @@
+fileFormatVersion: 2
+guid: 26fad567e0b9eac49b43d12b06bbdcfe
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"__scriptableObject__name":"DamagePool","__scriptableObject__type":"Genies.Scripting.AssetTypes.TsAsset,
+    Genies.Scripting, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","IsCompiled":true,"CompilerVersion":"2.0.66","ReferencedSpecifiers":["@assets/Experience/tower-of-time/Scripts/DamageNumber"],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nclass DamagePool extends UnityEngine_1.MonoBehaviour
+    {\n    constructor() {\n        super(...arguments);\n        this.poolList =
+    [];\n        this.poolAmount = 25;\n    }\n    //Called when script instance
+    is loaded\n    Awake() { }\n    //Start is called on the frame when a script
+    is enabled just \n    //before any of the Update methods are called the first
+    time.\n    Start() {\n        this.SpawnPool();\n    }\n    //Update is called
+    every frame, if the MonoBehaviour is enabled.\n    Update() { }\n    ShowDamageText(position,
+    damage, enemyType) {\n        if (UnityEngine_1.Vector3.Distance(position, this.player.position)
+    > 9)\n            return;\n        let text = this.GetPooledObject();\n       
+    if (text != null) {\n            // @ts-ignore\n            text.GetComponent(\"@assets/Experience/tower-of-time/Scripts/DamageNumber.DamageNumber\").SetNumber(damage,
+    enemyType);\n            text.transform.position = position;\n            text.SetActive(true);\n       
+    }\n    }\n    SpawnPool() {\n        for (let i = 0; i < this.poolAmount; i++)
+    {\n            let temp = UnityEngine_1.Object.Instantiate(this.damageText, this.transform);\n           
+    temp.SetActive(false);\n            this.poolList[i] = temp;\n        }\n   
+    }\n    GetPooledObject() {\n        let result = null;\n        for (let i =
+    0; i < this.poolAmount; i++) {\n            let temp = this.poolList[i];\n           
+    if (!temp.activeInHierarchy) {\n                result = temp;\n               
+    break;\n            }\n        }\n        return result;\n    }\n}\nexports.default
+    = DamagePool;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRGFtYWdlUG9vbC5qcyIsIm1hcHBpbmdzIjoiOztBQUNBLDZDQUFtRjtBQUduRixNQUFxQixVQUFXLFNBQVEsMkJBQWE7SUFBckQ7O1FBS1ksYUFBUSxHQUFpQixFQUFFO1FBRTNCLGVBQVUsR0FBUSxFQUFFO0lBb0RoQztJQWxESSx1Q0FBc0M7SUFDOUIsS0FBSyxLQUFXO0lBRXhCLDZEQUE0RDtJQUM1RCw2REFBNEQ7SUFDcEQsS0FBSztRQUVULElBQUksQ0FBQyxTQUFTLEVBQUU7SUFDcEI7SUFFQSxnRUFBK0Q7SUFDdkQsTUFBTSxLQUFXO0lBRWxCLGNBQWMsQ0FBQyxRQUFpQixFQUFFLE1BQVcsRUFBRSxTQUFjO1FBRWhFLElBQUkscUJBQU8sQ0FBQyxRQUFRLENBQUMsUUFBUSxFQUFFLElBQUksQ0FBQyxNQUFNLENBQUMsUUFBUSxDQUFDLEdBQUcsQ0FBQztZQUNwRCxPQUFNO1FBRVYsSUFBSSxJQUFJLEdBQUcsSUFBSSxDQUFDLGVBQWUsRUFBRTtRQUVqQyxJQUFJLElBQUksSUFBSSxJQUFJLEVBQ2hCO1lBQ0c7WUFBQyxJQUFJLENBQUMsWUFBVyxxRUFBYSxDQUFJLENBQUMsU0FBUyxDQUFDLE1BQU0sRUFBRSxTQUFTLENBQUM7WUFDOUQsSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLEdBQUcsUUFBUTtZQUNsQyxJQUFJLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQztRQUN4QjtJQUNKO0lBRVEsU0FBUztRQUViLEtBQUksSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxJQUFJLENBQUMsVUFBVSxFQUFFLENBQUMsRUFBRSxFQUFFO1lBQ3JDLElBQUksSUFBSSxHQUFHLG9CQUFNLENBQUMsV0FBVyxDQUFDLElBQUksQ0FBQyxVQUFVLEVBQUUsSUFBSSxDQUFDLFNBQVMsQ0FBZTtZQUM1RSxJQUFJLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQztZQUNyQixJQUFJLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQyxHQUFHLElBQUk7UUFDM0I7SUFDSjtJQUVRLGVBQWU7UUFDbkIsSUFBSSxNQUFNLEdBQUcsSUFBSTtRQUVqQixLQUFJLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDLEVBQUUsRUFBRTtZQUNyQyxJQUFJLElBQUksR0FBRyxJQUFJLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQztZQUMzQixJQUFHLENBQUMsSUFBSSxDQUFDLGlCQUFpQixFQUFFO2dCQUN4QixNQUFNLEdBQUcsSUFBSTtnQkFDYixNQUFLO1lBQ1Q7UUFDSjtRQUVBLE9BQU8sTUFBTTtJQUNqQjtDQUNKO0FBM0RBLDZCQTJEQSIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiRGFtYWdlUG9vbC50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdfQ==","ScriptHash":"a8ee61114d8a88f11b2bc44e53c00920","Specifier":"@assets/Experience/tower-of-time/Scripts/DamagePool","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/DamagePool.DamagePool","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/DamagePool.DamagePool","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.13.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"player","Name":"player","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Player","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"damageText","Name":"damageText","TypeName":"UnityEngine.GameObject","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Damage
+    Text","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null}],"SupportedUiEvents":"None"}'

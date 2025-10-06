@@ -126,7 +126,13 @@ export default class LeaderboardPostGame extends MonoBehaviour {
 
         // LOW RANK RANK
         // Show player ranked below
-        if (closeRanks.UserRanks.Count > 1 && user.Rank == 1 || closeRanks.UserRanks.Count > 2)
+        if (closeRanks.UserRanks.Count > 1 && user.Rank == 1)
+        {
+            this.surroundingRankNamesTexts[2].text = closeRanks.UserRanks[1].PrefUsername;
+            this.surroundingRanksTexts[2].text = closeRanks.UserRanks[1].Rank.toString() + ".";
+            this.surroundingRankScoreTexts[2].text = closeRanks.UserRanks[1].HighestScore.toString();
+        }
+        else if (closeRanks.UserRanks.Count > 2)
         {
             this.surroundingRankNamesTexts[2].text = closeRanks.UserRanks[2].PrefUsername;
             this.surroundingRanksTexts[2].text = closeRanks.UserRanks[2].Rank.toString() + ".";

@@ -1,0 +1,47 @@
+fileFormatVersion: 2
+guid: 8815fcbca47f6ee43bd9ca760a3656c3
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"__scriptableObject__name":"ParticlePool","__scriptableObject__type":"Genies.Scripting.AssetTypes.TsAsset,
+    Genies.Scripting, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","IsCompiled":true,"CompilerVersion":"2.0.66","ReferencedSpecifiers":[],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nclass ParticlePool extends UnityEngine_1.MonoBehaviour
+    {\n    constructor() {\n        super(...arguments);\n        this.poolListNormal
+    = [];\n        this.poolListBig = [];\n        this.poolListFast = [];\n       
+    this.normalAmount = 20;\n        this.bigAmount = 20;\n        this.fastAmount
+    = 20;\n    }\n    //Called when script instance is loaded\n    Awake() { }\n   
+    //Start is called on the frame when a script is enabled just \n    //before any
+    of the Update methods are called the first time.\n    Start() {\n        this.SpawnPools();\n   
+    }\n    //Update is called every frame, if the MonoBehaviour is enabled.\n   
+    Update() { }\n    SpawnPools() {\n        // Normal\n        for (let i = 0;
+    i < this.normalAmount; i++) {\n            let temp = UnityEngine_1.Object.Instantiate(this.particlesNormal,
+    this.parentNormal);\n            temp.SetActive(false);\n            this.poolListNormal[i]
+    = temp;\n        }\n        // Big\n        for (let i = 0; i < this.bigAmount;
+    i++) {\n            let temp = UnityEngine_1.Object.Instantiate(this.particlesBig,
+    this.parentBig);\n            temp.SetActive(false);\n            this.poolListBig[i]
+    = temp;\n        }\n        // Fast\n        for (let i = 0; i < this.fastAmount;
+    i++) {\n            let temp = UnityEngine_1.Object.Instantiate(this.particlesFast,
+    this.parentFast);\n            temp.SetActive(false);\n            this.poolListFast[i]
+    = temp;\n        }\n    }\n    SpawnParticles(type, position) {\n        let
+    poolAmount = this.normalAmount;\n        let poolList = this.poolListNormal;\n       
+    if (type == 1) {\n            poolAmount = this.bigAmount;\n            poolList
+    = this.poolListBig;\n        }\n        else if (type == 2) {\n            poolAmount
+    = this.fastAmount;\n            poolList = this.poolListFast;\n        }\n       
+    let particle = this.GetPooledObject(poolAmount, poolList);\n        particle.transform.position
+    = position;\n        particle.SetActive(true);\n    }\n    GetPooledObject(poolAmount,
+    poolList) {\n        let result = null;\n        for (let i = 0; i < poolAmount;
+    i++) {\n            let temp = poolList[i];\n            if (!temp.activeInHierarchy)
+    {\n                result = temp;\n                break;\n            }\n       
+    }\n        return result;\n    }\n}\nexports.default = ParticlePool;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUGFydGljbGVQb29sLmpzIiwibWFwcGluZ3MiOiI7O0FBQ0EsNkNBQW1GO0FBRW5GLE1BQXFCLFlBQWEsU0FBUSwyQkFBYTtJQUF2RDs7UUFVWSxtQkFBYyxHQUFpQixFQUFFO1FBQ2pDLGdCQUFXLEdBQWlCLEVBQUU7UUFDOUIsaUJBQVksR0FBaUIsRUFBRTtRQUUvQixpQkFBWSxHQUFRLEVBQUU7UUFDdEIsY0FBUyxHQUFRLEVBQUU7UUFDbkIsZUFBVSxHQUFRLEVBQUU7SUEwRWhDO0lBeEVJLHVDQUFzQztJQUM5QixLQUFLLEtBQVc7SUFFeEIsNkRBQTREO0lBQzVELDZEQUE0RDtJQUNwRCxLQUFLO1FBRVQsSUFBSSxDQUFDLFVBQVUsRUFBRTtJQUNyQjtJQUVBLGdFQUErRDtJQUN2RCxNQUFNLEtBQVc7SUFFakIsVUFBVTtRQUVkLFNBQVE7UUFDUixLQUFJLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsSUFBSSxDQUFDLFlBQVksRUFBRSxDQUFDLEVBQUUsRUFBRTtZQUN2QyxJQUFJLElBQUksR0FBRyxvQkFBTSxDQUFDLFdBQVcsQ0FBQyxJQUFJLENBQUMsZUFBZSxFQUFFLElBQUksQ0FBQyxZQUFZLENBQWU7WUFDcEYsSUFBSSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUM7WUFDckIsSUFBSSxDQUFDLGNBQWMsQ0FBQyxDQUFDLENBQUMsR0FBRyxJQUFJO1FBQ2pDO1FBRUEsTUFBSztRQUNMLEtBQUksSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxJQUFJLENBQUMsU0FBUyxFQUFFLENBQUMsRUFBRSxFQUFFO1lBQ3BDLElBQUksSUFBSSxHQUFHLG9CQUFNLENBQUMsV0FBVyxDQUFDLElBQUksQ0FBQyxZQUFZLEVBQUUsSUFBSSxDQUFDLFNBQVMsQ0FBZTtZQUM5RSxJQUFJLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQztZQUNyQixJQUFJLENBQUMsV0FBVyxDQUFDLENBQUMsQ0FBQyxHQUFHLElBQUk7UUFDOUI7UUFFQSxPQUFNO1FBQ04sS0FBSSxJQUFJLENBQUMsR0FBRyxDQUFDLEVBQUUsQ0FBQyxHQUFHLElBQUksQ0FBQyxVQUFVLEVBQUUsQ0FBQyxFQUFFLEVBQUU7WUFDckMsSUFBSSxJQUFJLEdBQUcsb0JBQU0sQ0FBQyxXQUFXLENBQUMsSUFBSSxDQUFDLGFBQWEsRUFBRSxJQUFJLENBQUMsVUFBVSxDQUFlO1lBQ2hGLElBQUksQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDO1lBQ3JCLElBQUksQ0FBQyxZQUFZLENBQUMsQ0FBQyxDQUFDLEdBQUcsSUFBSTtRQUMvQjtJQUNKO0lBRU8sY0FBYyxDQUFDLElBQVMsRUFBRSxRQUFpQjtRQUU5QyxJQUFJLFVBQVUsR0FBRyxJQUFJLENBQUMsWUFBWTtRQUNsQyxJQUFJLFFBQVEsR0FBRyxJQUFJLENBQUMsY0FBYztRQUVsQyxJQUFJLElBQUksSUFBSSxDQUFDLEVBQ2I7WUFDSSxVQUFVLEdBQUcsSUFBSSxDQUFDLFNBQVM7WUFDM0IsUUFBUSxHQUFHLElBQUksQ0FBQyxXQUFXO1FBQy9CO2FBQ0ssSUFBSSxJQUFJLElBQUksQ0FBQyxFQUNsQjtZQUNJLFVBQVUsR0FBRyxJQUFJLENBQUMsVUFBVTtZQUM1QixRQUFRLEdBQUcsSUFBSSxDQUFDLFlBQVk7UUFDaEM7UUFFQSxJQUFJLFFBQVEsR0FBRyxJQUFJLENBQUMsZUFBZSxDQUFDLFVBQVUsRUFBRSxRQUFRLENBQUM7UUFDekQsUUFBUSxDQUFDLFNBQVMsQ0FBQyxRQUFRLEdBQUcsUUFBUTtRQUV0QyxRQUFRLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQztJQUM1QjtJQUVRLGVBQWUsQ0FBQyxVQUFlLEVBQUUsUUFBc0I7UUFDM0QsSUFBSSxNQUFNLEdBQUcsSUFBSTtRQUVqQixLQUFJLElBQUksQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsVUFBVSxFQUFFLENBQUMsRUFBRSxFQUFFO1lBQ2hDLElBQUksSUFBSSxHQUFHLFFBQVEsQ0FBQyxDQUFDLENBQUM7WUFDdEIsSUFBRyxDQUFDLElBQUksQ0FBQyxpQkFBaUIsRUFBRTtnQkFDeEIsTUFBTSxHQUFHLElBQUk7Z0JBQ2IsTUFBSztZQUNUO1FBQ0o7UUFFQSxPQUFPLE1BQU07SUFDakI7Q0FDSjtBQTFGQSwrQkEwRkEiLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbIlBhcnRpY2xlUG9vbC50cyJdLCJzb3VyY2VzQ29udGVudCI6W251bGxdfQ==","ScriptHash":"f9bc1660be9008c3594698a8a6ade0e0","Specifier":"@assets/Experience/tower-of-time/Scripts/ParticlePool","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/ParticlePool.ParticlePool","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/ParticlePool.ParticlePool","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.13.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"particlesNormal","Name":"particlesNormal","TypeName":"UnityEngine.GameObject","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Particles
+    Normal","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"particlesBig","Name":"particlesBig","TypeName":"UnityEngine.GameObject","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Particles
+    Big","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"particlesFast","Name":"particlesFast","TypeName":"UnityEngine.GameObject","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Particles
+    Fast","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"parentNormal","Name":"parentNormal","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Parent
+    Normal","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"parentBig","Name":"parentBig","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Parent
+    Big","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null},{"Path":"parentFast","Name":"parentFast","TypeName":"UnityEngine.Transform","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Parent
+    Fast","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null}],"SupportedUiEvents":"None"}'

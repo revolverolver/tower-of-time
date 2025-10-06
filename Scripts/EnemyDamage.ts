@@ -3,17 +3,41 @@ import { MonoBehaviour, Object, Collision, GameObject, Quaternion, Transform, Ve
 import RoundManager from "./RoundManager";
 import EnemySpawner from "./EnemySpawner";
 import PlayerHealth from "./PlayerHealth";
+import ParticlePool from "./ParticlePool";
+import DamagePool from "./DamagePool";
 export default class EnemyDamage extends MonoBehaviour {
 
     @SerializeField private particles: GameObject;
+    public particlePool: ParticlePool;
+    public damagePool: DamagePool;
+
+    @SerializeField private type: int;
     public health: int;
+    private originalHealth: int;
     
     //Called when script instance is loaded
-    private Awake() : void {}
+    private Awake() : void
+    {
+        this.originalHealth = this.health;
+    }
 
     //Start is called on the frame when a script is enabled just 
     //before any of the Update methods are called the first time.
-    private Start() : void {}
+    private Start() : void 
+    {
+     // += RoundManager.round;
+    }
+
+    private OnEnable() : void
+    {
+        this.health = this.originalHealth + RoundManager.round * 2;
+        if (this.type == 1) 
+            this.health += RoundManager.round * 10;
+        else if (RoundManager.round > 19 && this.type == 0)
+            this.health *= 2;
+        else if (RoundManager.round > 22 && this.type == 2)
+            this.health *= 3;
+    }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void 
@@ -21,7 +45,9 @@ export default class EnemyDamage extends MonoBehaviour {
         if (EnemySpawner.killAll)
         {
             // Self destruct
-            Object.Destroy(this.gameObject);
+            EnemySpawner.wormsAlive--;	
+            //this.health = this.originalHealth + RoundManager.round;
+            this.gameObject.SetActive(false);
         }
     }
 
@@ -29,16 +55,23 @@ export default class EnemyDamage extends MonoBehaviour {
     {
         this.health -= damage;
 
+        // Show damage number
+        this.damagePool.ShowDamageText(this.transform.position, damage, this.type);
+
         if (this.health <= 0)
         {
             // Die
             // Spawn particles
             let offset = Vector3.op_Addition(this.transform.position, new Vector3(0, 0.1, 0));
             let rot = Quaternion.Euler(-90, 0, 0);
-            Object.Instantiate(this.particles, offset, rot);
+            //Object.Instantiate(this.particles, offset, rot);
+            this.particlePool.SpawnParticles(this.type, this.transform.position);
 
             // Destroy
-            Object.Destroy(this.gameObject);
+            //Object.Destroy(this.gameObject);
+            EnemySpawner.wormsAlive--;	
+            //this.health = this.originalHealth + RoundManager.round;
+            this.gameObject.SetActive(false);
         }
     }
 

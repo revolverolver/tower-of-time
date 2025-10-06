@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 32aa12f3ebb830844b9a0f274e3c2f23
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 22604dd76f55453daccee3ed9e7b94b5, type: 3}
+  SerializedAsset: '{"__scriptableObject__name":"DamageNumber","__scriptableObject__type":"Genies.Scripting.AssetTypes.TsAsset,
+    Genies.Scripting, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","IsCompiled":true,"CompilerVersion":"2.0.66","ReferencedSpecifiers":[],"Source":"\"use
+    strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\nclass DamageNumber extends UnityEngine_1.MonoBehaviour
+    {\n    constructor() {\n        super(...arguments);\n        this.time = 1.0;\n   
+    }\n    //Called when script instance is loaded\n    Awake() { }\n    //Start
+    is called on the frame when a script is enabled just \n    //before any of the
+    Update methods are called the first time.\n    Start() { }\n    //Update is called
+    every frame, if the MonoBehaviour is enabled.\n    Update() {\n        this.time
+    -= UnityEngine_1.Time.deltaTime;\n        if (this.time < 0)\n            this.Hide();\n   
+    }\n    SetNumber(damage, enemyType) {\n        if (enemyType == 1) {\n           
+    this.transform.position = UnityEngine_1.Vector3.op_Addition(this.transform.position,
+    // @ts-ignore\n            UnityEngine_1.Vector3.op_Multiply_EBB7509C_H75CC56AF(UnityEngine_1.Vector3.up,
+    0.3));\n        }\n        this.text.text = damage.toString();\n        this.time
+    = 1.0;\n    }\n    Hide() {\n        this.gameObject.SetActive(false);\n    }\n}\nexports.default
+    = DamageNumber;\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRGFtYWdlTnVtYmVyLmpzIiwibWFwcGluZ3MiOiI7O0FBRUEsNkNBQTBEO0FBQzFELE1BQXFCLFlBQWEsU0FBUSwyQkFBYTtJQUF2RDs7UUFHWSxTQUFJLEdBQVUsR0FBRztJQWlDN0I7SUEvQkksdUNBQXNDO0lBQzlCLEtBQUssS0FBVztJQUV4Qiw2REFBNEQ7SUFDNUQsNkRBQTREO0lBQ3BELEtBQUssS0FBVztJQUV4QixnRUFBK0Q7SUFDdkQsTUFBTTtRQUVWLElBQUksQ0FBQyxJQUFJLElBQUksa0JBQUksQ0FBQyxTQUFTO1FBRTNCLElBQUksSUFBSSxDQUFDLElBQUksR0FBRyxDQUFDO1lBQ2IsSUFBSSxDQUFDLElBQUksRUFBRTtJQUNuQjtJQUVPLFNBQVMsQ0FBQyxNQUFXLEVBQUUsU0FBYztRQUV4QyxJQUFJLFNBQVMsSUFBSSxDQUFDLEVBQ2xCO1lBQ0ksSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLEdBQUkscUJBQU87Z0VBQUUsMkJBQUksR0FBRSxFQUFDO1FBQy9DO1FBRUEsSUFBSSxDQUFDLElBQUksQ0FBQyxJQUFJLEdBQUcsTUFBTSxDQUFDLFFBQVEsRUFBRTtRQUNsQyxJQUFJLENBQUMsSUFBSSxHQUFHLEdBQUc7SUFDbkI7SUFFUSxJQUFJO1FBRVIsSUFBSSxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDO0lBQ3BDO0NBQ0o7QUFwQ0EsK0JBb0NBIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJEYW1hZ2VOdW1iZXIudHMiXSwic291cmNlc0NvbnRlbnQiOltudWxsXX0=","ScriptHash":"57057613f73bb171a9e85fe4e738c163","Specifier":"@assets/Experience/tower-of-time/Scripts/DamageNumber","DefaultTypeName":"@assets/Experience/tower-of-time/Scripts/DamageNumber.DamageNumber","IsMonobehaviour":true,"IsScriptableObj":false,"InheritanceChain":["@assets/Experience/tower-of-time/Scripts/DamageNumber.DamageNumber","UnityEngine.MonoBehaviour","UnityEngine.Behaviour","UnityEngine.Component","UnityEngine.Object","@com.genies.scripting@1.13.0\\Runtime\\Typing\\index.d.System.Object"],"Properties":[{"Path":"text","Name":"text","TypeName":"TMPro.TextMeshProUGUI","AssemblyName":null,"EnumKeys":[],"EnumValues":[],"IsGeniesBehaviourRef":false,"IsGeniesScriptableObjectRef":false,"Decorators":[{"Type":"SerializeField","Args":[]}],"Initializers":[],"ArrayDimension":-1,"IsArray":false,"IsEnum":false,"ArrayElementInitializer":null,"ChildProperties":[],"PrettyName":"Text","_arrayElementInitializerJson":null,"_childPropertiesJson":"[]","_prettyName":null}],"SupportedUiEvents":"None"}'

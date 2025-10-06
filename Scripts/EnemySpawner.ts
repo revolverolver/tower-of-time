@@ -3,12 +3,30 @@ import { GameObject, LayerMask, MonoBehaviour, Object, Physics, Quaternion, Rand
 import RoundManager from "./RoundManager";
 import Turret from "./Turret";
 import Building from "./Building";
+import ParticlePool from "./ParticlePool";
+import EnemyDamage from "./EnemyDamage";
+import DamagePool from "./DamagePool";
 export default class EnemySpawner extends MonoBehaviour {
 
     @SerializeField private enemy: GameObject;
     @SerializeField private enemyBig: GameObject;
     @SerializeField private enemyFast: GameObject;
     @SerializeField private player: Transform;
+
+    @SerializeField private parentNormal: Transform;
+    @SerializeField private parentBig: Transform;
+    @SerializeField private parentFast: Transform;
+
+    @SerializeField private particlePool: ParticlePool;
+    @SerializeField private damagePool: DamagePool;
+
+    private poolListNormal: GameObject[] = [];
+    private poolListBig: GameObject[] = [];
+    private poolListFast: GameObject[] = [];
+
+    private normalAmount: int = 50;
+    private bigAmount: int = 40;
+    private fastAmount: int = 40;
 
     //@SerializeField private turretParent: GameObject;
     @SerializeField public turrets: Turret[];
@@ -19,7 +37,7 @@ export default class EnemySpawner extends MonoBehaviour {
     public static killAll: bool;
     public static isSpawning: bool;
     public static wormsAlive: int = 0;
-    private maxEnemies: int = 55;
+    private maxEnemies: int = 60;
 
     public static startSwarming: bool;
     
@@ -30,6 +48,7 @@ export default class EnemySpawner extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
+        RoundManager.round = 30;
         EnemySpawner.spawnFrequenzy = 5.0;
         EnemySpawner.killAll = false;
         EnemySpawner.isSpawning = false;
@@ -44,12 +63,45 @@ export default class EnemySpawner extends MonoBehaviour {
             this.turrets[i].gameObject.SetActive(false);
         }
 
+        // Spawn pools
+        this.SpawnPools();
+
         // Start the spawner
         this.StartCoroutine(this.Spawner());
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
     private Update() : void {}
+
+    private SpawnPools()
+    {
+        // Normal
+        for(let i = 0; i < this.normalAmount; i++) {
+            let temp = Object.Instantiate(this.enemy, this.parentNormal) as GameObject;
+            temp.GetComponent<EnemyDamage>().particlePool = this.particlePool;
+            temp.GetComponent<EnemyDamage>().damagePool = this.damagePool;
+            temp.SetActive(false);
+            this.poolListNormal[i] = temp;
+        }
+
+        // Big
+        for(let i = 0; i < this.bigAmount; i++) {
+            let temp = Object.Instantiate(this.enemyBig, this.parentBig) as GameObject;
+            temp.GetComponent<EnemyDamage>().particlePool = this.particlePool;
+            temp.GetComponent<EnemyDamage>().damagePool = this.damagePool;
+            temp.SetActive(false);
+            this.poolListBig[i] = temp;
+        }
+
+        // Fast
+        for(let i = 0; i < this.fastAmount; i++) {
+            let temp = Object.Instantiate(this.enemyFast, this.parentFast) as GameObject;
+            temp.GetComponent<EnemyDamage>().particlePool = this.particlePool;
+            temp.GetComponent<EnemyDamage>().damagePool = this.damagePool;
+            temp.SetActive(false);
+            this.poolListFast[i] = temp;
+        }
+    }
 
     *Spawner()
     {
@@ -74,7 +126,31 @@ export default class EnemySpawner extends MonoBehaviour {
                     c--;
 
                     let spawnPosition = this.FindSpawnPosition();
-                    Object.Instantiate(this.EnemyToSpawn(), spawnPosition, Quaternion.identity, this.transform);
+                    
+                    // Spawn enemy
+                    //Object.Instantiate(this.EnemyToSpawn(), spawnPosition, Quaternion.identity, this.transform);
+
+                    let poolAmount = this.normalAmount;
+                    let poolList = this.poolListNormal;
+
+                    if (this.EnemyToSpawn() == 1)
+                    {
+                        poolAmount = this.bigAmount;
+                        poolList = this.poolListBig;
+                    }
+                    else if (this.EnemyToSpawn() == 2)
+                    {
+                        poolAmount = this.fastAmount;
+                        poolList = this.poolListFast;
+                    }
+                
+                    let enemyToSpawn = this.GetPooledObject(poolAmount, poolList);
+
+                    if (enemyToSpawn != null)
+                    {
+                        enemyToSpawn.transform.position = spawnPosition;
+                        enemyToSpawn.SetActive(true);
+                    }
                     
                     // Increase count
                     EnemySpawner.wormsAlive++;
@@ -91,7 +167,29 @@ export default class EnemySpawner extends MonoBehaviour {
             if (EnemySpawner.wormsAlive < this.maxEnemies)
             {
                 // Spawn enemy
-                Object.Instantiate(this.EnemyToSpawn(), spawnPosition, Quaternion.identity, this.transform);
+                //Object.Instantiate(this.EnemyToSpawn(), spawnPosition, Quaternion.identity, this.transform);
+
+                let poolAmount = this.normalAmount;
+                let poolList = this.poolListNormal;
+
+                if (this.EnemyToSpawn() == 1)
+                {
+                    poolAmount = this.bigAmount;
+                    poolList = this.poolListBig;
+                }
+                else if (this.EnemyToSpawn() == 2)
+                {
+                    poolAmount = this.fastAmount;
+                    poolList = this.poolListFast;
+                }
+                
+                let enemyToSpawn = this.GetPooledObject(poolAmount, poolList);
+
+                if (enemyToSpawn != null)
+                {
+                    enemyToSpawn.transform.position = spawnPosition;
+                    enemyToSpawn.SetActive(true);
+                }
 
                 // Increase count
                 EnemySpawner.wormsAlive++;
@@ -99,9 +197,10 @@ export default class EnemySpawner extends MonoBehaviour {
         }
     }
 
-    private EnemyToSpawn() : GameObject
+    // 0 = normal, 1 = big, 2 = fast
+    private EnemyToSpawn() : int
     {
-        let tempEnemy = this.enemy;
+        let tempEnemy = 0;
 
         let randomNumber = Random.Range(0.0, 100.0);
         if (randomNumber < 92)
@@ -109,7 +208,7 @@ export default class EnemySpawner extends MonoBehaviour {
             if (RoundManager.round > 6 && randomNumber < 10)
             {
                 // Fast enemy
-                tempEnemy = this.enemyFast;
+                tempEnemy = 2;
             }
 
             // Normal enemy
@@ -117,7 +216,7 @@ export default class EnemySpawner extends MonoBehaviour {
         else if (RoundManager.round > 3)
         {
             // Big enemy
-            tempEnemy = this.enemyBig;
+            tempEnemy = 1;
         }
 
         return tempEnemy;
@@ -173,10 +272,10 @@ export default class EnemySpawner extends MonoBehaviour {
         let inRange = false;
         let playerPosition = this.player.position;
 
-        let xMin = playerPosition.x - 6.0; // 4 > 6
-        let xMax = playerPosition.x + 6.0;
+        let xMin = playerPosition.x - 5.0; // 4 > 6
+        let xMax = playerPosition.x + 5.0;
         let zMax = playerPosition.z + 12.0;
-        let zMin = playerPosition.z - 13.0;
+        let zMin = playerPosition.z - 12.0;
 
         if (randomPosition.x < xMax && randomPosition.x > xMin && randomPosition.z < zMax && randomPosition.z > zMin)
         {
@@ -188,6 +287,20 @@ export default class EnemySpawner extends MonoBehaviour {
         //}
 
         return inRange;
+    }
+
+    private GetPooledObject(poolAmount: int, poolList: GameObject[]) : GameObject {
+        let result = null;
+    
+        for(let i = 0; i < poolAmount; i++) {
+            let temp = poolList[i];
+            if(!temp.activeInHierarchy) {
+                result = temp;
+                break;
+            }
+        }
+    
+        return result;
     }
 
     public GameOver() : void
