@@ -32,11 +32,11 @@ export default class EnemyDamage extends MonoBehaviour {
     {
         this.health = this.originalHealth + RoundManager.round * 2;
         if (this.type == 1) 
-            this.health += RoundManager.round * 10;
+            this.health += RoundManager.round * 5;
         else if (RoundManager.round > 19 && this.type == 0)
-            this.health *= 2;
-        else if (RoundManager.round > 22 && this.type == 2)
-            this.health *= 3;
+            this.health += RoundManager.round;
+        else if (RoundManager.round > 25 && this.type == 2)
+            this.health += RoundManager.round;
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.
@@ -62,8 +62,8 @@ export default class EnemyDamage extends MonoBehaviour {
         {
             // Die
             // Spawn particles
-            let offset = Vector3.op_Addition(this.transform.position, new Vector3(0, 0.1, 0));
-            let rot = Quaternion.Euler(-90, 0, 0);
+            //let offset = Vector3.op_Addition(this.transform.position, new Vector3(0, 0.1, 0));
+            //let rot = Quaternion.Euler(-90, 0, 0);
             //Object.Instantiate(this.particles, offset, rot);
             this.particlePool.SpawnParticles(this.type, this.transform.position);
 

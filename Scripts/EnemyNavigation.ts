@@ -52,11 +52,12 @@ export default class EnemyNavigation extends MonoBehaviour {
 
     private WalkTowardsPlayer() : void
     {
-        // The direction to walk in
-        let walkDirection = new Vector3(0, 0, 0);
-
         // Shoot ray towards player
         let playerDirection = Vector3.op_Subtraction(this.target.position, this.transform.position);
+
+        // The direction to walk in
+        let walkDirection = playerDirection.normalized;
+
         //let playerDirection = this.target.position - this.transform.position;
         let ray = new Ray(this.transform.position, playerDirection.normalized);
         let hit = $ref<RaycastHit>();
@@ -69,7 +70,10 @@ export default class EnemyNavigation extends MonoBehaviour {
         // Raycast only if time has passed
         if (this.rayTime < 0)
         {
-            this.rayTime = 0.3;
+            if (playerDirection.magnitude > 5)
+                this.rayTime = 0.7;
+            else
+                this.rayTime = 0.3;
 
             // Is the ray hitting a nearby wall?
             if (Physics.Raycast(ray, hit, rayDistance, this.layerMask))

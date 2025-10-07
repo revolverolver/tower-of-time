@@ -15,9 +15,9 @@ export default class ParticlePool extends MonoBehaviour {
     private poolListBig: GameObject[] = [];
     private poolListFast: GameObject[] = [];
 
-    private normalAmount: int = 20;
-    private bigAmount: int = 20;
-    private fastAmount: int = 20;
+    private normalAmount: int = 5;
+    private bigAmount: int = 5;
+    private fastAmount: int = 5;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -73,9 +73,12 @@ export default class ParticlePool extends MonoBehaviour {
         }
 
         let particle = this.GetPooledObject(poolAmount, poolList);
-        particle.transform.position = position;
 
-        particle.SetActive(true);
+        if (particle != null)
+        {
+            particle.transform.position = position;
+            particle.SetActive(true);
+        }
     }
 
     private GetPooledObject(poolAmount: int, poolList: GameObject[]) : GameObject {

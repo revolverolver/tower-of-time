@@ -1,5 +1,5 @@
 
-import { MonoBehaviour, Collider, Object, GameObject, ParticleSystem, AudioSource } from "UnityEngine";
+import { MonoBehaviour, Collider, Object, GameObject, ParticleSystem, AudioSource, Animator } from "UnityEngine";
 import PlayerSounds from "./PlayerSounds";
 import { TextMeshProUGUI } from "TMPro";
 import Turret from "./Turret";
@@ -11,6 +11,8 @@ export default class Building extends MonoBehaviour {
     @SerializeField private upgradeParticles: ParticleSystem;
     @SerializeField private source: AudioSource;
     //@SerializeField public turretScript: Turret;
+    @SerializeField private crown: GameObject;
+    @SerializeField private turretAnimator: Animator;
 
     private playerSounds: PlayerSounds;
 
@@ -67,6 +69,12 @@ export default class Building extends MonoBehaviour {
 
                 // Play upgrade sound
                 this.source.Play();
+            }
+
+            if (this.level == 5)
+            {
+                // Evolve
+                this.crown.SetActive(true);
             }
         }
 

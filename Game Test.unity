@@ -12712,7 +12712,7 @@ MonoBehaviour:
     PropKey: enemyBig
     BasePath: enemyBig
   _script: {fileID: 4458252877524076426, guid: c53c30fe9917dbe45941d22f3a8cc699, type: 3}
-  _scriptAssetHash: 1342f9b1b1d0943e198819ef5ce70fc9
+  _scriptAssetHash: 2729924c4860992b0aba1f797d6e9aea
   UiEventForwarders: []
 --- !u!1 &1059723146
 GameObject:
@@ -17733,7 +17733,7 @@ MonoBehaviour:
     PropKey: clips.[0]
     BasePath: clips_D1
   _script: {fileID: 4458252877524076426, guid: 0022f51d82b21754599d70a0460e5236, type: 3}
-  _scriptAssetHash: 92f64501cffb0b9a10ab1a572df78f2e
+  _scriptAssetHash: 5dc1be492a5ef2f661a7427e3f519a43
   UiEventForwarders: []
 --- !u!95 &1716322539
 Animator:

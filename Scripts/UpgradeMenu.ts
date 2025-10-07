@@ -89,10 +89,12 @@ export default class UpgradeMenu extends MonoBehaviour {
             rarity = Rarity.COMMON;
         else if (randomNumber < 85.0)
             rarity = Rarity.UNCOMMON;
-        else if (randomNumber < 95.0)
+        else if (randomNumber < 94.0)
             rarity = Rarity.RARE;
-        else
+        else if (RoundManager.round > 5)
             rarity = Rarity.LEGENDARY;
+        else 
+            rarity = Rarity.RARE;
 
         return rarity;
     }
@@ -104,12 +106,12 @@ export default class UpgradeMenu extends MonoBehaviour {
         if (rarity == Rarity.LEGENDARY)
         {
             // Special type for legendary options
-            type = (Random.Range(0.0, 100.0) > this.turretChance && RoundManager.round > 5) ? 
+            type = (Random.Range(0.0, 100.0) > this.turretChance) ? 
             UpgradeType.TURRET_DAMAGE : UpgradeType.HEAL_FULL;
 
             // Make chance of getting TURRET_DAMAGE less
             if (type == UpgradeType.TURRET_DAMAGE) 
-                this.turretChance += 25;
+                this.turretChance += 15;
         }
         else
         {

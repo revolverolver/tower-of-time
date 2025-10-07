@@ -24,9 +24,9 @@ export default class EnemySpawner extends MonoBehaviour {
     private poolListBig: GameObject[] = [];
     private poolListFast: GameObject[] = [];
 
-    private normalAmount: int = 50;
-    private bigAmount: int = 40;
-    private fastAmount: int = 40;
+    private normalAmount: int = 45;
+    private bigAmount: int = 15;
+    private fastAmount: int = 15;
 
     //@SerializeField private turretParent: GameObject;
     @SerializeField public turrets: Turret[];
@@ -37,7 +37,7 @@ export default class EnemySpawner extends MonoBehaviour {
     public static killAll: bool;
     public static isSpawning: bool;
     public static wormsAlive: int = 0;
-    private maxEnemies: int = 60;
+    private maxEnemies: int = 50;
 
     public static startSwarming: bool;
     
@@ -150,10 +150,10 @@ export default class EnemySpawner extends MonoBehaviour {
                     {
                         enemyToSpawn.transform.position = spawnPosition;
                         enemyToSpawn.SetActive(true);
+
+                        // Increase count
+                        EnemySpawner.wormsAlive++;
                     }
-                    
-                    // Increase count
-                    EnemySpawner.wormsAlive++;
 
                     yield new WaitForSeconds(0.1);
                 }
@@ -189,10 +189,10 @@ export default class EnemySpawner extends MonoBehaviour {
                 {
                     enemyToSpawn.transform.position = spawnPosition;
                     enemyToSpawn.SetActive(true);
-                }
 
-                // Increase count
-                EnemySpawner.wormsAlive++;
+                    // Increase count
+                    EnemySpawner.wormsAlive++;
+                }
             }
         }
     }
@@ -228,7 +228,7 @@ export default class EnemySpawner extends MonoBehaviour {
 
         // max 100 tries to prevent crash
         let spawnFound = false;
-        let count = 100;
+        let count = 5;
 
         while (!spawnFound && count > 0)
         {

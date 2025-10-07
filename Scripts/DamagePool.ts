@@ -9,7 +9,7 @@ export default class DamagePool extends MonoBehaviour {
 
     private poolList: GameObject[] = [];
 
-    private poolAmount: int = 25;
+    private poolAmount: int = 12;
     
     //Called when script instance is loaded
     private Awake() : void {}

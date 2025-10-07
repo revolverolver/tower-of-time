@@ -4,7 +4,7 @@ import { MonoBehaviour, Time, Vector3 } from "UnityEngine";
 export default class DamageNumber extends MonoBehaviour {
 
     @SerializeField private text: TextMeshProUGUI;
-    private time: float = 1.0;
+    private time: float = 0.5;
     
     //Called when script instance is loaded
     private Awake() : void {}
@@ -30,7 +30,7 @@ export default class DamageNumber extends MonoBehaviour {
         }
 
         this.text.text = damage.toString();
-        this.time = 1.0;
+        this.time = 0.5;
     }
 
     private Hide() : void
