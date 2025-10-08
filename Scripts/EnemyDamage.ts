@@ -30,13 +30,13 @@ export default class EnemyDamage extends MonoBehaviour {
 
     private OnEnable() : void
     {
-        this.health = this.originalHealth + RoundManager.round * 2;
+        this.health = this.originalHealth + RoundManager.round * 1;
         if (this.type == 1) 
-            this.health += RoundManager.round * 5;
-        else if (RoundManager.round > 19 && this.type == 0)
-            this.health += RoundManager.round;
-        else if (RoundManager.round > 25 && this.type == 2)
-            this.health += RoundManager.round;
+            this.health += RoundManager.round * 3;
+        else if (RoundManager.round > 6 && this.type == 0)
+            this.health += RoundManager.round / 2;
+        else if (RoundManager.round > 24 && this.type == 2)
+            this.health += RoundManager.round / 2;
     }
 
     //Update is called every frame, if the MonoBehaviour is enabled.

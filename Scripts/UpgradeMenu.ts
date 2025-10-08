@@ -85,13 +85,13 @@ export default class UpgradeMenu extends MonoBehaviour {
     {
         let rarity = Rarity.COMMON;
 
-        if (randomNumber < 65.0)
+        if (randomNumber < 62.0)
             rarity = Rarity.COMMON;
-        else if (randomNumber < 85.0)
+        else if (randomNumber < 83.0)
             rarity = Rarity.UNCOMMON;
-        else if (randomNumber < 94.0)
+        else if (randomNumber < 93.0)
             rarity = Rarity.RARE;
-        else if (RoundManager.round > 5)
+        else if (RoundManager.round > 5) // Legendary only available from round 6
             rarity = Rarity.LEGENDARY;
         else 
             rarity = Rarity.RARE;

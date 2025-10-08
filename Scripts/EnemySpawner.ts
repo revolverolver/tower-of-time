@@ -33,7 +33,7 @@ export default class EnemySpawner extends MonoBehaviour {
 
     private layerMask: int = (1 << LayerMask.NameToLayer("CustomLayer2")) | (1 << LayerMask.NameToLayer("CustomLayer6"));
 
-    public static spawnFrequenzy: float = 5.0;
+    public static spawnFrequenzy: float = 2.5;
     public static killAll: bool;
     public static isSpawning: bool;
     public static wormsAlive: int = 0;
@@ -48,8 +48,7 @@ export default class EnemySpawner extends MonoBehaviour {
     //before any of the Update methods are called the first time.
     private Start() : void 
     {
-        RoundManager.round = 30;
-        EnemySpawner.spawnFrequenzy = 5.0;
+        EnemySpawner.spawnFrequenzy = 3.0;
         EnemySpawner.killAll = false;
         EnemySpawner.isSpawning = false;
         EnemySpawner.startSwarming = false;

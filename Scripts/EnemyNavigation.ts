@@ -133,7 +133,7 @@ export default class EnemyNavigation extends MonoBehaviour {
         this.speed = (this.fastEnemy) ? 1.25 : 1.0;
 
         // Move faster every round
-        this.speed *= (0.05 * RoundManager.round) + 0.90;
+        this.speed *= (0.04 * RoundManager.round) + 0.92;
 
         walkDirection = Vector3.op_Multiply(walkDirection, Time.fixedDeltaTime * this.speed * this.walkSpeed);
         let finalPosition = Vector3.op_Addition(this.transform.position, walkDirection);

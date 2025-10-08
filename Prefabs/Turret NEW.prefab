@@ -157,7 +157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5729580925782500086
 Transform:
   m_ObjectHideFlags: 0
@@ -6900,7 +6900,7 @@ MonoBehaviour:
     PropKey: isActive
     BasePath: isActive
   _script: {fileID: 4458252877524076426, guid: 935177760aa589849a16a0826a3e8a9b, type: 3}
-  _scriptAssetHash: a0064cdc81847c956fa0f38e17a35499
+  _scriptAssetHash: 293d5a2cebe14476ca1d5aa7a2594769
   UiEventForwarders: []
 --- !u!95 &329064779705234082
 Animator:
@@ -7036,7 +7036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8643789649720096079
 Transform:
   m_ObjectHideFlags: 0
@@ -7119,7 +7119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6268499665762609580
 Transform:
   m_ObjectHideFlags: 0
