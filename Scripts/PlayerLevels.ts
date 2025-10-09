@@ -4,9 +4,7 @@ import { CloudSaveStorage } from "Genies.Experience.CloudSave";
 import XPLeveling from "./XPLeveling";
 
 export default class PlayerLevels extends MonoBehaviour {
-
-    @SerializeField private leveling: XPLeveling;
-
+    
     public static playerLevel: int = 1;
     public static playerXp: int = 0;
 
